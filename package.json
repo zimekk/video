@@ -1,0 +1,39 @@
+{
+  "name": "video",
+  "version": "1.0.0",
+  "repository": "https://github.com/zimekk/video.git",
+  "author": "Marcin Makarewicz <zimekk@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": "^12"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "lint-staged": {},
+  "scripts": {
+    "build": "yarn workspaces run build",
+    "clean": "rm -rf packages/*/public packages/*/lib",
+    "reset": "rm -rf node_modules packages/*/node_modules",
+    "serve": "yarn workspace @dev/app serve",
+    "start": "yarn workspace @dev/app start",
+    "update": "yarn upgrade-interactive --latest"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "husky": "^4.3.7",
+    "prettier": "^2.2.0",
+    "pretty-quick": "^3.1.0",
+    "type-coverage": "^2.17.2",
+    "typescript": "^4.2.4"
+  },
+  "resolutions": {
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  }
+}
