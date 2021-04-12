@@ -56,6 +56,7 @@ const config = {
       events: "events",
       "react-dom": "@hot-loader/react-dom",
     },
+    fallback: { buffer: require.resolve("buffer") },
   },
   output: {
     path: path.resolve(__dirname, "public"),
@@ -64,6 +65,9 @@ const config = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin(["NODE_ENV"]),
+    new webpack.ProvidePlugin({
+      Buffer: ["buffer", "Buffer"],
+    }),
     new HtmlWebpackPlugin(),
   ],
 };
