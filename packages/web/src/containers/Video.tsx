@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 // https://www.videvo.net/video/flying-over-forest-3/4650/
 // https://mux.com/blog/canvas-adding-filters-and-more-to-video-using-just-a-browser/
-export default function Video() {
+export default function Video({ counter }) {
   const [options, setOptions] = useState([]);
   const video = useRef();
   const canvas = useRef();
@@ -16,8 +16,25 @@ export default function Video() {
     image.current.setAttribute("src", canvas.current.toDataURL());
   };
 
+  const counterValue = useRef(counter);
+
+  useEffect(() => {
+    counterValue.current = counter;
+  }, [counter]);
+
   useEffect(() => {
     const context = canvas.current.getContext("2d");
+
+    const renderText = (text, x, y, textAlign = "left") => {
+      context.font = "30px Sans-serif";
+      context.textAlign = textAlign;
+      context.strokeStyle = "black";
+      context.lineWidth = 4;
+      context.strokeText(text, x, y);
+      context.fillStyle = "white";
+      context.fillText(text, x, y);
+    };
+
     const update = () => {
       if (video.current.ended || video.current.paused) {
         return;
@@ -55,6 +72,10 @@ export default function Video() {
         video.current.width,
         video.current.height
       );
+
+      renderText(counterValue.current, 10, 40);
+      renderText(video.current.currentTime, 480 - 10, 270 - 20, "right");
+
       // https://web.dev/requestvideoframecallback-rvfc/
       video.current.requestVideoFrameCallback(update);
     };

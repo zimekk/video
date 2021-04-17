@@ -17,7 +17,7 @@ function App() {
       <h1>Video</h1>
       <div>
         <button onClick={(e) => dispatch(increment())}>{counter}</button>
-        <Video />
+        <Video counter={counter} />
         <Gradients />
         <Thumbnails />
         <Transitions />
