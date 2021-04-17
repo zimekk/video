@@ -29,8 +29,10 @@ const Slideshow = timeLoop(({ slides, delay, duration, time }) => {
   );
 });
 
-export default () => (
-  <Surface width={480} height={270}>
-    <Slideshow slides={images} delay={2000} duration={1500} />
-  </Surface>
-);
+export default function Transitions() {
+  return (
+    <Surface width={480} height={270}>
+      <Slideshow slides={images} delay={2000} duration={1500} />
+    </Surface>
+  );
+}

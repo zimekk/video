@@ -30,7 +30,7 @@ void main () {
 });
 
 // Alternative syntax using React stateless function component
-const Gradients = ({ time }) => (
+const Gradients = ({ time }: { time: number }) => (
   <Node
     shader={shaders.gradients}
     uniforms={{
@@ -50,11 +50,13 @@ const Gradients = ({ time }) => (
 
 const GradientsLoop = timeLoop(Gradients);
 
-export default () => (
-  <Surface width={480} height={270}>
-    <GradientsLoop />
-  </Surface>
-);
+export default function GradientsSurface() {
+  return (
+    <Surface width={480} height={270}>
+      <GradientsLoop />
+    </Surface>
+  );
+}
 
 // NB: don't abuse the uniforms array:
 // it's not meant to be used with lot of objects.

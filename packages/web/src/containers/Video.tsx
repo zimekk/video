@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 // https://www.videvo.net/video/flying-over-forest-3/4650/
 // https://mux.com/blog/canvas-adding-filters-and-more-to-video-using-just-a-browser/
-export default function Video({ counter }) {
+export default function Video({ counter }: { counter: number }) {
   const [options, setOptions] = useState([]);
   const video = useRef();
   const canvas = useRef();
@@ -135,7 +135,7 @@ export default function Video({ counter }) {
             </option>
           ))}
         </select>
-        <button onClick={(e) => capture()}>capture</button>
+        <button onClick={() => capture()}>capture</button>
         <a ref={link} href="#">
           download
         </a>

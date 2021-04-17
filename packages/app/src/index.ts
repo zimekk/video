@@ -32,6 +32,6 @@ const PORT = 8080;
 export default express()
   .use(require("morgan")("combined"))
   .use(web)
-  .listen(PORT, (...args) =>
+  .listen(PORT, () =>
     console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`)
   );
