@@ -25,6 +25,7 @@ export default function Video({ counter }: { counter: number }) {
   useEffect(() => {
     const context = canvas.current.getContext("2d");
 
+    // https://stackoverflow.com/questions/13627111/drawing-text-with-an-outer-stroke-with-html5s-canvas
     const renderText = (text, x, y, textAlign = "left") => {
       context.font = "30px Sans-serif";
       context.textAlign = textAlign;
@@ -40,6 +41,7 @@ export default function Video({ counter }: { counter: number }) {
         return;
       }
 
+      // http://appcropolis.com/blog/web-technology/using-html5-canvas-to-capture-frames-from-a-video/
       context.drawImage(
         video.current,
         0,
@@ -135,13 +137,19 @@ export default function Video({ counter }: { counter: number }) {
             </option>
           ))}
         </select>
-        <button onClick={() => capture()}>capture</button>
+        <button onClick={() => capture()}>capture</button>{" "}
         <a ref={link} href="#">
           download
         </a>
       </div>
       <div>
-        <img ref={image} width="480" height="270" />
+        <img
+          ref={image}
+          width="480"
+          height="270"
+          alt=""
+          onClick={(e) => window.open(e.target.getAttribute("src"))}
+        />
       </div>
     </div>
   );
