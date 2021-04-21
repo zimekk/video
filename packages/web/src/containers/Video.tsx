@@ -1,9 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
+import styles from "./Video.module.scss";
+
+const EFFECTS = Object.freeze({
+  GRAY_SCALE: "GRAY_SCALE",
+  CHROMA_KEY: "CHROMA_KEY",
+});
+const VIDEOS = [
+  "https://webrtc.github.io/samples/src/video/chrome.webm",
+  "https://mdn.github.io/dom-examples/canvas/chroma-keying/media/video.mp4",
+];
 
 // https://www.videvo.net/video/flying-over-forest-3/4650/
 // https://mux.com/blog/canvas-adding-filters-and-more-to-video-using-just-a-browser/
 export default function Video({ counter }: { counter: number }) {
   const [options, setOptions] = useState([]);
+  const [effect, setEffect] = useState(Object.keys(EFFECTS)[0]);
+  const [src, setVideo] = useState(VIDEOS[0]);
   const video = useRef();
   const canvas = useRef();
   const image = useRef();
@@ -56,13 +68,25 @@ export default function Video({ counter }: { counter: number }) {
         canvas.current.width,
         canvas.current.height
       );
-      const data = imageData.data;
 
-      for (var i = 0; i < data.length; i += 4) {
-        var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        data[i] = avg; // red
-        data[i + 1] = avg; // green
-        data[i + 2] = avg; // blue
+      const { data } = imageData;
+
+      // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Manipulating_video_using_canvas
+      // https://github.com/mdn/dom-examples/tree/master/canvas/chroma-keying
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i],
+          g = data[i + 1],
+          b = data[i + 2];
+        if (effect === EFFECTS.GRAY_SCALE) {
+          var avg = (r + g + b) / 3;
+          data[i] = avg; // red
+          data[i + 1] = avg; // green
+          data[i + 2] = avg; // blue
+        } else if (effect === EFFECTS.CHROMA_KEY) {
+          if (g > 100 && r > 100 && b < 43) {
+            data[i + 3] = 0;
+          }
+        }
       }
 
       context.putImageData(
@@ -81,6 +105,7 @@ export default function Video({ counter }: { counter: number }) {
       // https://web.dev/requestvideoframecallback-rvfc/
       video.current.requestVideoFrameCallback(update);
     };
+
     const play = () => {
       video.current.requestVideoFrameCallback(update);
     };
@@ -107,30 +132,47 @@ export default function Video({ counter }: { counter: number }) {
     return () => {
       video.current.removeEventListener("play", play);
     };
-  }, [video, canvas]);
+  }, [video, canvas, src, effect]);
 
   return (
     <div>
+      <div>
+        <select value={src} onChange={(e) => setVideo(e.target.value)}>
+          {VIDEOS.map((value, key) => (
+            <option key={key} value={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </div>
       <video
         ref={video}
+        src={src}
         width="480"
         height="270"
         preload="none"
         crossOrigin="anonymous"
         controls
-      >
-        <source src="https://webrtc.github.io/samples/src/video/chrome.webm" />
-        {/* <source src="https://content.videvo.net/videvo_files/video/free/2016-01/originalContent/Forest_15_3b_Videvo.mov" /> */}
-      </video>
+      />
       <div>
-        <canvas ref={canvas} width="480" height="270"></canvas>
+        <select value={effect} onChange={(e) => setEffect(e.target.value)}>
+          {Object.entries(EFFECTS).map(([value, label], key) => (
+            <option key={key} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
-        <select
-          onChange={(e) => {
-            video.current.currentTime = e.target.value;
-          }}
-        >
+        <canvas
+          ref={canvas}
+          className={styles.Canvas}
+          width="480"
+          height="270"
+        ></canvas>
+      </div>
+      <div>
+        <select onChange={(e) => (video.current.currentTime = e.target.value)}>
           {options.map((value, key) => (
             <option key={key} value={value}>
               {value}
@@ -145,6 +187,7 @@ export default function Video({ counter }: { counter: number }) {
       <div>
         <img
           ref={image}
+          className={styles.Image}
           width="480"
           height="270"
           alt=""

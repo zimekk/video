@@ -1,6 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 
 // https://dev.to/sebastianstamm/screen-recording-in-10-lines-of-vanilla-js-3bo8
+// https://developers.google.com/web/updates/2016/10/capture-stream
+// https://webrtc.github.io/samples/src/content/capture/canvas-record/
 export default function Recorder() {
   const video = useRef(null);
   const [media, setMedia] = useState(null);
