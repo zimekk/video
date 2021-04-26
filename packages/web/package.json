@@ -9,6 +9,7 @@
     "start": "NODE_ENV=development webpack serve --mode development"
   },
   "dependencies": {
+    "@ffmpeg/core": "^0.8.5",
     "@ffmpeg/ffmpeg": "^0.9.7",
     "buffer": "^6.0.3",
     "events": "^3.3.0",

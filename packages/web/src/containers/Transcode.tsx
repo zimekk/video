@@ -5,9 +5,13 @@ import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 export default function Transcode() {
   const [videoSrc, setVideoSrc] = useState("");
   const [message, setMessage] = useState("Click Start to transcode");
+
+  // https://github.com/ffmpegwasm/ffmpeg.wasm#use-other-version-of-ffmpegwasm-core--ffmpegcore
   const ffmpeg = createFFmpeg({
+    corePath: process.env.FFMPEG_CORE_PATH,
     log: true,
   });
+
   const doTranscode = async () => {
     setMessage("Loading ffmpeg-core.js");
     await ffmpeg.load();
@@ -15,6 +19,7 @@ export default function Transcode() {
     ffmpeg.FS(
       "writeFile",
       "test.avi",
+      // https://github.com/ffmpegwasm/testdata/blob/master/video-3s.avi
       await fetchFile(require("../assets/video-3s.avi").default)
     );
     await ffmpeg.run("-i", "test.avi", "test.mp4");
@@ -27,17 +32,6 @@ export default function Transcode() {
 
   return (
     <div>
-      {/* <div>
-        {media ? (
-          <button key="stop" onClick={stopRecording}>
-            Stop Recording
-          </button>
-        ) : (
-          <button key="start" onClick={startRecording}>
-            Start Recording
-          </button>
-        )}
-      </div> */}
       <video src={videoSrc} width="480" height="270" controls />
       <div>
         <button onClick={doTranscode}>Transcode</button>
