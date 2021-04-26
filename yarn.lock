@@ -350,6 +350,16 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@ffmpeg/ffmpeg@^0.9.7":
+  version "0.9.7"
+  resolved "https://registry.yarnpkg.com/@ffmpeg/ffmpeg/-/ffmpeg-0.9.7.tgz#f309d689c59e35d345c049bf5e35f1ccde28c215"
+  integrity sha512-WpZkNnqYGoaMcMd1EpaDi7nxRyEd05OjOTAfItH/ZwvAKJpr7ksvHKTC/NjP0li6mFrTFLGudP81J1tG0babdg==
+  dependencies:
+    is-url "^1.2.4"
+    node-fetch "^2.6.1"
+    regenerator-runtime "^0.13.7"
+    resolve-url "^0.2.1"
+
 "@hot-loader/react-dom@^17.0.1":
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/@hot-loader/react-dom/-/react-dom-17.0.1.tgz#0c75b4dd068f819435dafb3e8809ca1749695656"
@@ -3704,6 +3714,11 @@ is-typedarray@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=
 
+is-url@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/is-url/-/is-url-1.2.4.tgz#04a4df46d28c4cff3d73d01ff06abeb318a1aa52"
+  integrity sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==
+
 is-windows@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-windows/-/is-windows-1.0.2.tgz#d1850eb9791ecd18e6182ce12a30f396634bb19d"
@@ -4328,6 +4343,11 @@ no-case@^3.0.4:
   dependencies:
     lower-case "^2.0.2"
     tslib "^2.0.3"
+
+node-fetch@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-forge@^0.10.0:
   version "0.10.0"
@@ -5191,7 +5211,7 @@ redux@^4.0.0, redux@^4.0.5:
     loose-envify "^1.4.0"
     symbol-observable "^1.2.0"
 
-regenerator-runtime@^0.13.4:
+regenerator-runtime@^0.13.4, regenerator-runtime@^0.13.7:
   version "0.13.7"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
   integrity sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==

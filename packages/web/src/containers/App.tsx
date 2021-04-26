@@ -6,6 +6,7 @@ import Gradients from "./Gradients";
 import Luts from "./Luts";
 import Recorder from "./Recorder";
 import Thumbnails from "./Thumbnails";
+import Transcode from "./Transcode";
 import Transitions from "./Transitions";
 import Video from "./Video";
 import styles from "./App.module.scss";
@@ -19,6 +20,7 @@ function App() {
       <h1>Video</h1>
       <div>
         <button onClick={() => dispatch(increment())}>{counter}</button>
+        <Transcode />
         <Luts />
         <Recorder />
         <Video counter={counter} />
