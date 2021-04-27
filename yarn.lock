@@ -5169,6 +5169,11 @@ redux@^4.0.0, redux@^4.0.5:
   dependencies:
     "@babel/runtime" "^7.9.2"
 
+regenerator-runtime@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+  integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
+
 regenerator-runtime@^0.13.4, regenerator-runtime@^0.13.7:
   version "0.13.7"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
@@ -6349,6 +6354,13 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+videocontext@^0.54.0:
+  version "0.54.0"
+  resolved "https://registry.yarnpkg.com/videocontext/-/videocontext-0.54.0.tgz#15b0dcf6506832f21587726436628f1885ee50bf"
+  integrity sha512-DVZfW9o0X2gN9MZAthRN9rEdamtll0vNvC3hoSEaHqutXJtHxGIJEbqre5GAlBqeoSEjgmJCG+rSXbLIEhAzuA==
+  dependencies:
+    regenerator-runtime "^0.11.1"
 
 watchpack@^2.0.0:
   version "2.1.1"

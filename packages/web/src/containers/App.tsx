@@ -9,6 +9,7 @@ import Thumbnails from "./Thumbnails";
 import Transcode from "./Transcode";
 import Transitions from "./Transitions";
 import Video from "./Video";
+import VideoContext from "./VideoContext";
 import styles from "./App.module.scss";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <h1>Video</h1>
       <div>
         <button onClick={() => dispatch(increment())}>{counter}</button>
+        <VideoContext />
         <Transcode />
         <Luts />
         <Recorder />
