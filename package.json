@@ -65,9 +65,5 @@
     "pretty-quick": "^3.1.0",
     "type-coverage": "^2.17.2",
     "typescript": "^4.2.4"
-  },
-  "resolutions": {
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
   }
 }
