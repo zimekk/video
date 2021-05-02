@@ -5,6 +5,7 @@ import { increment } from "../actions";
 import Gradients from "./Gradients";
 import Luts from "./Luts";
 import Recorder from "./Recorder";
+import Canvas from "./Canvas";
 import Thumbnails from "./Thumbnails";
 import Transcode from "./Transcode";
 import Transitions from "./Transitions";
@@ -21,6 +22,7 @@ function App() {
       <h1>Video</h1>
       <div>
         <button onClick={() => dispatch(increment())}>{counter}</button>
+        <Canvas />
         <VideoContext />
         <Transcode />
         <Luts />
