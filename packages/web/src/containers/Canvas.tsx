@@ -181,6 +181,185 @@ function Clear({ children = null }) {
   return children;
 }
 
+// https://codepen.io/chriscourses/pen/PzONKR
+// https://www.youtube.com/watch?v=tvu0q1DNpGc
+function Star() {
+  this.radius = Math.random() * 10 + 5;
+  this.x = this.radius + (400 - this.radius * 2) * Math.random();
+  this.y = -10;
+  this.dx = (Math.random() - 0.5) * 20;
+  this.dy = 30;
+  this.gravity = 0.5;
+  this.friction = 0.54;
+
+  this.update = function (c) {
+    var groundHeight = c.canvas.height * 0.15;
+
+    // Bounce particles off the floor of the canvas
+    if (this.y + this.radius + this.dy >= c.canvas.height - groundHeight) {
+      this.dy = -this.dy * this.friction;
+      this.dx *= this.friction;
+      this.radius -= 3;
+
+      explosions.push(new Explosion(this));
+    } else {
+      this.dy += this.gravity;
+    }
+
+    // Bounce particles off left and right sides of canvas
+    if (
+      this.x + this.radius + this.dx >= c.canvas.width ||
+      this.x - this.radius + this.dx < 0
+    ) {
+      this.dx = -this.dx;
+      this.dx *= this.friction;
+      explosions.push(new Explosion(this));
+    }
+
+    // Move particles by velocity
+    this.x += this.dx;
+    this.y += this.dy;
+
+    this.draw(c);
+
+    // Draw particles from explosion
+    for (var i = 0; i < explosions.length; i++) {
+      explosions[i].update(c);
+    }
+  };
+  this.draw = function (c) {
+    c.save();
+    c.beginPath();
+    c.arc(this.x, this.y, Math.abs(this.radius), 0, Math.PI * 2, false);
+
+    c.shadowColor = "#E3EAEF";
+    c.shadowBlur = 20;
+    c.shadowOffsetX = 0;
+    c.shadowOffsetY = 0;
+
+    c.fillStyle = "#E3EAEF";
+    c.fill();
+    c.closePath();
+    c.restore();
+  };
+}
+
+function Particle(x, y, dx, dy) {
+  this.x = x;
+  this.y = y;
+  this.size = {
+    width: 2,
+    height: 2,
+  };
+  this.dx = dx;
+  this.dy = dy;
+  this.gravity = 0.09;
+  this.friction = 0.88;
+  this.timeToLive = 3;
+  this.opacity = 1;
+
+  this.update = function (c) {
+    var groundHeight = c.canvas.height * 0.15;
+
+    if (this.y + this.size.height + this.dy >= c.canvas.height - groundHeight) {
+      this.dy = -this.dy * this.friction;
+      this.dx *= this.friction;
+    } else {
+      this.dy += this.gravity;
+    }
+
+    if (
+      this.x + this.size.width + this.dx >= c.canvas.width ||
+      this.x + this.dx < 0
+    ) {
+      this.dx = -this.dx;
+      this.dx *= this.friction;
+    }
+    this.x += this.dx;
+    this.y += this.dy;
+
+    this.draw(c);
+
+    this.timeToLive -= 0.01;
+    this.opacity -= 1 / (this.timeToLive / 0.01);
+  };
+  this.draw = function (c) {
+    c.save();
+    c.fillStyle = "rgba(227, 234, 239," + this.opacity + ")";
+    c.shadowColor = "#E3EAEF";
+    c.shadowBlur = 20;
+    c.shadowOffsetX = 0;
+    c.shadowOffsetY = 0;
+    c.fillRect(this.x, this.y, this.size.width, this.size.height);
+    c.restore();
+  };
+
+  this.isAlive = function () {
+    return 0 <= this.timeToLive;
+  };
+}
+
+function Explosion(star) {
+  this.particles = [];
+
+  this.init = function (parentStar) {
+    for (var i = 0; i < 8; i++) {
+      var velocity = {
+        x: (Math.random() - 0.5) * 5,
+        y: (Math.random() - 0.5) * 15,
+      };
+      this.particles.push(
+        new Particle(parentStar.x, parentStar.y, velocity.x, velocity.y)
+      );
+    }
+  };
+
+  this.init(star);
+
+  this.update = function (c) {
+    for (var i = 0; i < this.particles.length; i++) {
+      this.particles[i].update(c);
+      if (this.particles[i].isAlive() == false) {
+        this.particles.splice(i, 1);
+      }
+    }
+  };
+}
+
+var stars = [];
+var explosions = [];
+var randomSpawnRate = Math.floor(Math.random() * 25 + 60);
+
+function Particles({ children = null }) {
+  useFrame((frame, context) => {
+    // var backgroundGradient = context.createLinearGradient(0,0,0, context.canvas.height);
+    // backgroundGradient.addColorStop(0,"#171e26");
+    // backgroundGradient.addColorStop(1,"#3f586b");
+
+    for (var i = 0; i < stars.length; i++) {
+      stars[i].update(context);
+      // console.log(stars[0].isAlive());
+
+      if (stars[i].radius <= 0) {
+        stars.splice(i, 1);
+      }
+    }
+
+    for (var i = 0; i < explosions.length; i++) {
+      if (explosions[i].length <= 0) {
+        explosions.splice(i, 1);
+      }
+    }
+
+    if (frame % randomSpawnRate == 0) {
+      stars.push(new Star());
+      randomSpawnRate = Math.floor(Math.random() * 10 + 75);
+    }
+  });
+
+  return children;
+}
+
 export default function () {
   const [checked, setChecked] = useState(false);
 
@@ -189,7 +368,6 @@ export default function () {
   // https://blog.koenvangilst.nl/react-hooks-with-canvas/
   // https://javascript.plainenglish.io/canvas-animation-inside-react-components-with-requestanimationframe-c5d594afc1b
   // https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258
-
   return (
     <div>
       {/* <input
@@ -197,8 +375,8 @@ export default function () {
         checked={checked}
         onChange={(e) => setChecked((checked) => !checked)}
       /> */}
-      <Canvas width="480" height="270">
-        <Clear></Clear>
+      <Canvas width="480" height="270" style={{ background: "#333" }}>
+        <Clear />
         <Ball />
         {getHexagonsToFillZone({
           height: 270,
@@ -207,6 +385,7 @@ export default function () {
           <Hexagon key={index} {...hexagon} />
         ))}
         {checked && <Group></Group>}
+        <Particles />
       </Canvas>
     </div>
   );
