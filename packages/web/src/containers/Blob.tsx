@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useRef } from "react";
 
+var colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
+
 const CanvasContext = createContext(null);
 
 // https://css-tricks.com/blobs/
@@ -16,7 +18,7 @@ class Blob {
     }
   }
 
-  render() {
+  render(t) {
     let canvas = this.canvas;
     let ctx = this.ctx;
     // let position = this.position;
@@ -30,6 +32,123 @@ class Blob {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.drawImage(video, 0, 0, video.width, video.height);
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = colors[1];
+    ctx.strokeRect(20, 20, 20, 20);
+
+    ctx.beginPath();
+    ctx.moveTo(75, 50);
+    ctx.lineTo(100, 65);
+    ctx.lineTo(100, 35);
+    ctx.lineTo(75, 50);
+    ctx.strokeStyle = colors[0];
+    ctx.stroke();
+
+    if (t) {
+      let a = (t / 2) % 360;
+      // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations
+      ctx.save();
+      // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate
+      ctx.translate(40, 95);
+      ctx.rotate((a * Math.PI) / 180);
+      ctx.translate(-40, -95);
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(20, 90);
+      ctx.lineTo(30, 100);
+      ctx.lineTo(40, 90);
+      ctx.lineTo(50, 100);
+      ctx.lineTo(60, 90);
+      ctx.strokeStyle = colors[1];
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#a_scale_example
+    if (t) {
+      let a = (t / 4) % 180;
+      ctx.translate(60, 65);
+      ctx.scale(
+        1 - Math.sin((a * Math.PI) / 180) / 2,
+        1 - Math.sin((a * Math.PI) / 180) / 2
+      );
+      ctx.translate(-60, -65);
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(60, 65, 15, 0, Math.PI * 2, true);
+      ctx.strokeStyle = colors[2];
+      ctx.stroke();
+      ctx.restore();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    if (t) {
+      let a = (-t / 5) % 360;
+      let b = (-t / 7) % 360;
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.arc(
+        85,
+        90,
+        10,
+        (a * Math.PI) / 180,
+        (a * Math.PI) / 180 + Math.PI * 1.5 + Math.sin((b * Math.PI) / 180),
+        false
+      );
+      ctx.strokeStyle = colors[3];
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.arc(60, 165, 15, 0, Math.PI * 2, true);
+    ctx.fillStyle = colors[0];
+    ctx.fill();
+
+    if (t) {
+      let a = (t / 5) % 180;
+      ctx.lineWidth = 2 + 2 * Math.sin((a * Math.PI) / 180);
+      ctx.beginPath();
+      ctx.arc(70, 120, 10, 0, Math.PI, true);
+      ctx.arc(50, 120, 10, 0, Math.PI, false);
+      ctx.arc(30, 120, 10, 0, Math.PI, true);
+      ctx.strokeStyle = colors[1];
+      ctx.stroke();
+    }
+
+    if (t) {
+      let a = (-t / 3) % 180;
+      ctx.translate(30, 140);
+      ctx.rotate((a * Math.PI) / 180);
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-10, 0);
+      ctx.lineTo(10, 0);
+      ctx.moveTo(0, -10);
+      ctx.lineTo(0, 10);
+      ctx.strokeStyle = colors[2];
+      ctx.stroke();
+      ctx.restore();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#path2d_example
+    var rectangle = new Path2D();
+    rectangle.rect(10, 10, 20, 20);
+
+    var circle = new Path2D();
+    circle.arc(70, 15, 15, 0, 2 * Math.PI);
+
+    ctx.strokeStyle = colors[3];
+    ctx.stroke(rectangle);
+    ctx.fillStyle = colors[2];
+    ctx.fill(circle);
+
+    // https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+    var p = new Path2D("M5 60 l 15 10 l 5 -15 l 15 10");
+    ctx.strokeStyle = colors[0];
+    ctx.stroke(p);
 
     pointsArray[0].solveWith(pointsArray[points - 1], pointsArray[1]);
 
