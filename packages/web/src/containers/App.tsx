@@ -2,6 +2,7 @@ import { hot } from "react-hot-loader/root";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { increment } from "../actions";
+import Animation from "./Animation";
 import Gradients from "./Gradients";
 import Luts from "./Luts";
 import Recorder from "./Recorder";
@@ -22,6 +23,7 @@ function App() {
       <h1>Video</h1>
       <div>
         <button onClick={() => dispatch(increment())}>{counter}</button>
+        <Animation />
         <Canvas />
         <VideoContext />
         <Transcode />
