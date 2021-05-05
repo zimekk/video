@@ -4,6 +4,11 @@ var colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
 
 const CanvasContext = createContext(null);
 
+// https://easings.net/#easeInOutCubic
+function easeInOutCubic(x: number): number {
+  return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+}
+
 // https://css-tricks.com/blobs/
 class Blob {
   constructor() {
@@ -38,13 +43,25 @@ class Blob {
     ctx.strokeStyle = colors[1];
     ctx.strokeRect(20, 20, 20, 20);
 
-    ctx.beginPath();
-    ctx.moveTo(75, 50);
-    ctx.lineTo(100, 65);
-    ctx.lineTo(100, 35);
-    ctx.lineTo(75, 50);
-    ctx.strokeStyle = colors[0];
-    ctx.stroke();
+    if (t) {
+      let a = (t / 6) % 360;
+      let b = Math.min(Math.abs((a - 180) / 180), 1);
+      ctx.save();
+      ctx.translate(85, 40 + easeInOutCubic(b) * 20);
+      ctx.beginPath();
+
+      [30, 90, 150, 210, 270, 330, 30].forEach((angle, index) => {
+        const radAngle = ((angle + easeInOutCubic(b) * 180) * Math.PI) / 180;
+        const radius = 10;
+        ctx[index ? "lineTo" : "moveTo"](
+          radius * Math.cos(radAngle),
+          radius * Math.sin(radAngle)
+        );
+      });
+      ctx.strokeStyle = colors[0];
+      ctx.stroke();
+      ctx.restore();
+    }
 
     if (t) {
       let a = (t / 2) % 360;
