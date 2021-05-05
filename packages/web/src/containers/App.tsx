@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { increment } from "../actions";
 import Animation from "./Animation";
+import Fireworks from "./Fireworks";
 import Gradients from "./Gradients";
 import Luts from "./Luts";
 import Recorder from "./Recorder";
@@ -23,6 +24,7 @@ function App() {
       <h1>Video</h1>
       <div>
         <button onClick={() => dispatch(increment())}>{counter}</button>
+        <Fireworks />
         <Animation />
         <Canvas />
         <VideoContext />
