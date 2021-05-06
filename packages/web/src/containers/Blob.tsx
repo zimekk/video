@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useRef } from "react";
+import bspline from "b-spline";
 
 var colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
 
@@ -68,16 +69,16 @@ class Blob {
       // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations
       ctx.save();
       // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate
-      ctx.translate(40, 95);
+      ctx.translate(30, 95);
       ctx.rotate((a * Math.PI) / 180);
-      ctx.translate(-40, -95);
+      ctx.translate(-30, -95);
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(20, 90);
-      ctx.lineTo(30, 100);
-      ctx.lineTo(40, 90);
-      ctx.lineTo(50, 100);
-      ctx.lineTo(60, 90);
+      ctx.moveTo(10, 90);
+      ctx.lineTo(20, 100);
+      ctx.lineTo(30, 90);
+      ctx.lineTo(40, 100);
+      ctx.lineTo(50, 90);
       ctx.strokeStyle = colors[1];
       ctx.stroke();
       ctx.restore();
@@ -107,8 +108,8 @@ class Blob {
       ctx.lineWidth = 5;
       ctx.beginPath();
       ctx.arc(
-        85,
-        90,
+        75,
+        100,
         10,
         (a * Math.PI) / 180,
         (a * Math.PI) / 180 + Math.PI * 1.5 + Math.sin((b * Math.PI) / 180),
@@ -127,17 +128,31 @@ class Blob {
       let a = (t / 5) % 180;
       ctx.lineWidth = 2 + 2 * Math.sin((a * Math.PI) / 180);
       ctx.beginPath();
-      ctx.arc(70, 120, 10, 0, Math.PI, true);
-      ctx.arc(50, 120, 10, 0, Math.PI, false);
-      ctx.arc(30, 120, 10, 0, Math.PI, true);
-      ctx.strokeStyle = colors[1];
+      ctx.arc(70, 130, 5, 0, Math.PI, false);
+      ctx.arc(60, 130, 5, 0, Math.PI, true);
+      ctx.arc(50, 130, 5, 0, Math.PI, false);
+      ctx.arc(40, 130, 5, 0, Math.PI, true);
+      ctx.arc(30, 130, 5, 0, Math.PI, false);
+      ctx.arc(20, 130, 5, 0, Math.PI, true);
+      ctx.strokeStyle = colors[3];
       ctx.stroke();
     }
 
     if (t) {
-      let a = (-t / 3) % 180;
-      ctx.translate(30, 140);
-      ctx.rotate((a * Math.PI) / 180);
+      // https://github.com/thibauts/b-spline#clamped-knot-vector
+      let points = [
+        [-1.0, 0.0],
+        [-0.5, 0.5],
+        [0.5, -0.5],
+        [1.0, 0.0],
+      ];
+      let degree = 2;
+      let knots = [0, 0, 0, 1, 2, 2, 2];
+
+      let a = ((t / 6) % 360) / 360;
+      let [x, y] = bspline(a % 1, degree, points, knots);
+      ctx.translate(50, 200 + y * 40);
+      ctx.rotate(x * Math.PI);
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(-10, 0);
@@ -148,6 +163,15 @@ class Blob {
       ctx.stroke();
       ctx.restore();
       ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+      ctx.lineWidth = 1;
+      for (let t = 0; t < a; t += 0.01) {
+        let [x, y] = bspline(t % 1, degree, points, knots);
+        ctx.strokeStyle = colors[0];
+        ctx.strokeRect(50 + x * 40, 200 + y * 40, 1, 1);
+        ctx.strokeStyle = colors[1];
+        ctx.strokeRect(10 + t * 40, 200 + x * 40, 1, 1);
+      }
     }
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#path2d_example

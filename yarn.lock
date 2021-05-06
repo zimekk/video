@@ -1222,6 +1222,11 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+b-spline@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/b-spline/-/b-spline-2.0.1.tgz#81c94e5dba8bb39cfa740aeb0aa85f4f911815a7"
+  integrity sha1-gclOXbqLs5z6dArrCqhfT5EYFac=
+
 babel-loader@^8.2.1:
   version "8.2.2"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.2.tgz#9363ce84c10c9a40e6c753748e1441b60c8a0b81"
