@@ -1,9 +1,7 @@
-import React, { createContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import bspline from "b-spline";
 
-var colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
-
-const CanvasContext = createContext(null);
+const colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
 
 // https://easings.net/#easeInOutCubic
 function easeInOutCubic(x: number): number {
@@ -18,22 +16,21 @@ class Blob {
 
   init() {
     for (let i = 0; i < this.numPoints; i++) {
-      let point = new Point(this.divisional * (i + 1), this);
+      const point = new Point(this.divisional * (i + 1), this);
       // point.acceleration = -1 + Math.random() * 2;
       this.push(point);
     }
   }
 
   render(t) {
-    let canvas = this.canvas;
-    let ctx = this.ctx;
-    // let position = this.position;
-    let pointsArray = this.points;
-    // let radius = this.radius;
-    let points = this.numPoints;
-    // let divisional = this.divisional;
-    let center = this.center;
-    let video = this.video;
+    const {
+      canvas,
+      ctx,
+      points: pointsArray,
+      numPoints: points,
+      center,
+      video,
+    } = this;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -45,8 +42,8 @@ class Blob {
     ctx.strokeRect(20, 20, 20, 20);
 
     if (t) {
-      let a = (t / 6) % 360;
-      let b = Math.min(Math.abs((a - 180) / 180), 1);
+      const a = (t / 6) % 360;
+      const b = Math.min(Math.abs((a - 180) / 180), 1);
       ctx.save();
       ctx.translate(85, 40 + easeInOutCubic(b) * 20);
       ctx.beginPath();
@@ -65,7 +62,7 @@ class Blob {
     }
 
     if (t) {
-      let a = (t / 2) % 360;
+      const a = (t / 2) % 360;
       // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations
       ctx.save();
       // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate
@@ -86,7 +83,7 @@ class Blob {
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations#a_scale_example
     if (t) {
-      let a = (t / 4) % 180;
+      const a = (t / 4) % 180;
       ctx.translate(60, 65);
       ctx.scale(
         1 - Math.sin((a * Math.PI) / 180) / 2,
@@ -103,8 +100,8 @@ class Blob {
     }
 
     if (t) {
-      let a = (-t / 5) % 360;
-      let b = (-t / 7) % 360;
+      const a = (-t / 5) % 360;
+      const b = (-t / 7) % 360;
       ctx.lineWidth = 5;
       ctx.beginPath();
       ctx.arc(
@@ -125,7 +122,7 @@ class Blob {
     ctx.fill();
 
     if (t) {
-      let a = (t / 5) % 180;
+      const a = (t / 5) % 180;
       ctx.lineWidth = 2 + 2 * Math.sin((a * Math.PI) / 180);
       ctx.beginPath();
       ctx.arc(70, 130, 5, 0, Math.PI, false);
@@ -140,17 +137,17 @@ class Blob {
 
     if (t) {
       // https://github.com/thibauts/b-spline#clamped-knot-vector
-      let points = [
+      const points = [
         [-1.0, 0.0],
         [-0.5, 0.5],
         [0.5, -0.5],
         [1.0, 0.0],
       ];
-      let degree = 2;
-      let knots = [0, 0, 0, 1, 2, 2, 2];
+      const degree = 2;
+      const knots = [0, 0, 0, 1, 2, 2, 2];
 
-      let a = ((t / 6) % 360) / 360;
-      let [x, y] = bspline(a % 1, degree, points, knots);
+      const a = ((t / 6) % 360) / 360;
+      const [x, y] = bspline(a % 1, degree, points, knots);
       ctx.translate(50, 200 + y * 40);
       ctx.rotate(x * Math.PI);
       ctx.lineWidth = 3;
@@ -166,7 +163,7 @@ class Blob {
 
       ctx.lineWidth = 1;
       for (let t = 0; t < a; t += 0.01) {
-        let [x, y] = bspline(t % 1, degree, points, knots);
+        const [x, y] = bspline(t % 1, degree, points, knots);
         ctx.strokeStyle = colors[0];
         ctx.strokeRect(50 + x * 40, 200 + y * 40, 1, 1);
         ctx.strokeStyle = colors[1];
@@ -175,10 +172,10 @@ class Blob {
     }
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#path2d_example
-    var rectangle = new Path2D();
+    const rectangle = new Path2D();
     rectangle.rect(10, 10, 20, 20);
 
-    var circle = new Path2D();
+    const circle = new Path2D();
     circle.arc(70, 15, 15, 0, 2 * Math.PI);
 
     ctx.strokeStyle = colors[3];
@@ -187,15 +184,15 @@ class Blob {
     ctx.fill(circle);
 
     // https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
-    var p = new Path2D("M5 60 l 15 10 l 5 -15 l 15 10");
+    const p = new Path2D("M5 60 l 15 10 l 5 -15 l 15 10");
     ctx.strokeStyle = colors[0];
     ctx.stroke(p);
 
     pointsArray[0].solveWith(pointsArray[points - 1], pointsArray[1]);
 
-    let p0 = pointsArray[points - 1].position;
+    const p0 = pointsArray[points - 1].position;
     let p1 = pointsArray[0].position;
-    let _p2 = p1;
+    const _p2 = p1;
 
     ctx.beginPath();
     ctx.moveTo(center.x, center.y);
@@ -207,9 +204,9 @@ class Blob {
         pointsArray[i + 1] || pointsArray[0]
       );
 
-      let p2 = pointsArray[i].position;
-      var xc = (p1.x + p2.x) / 2;
-      var yc = (p1.y + p2.y) / 2;
+      const p2 = pointsArray[i].position;
+      const xc = (p1.x + p2.x) / 2;
+      const yc = (p1.y + p2.y) / 2;
       ctx.quadraticCurveTo(p1.x, p1.y, xc, yc);
       // ctx.lineTo(p2.x, p2.y);
 
@@ -219,8 +216,8 @@ class Blob {
       p1 = p2;
     }
 
-    var xc = (p1.x + _p2.x) / 2;
-    var yc = (p1.y + _p2.y) / 2;
+    const xc = (p1.x + _p2.x) / 2;
+    const yc = (p1.y + _p2.y) / 2;
     ctx.quadraticCurveTo(p1.x, p1.y, xc, yc);
     // ctx.lineTo(_p2.x, _p2.y);
 
@@ -406,23 +403,23 @@ function Canvas({ video, children = null, ...rest }) {
 
       let oldMousePoint = { x: 0, y: 0 };
       let hover = false;
-      let mouseMove = function (e) {
-        let { x, y } = canvas.current.getBoundingClientRect();
+      const mouseMove = function (e) {
+        const { x, y } = canvas.current.getBoundingClientRect();
 
-        let pos = { x: blob.center.x + x, y: blob.center.y + y };
-        let diff = { x: e.clientX - pos.x, y: e.clientY - pos.y };
-        let dist = Math.sqrt(diff.x * diff.x + diff.y * diff.y);
+        const pos = { x: blob.center.x + x, y: blob.center.y + y };
+        const diff = { x: e.clientX - pos.x, y: e.clientY - pos.y };
+        const dist = Math.sqrt(diff.x * diff.x + diff.y * diff.y);
         let angle = null;
 
         blob.mousePos = { x: pos.x - e.clientX, y: pos.y - e.clientY };
 
         if (dist < blob.radius && hover === false) {
-          let vector = { x: e.clientX - pos.x, y: e.clientY - pos.y };
+          const vector = { x: e.clientX - pos.x, y: e.clientY - pos.y };
           angle = Math.atan2(vector.y, vector.x);
           hover = true;
           // blob.color = '#77FF00';
         } else if (dist > blob.radius && hover === true) {
-          let vector = { x: e.clientX - pos.x, y: e.clientY - pos.y };
+          const vector = { x: e.clientX - pos.x, y: e.clientY - pos.y };
           angle = Math.atan2(vector.y, vector.x);
           hover = false;
           blob.color = null;
@@ -467,12 +464,7 @@ function Canvas({ video, children = null, ...rest }) {
     init();
   }, [canvas]);
 
-  return (
-    <CanvasContext.Provider value={canvas.current?.getContext("2d")}>
-      <canvas ref={canvas} {...rest}></canvas>
-      {children}
-    </CanvasContext.Provider>
-  );
+  return <canvas ref={canvas} {...rest}></canvas>;
 }
 
 export default function () {
