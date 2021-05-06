@@ -6,6 +6,7 @@ import Animation from "./Animation";
 import Blob from "./Blob";
 import Fireworks from "./Fireworks";
 import Gradients from "./Gradients";
+import Letters from "./Letters";
 import Luts from "./Luts";
 import Recorder from "./Recorder";
 import Canvas from "./Canvas";
@@ -25,6 +26,7 @@ function App() {
       <h1>Video</h1>
       <div>
         <button onClick={() => dispatch(increment())}>{counter}</button>
+        <Letters />
         <Blob />
         <Fireworks />
         <Animation />
