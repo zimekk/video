@@ -72,8 +72,13 @@ class Text {
 
     ctx.save();
     ctx.globalAlpha = opacity;
+    // https://www.visualcinnamon.com/2015/11/learnings-from-a-d3-js-addict-on-starting-with-canvas/
     ctx.fillStyle = color;
     ctx.font = `${fontSize}px Arial`;
+    //textAlign supports: start, end, left, right, center
+    ctx.textAlign = "start";
+    //textBaseline supports: top, hanging, middle, alphabetic, ideographic bottom
+    ctx.textBaseline = "alphabetic";
 
     // ctx.strokeRect(0, 0, width, 0.75 * height);
     ctx.beginPath();
