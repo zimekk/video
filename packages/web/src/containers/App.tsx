@@ -9,6 +9,7 @@ import Gradients from "./Gradients";
 import Letters from "./Letters";
 import Luts from "./Luts";
 import Recorder from "./Recorder";
+import SpriteJs from "./SpriteJs";
 import Canvas from "./Canvas";
 import Thumbnails from "./Thumbnails";
 import Transcode from "./Transcode";
@@ -26,6 +27,7 @@ function App() {
       <h1>Video</h1>
       <div>
         <button onClick={() => dispatch(increment())}>{counter}</button>
+        <SpriteJs />
         <Letters />
         <Blob />
         <Fireworks />
