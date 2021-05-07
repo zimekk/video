@@ -10,7 +10,7 @@ export default function () {
     const layer = new Layer({
       canvas,
     });
-
+    // https://spritejs.org/demo/#/video
     const video = document.createElement("video");
     video.src = "https://webrtc.github.io/samples/src/video/chrome.webm";
     video.crossOrigin = "Anonymous";
@@ -28,6 +28,7 @@ export default function () {
     layer.canvas.style.backgroundColor = "#3f097a";
     layer.append(s);
 
+    // https://spritejs.org/demo/#/labels
     const group = new Group();
     group.attr({
       pos: [240, 100],
