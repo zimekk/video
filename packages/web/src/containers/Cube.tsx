@@ -1,14 +1,116 @@
 import React, { useEffect, useRef } from "react";
-import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
+import {
+  Renderer,
+  Camera,
+  Geometry,
+  Transform,
+  Texture,
+  RenderTarget,
+  Program,
+  Mesh,
+  Box,
+} from "ogl";
 
-export default function () {
-  const canvasRef = useRef();
+// https://github.com/oframe/ogl/blob/master/examples/render-to-texture.html
+const vertex = /* glsl */ `
+                attribute vec3 position;
+                attribute vec3 normal;
+                attribute vec2 uv;
+                uniform mat4 modelViewMatrix;
+                uniform mat4 projectionMatrix;
+                uniform mat3 normalMatrix;
+                varying vec2 vUv;
+                varying vec3 vNormal;
+                void main() {
+                    vUv = uv;
+                    vNormal = normalize(normalMatrix * normal);
+                    
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `;
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
+const fragment = /* glsl */ `
+                precision highp float;
+                uniform sampler2D tMap;
+                varying vec2 vUv;
+                varying vec3 vNormal;
+                void main() {
+                    vec3 normal = normalize(vNormal);
+                    float lighting = 0.2 * dot(normal, normalize(vec3(-0.3, 0.8, 0.6)));
+                    vec3 tex = texture2D(tMap, vUv).rgb;
+                    gl_FragColor.rgb = tex + lighting + vec3(vUv - 0.5, 0.0) * 0.1;
+                    gl_FragColor.a = 1.0;
+                }
+            `;
 
-    // https://github.com/oframe/ogl/blob/master/examples/particles.html
-    const vertex = /* glsl */ `
+function createMesh(gl) {
+  const geometry = new Box(gl);
+
+  // A little data texture with 4 colors just to keep things interesting
+  const texture = new Texture(gl, {
+    image: new Uint8Array([
+      191,
+      25,
+      54,
+      255,
+      96,
+      18,
+      54,
+      255,
+      96,
+      18,
+      54,
+      255,
+      37,
+      13,
+      53,
+      255,
+    ]),
+    width: 2,
+    height: 2,
+    magFilter: gl.NEAREST,
+  });
+
+  const program = new Program(gl, {
+    vertex,
+    fragment,
+    uniforms: {
+      tMap: { value: texture },
+    },
+  });
+
+  const mesh = new Mesh(gl, { geometry, program });
+
+  return { mesh };
+}
+
+function createTargetMesh(gl) {
+  const geometry = new Box(gl);
+
+  // Create render target framebuffer.
+  // Uses canvas size by default and doesn't automatically resize.
+  // To resize, re-create target
+  const target = new RenderTarget(gl, {
+    width: 512,
+    height: 512,
+  });
+
+  const targetProgram = new Program(gl, {
+    vertex,
+    fragment,
+    uniforms: {
+      tMap: { value: target.texture },
+    },
+  });
+
+  const targetMesh = new Mesh(gl, { geometry, program: targetProgram });
+
+  return { mesh: targetMesh, target };
+}
+
+// https://github.com/oframe/ogl/blob/master/examples/particles.html
+function createParticlesMesh(gl) {
+  const vertex = /* glsl */ `
     attribute vec3 position;
     attribute vec4 random;
     uniform mat4 modelMatrix;
@@ -40,7 +142,7 @@ export default function () {
     }
 `;
 
-    const fragment = /* glsl */ `
+  const fragment = /* glsl */ `
     precision highp float;
     uniform float uTime;
     varying vec4 vRandom;
@@ -54,59 +156,124 @@ export default function () {
     }
 `;
 
+  //     const renderer = new Renderer({
+  //       canvas,
+  //       width: canvas.width,
+  //       height: canvas.height,
+  //       dpr: 2,
+  //     });
+  //     const gl = renderer.gl;
+  //     gl.clearColor(1, 1, 1, 1);
+
+  //     const camera = new Camera(gl, { fov: 15 });
+  //     camera.position.z = 15;
+
+  const num = 100;
+  const position = new Float32Array(num * 3);
+  const random = new Float32Array(num * 4);
+
+  for (let i = 0; i < num; i++) {
+    position.set([Math.random(), Math.random(), Math.random()], i * 3);
+    random.set(
+      [Math.random(), Math.random(), Math.random(), Math.random()],
+      i * 4
+    );
+  }
+
+  const geometry = new Geometry(gl, {
+    position: { size: 3, data: position },
+    random: { size: 4, data: random },
+  });
+
+  const program = new Program(gl, {
+    vertex,
+    fragment,
+    uniforms: {
+      uTime: { value: 0 },
+    },
+    transparent: true,
+    depthTest: false,
+  });
+
+  // Make sure mode is gl.POINTS
+  const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
+
+  return { mesh: particles, program };
+}
+
+export default function () {
+  const canvasRef = useRef();
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+
     const renderer = new Renderer({
       canvas,
       width: canvas.width,
       height: canvas.height,
       dpr: 2,
     });
+    // const renderer = new Renderer({ dpr: 2 });
     const gl = renderer.gl;
-    gl.clearColor(1, 1, 1, 1);
+    // document.body.appendChild(gl.canvas);
 
-    const camera = new Camera(gl, { fov: 15 });
-    camera.position.z = 15;
+    const camera = new Camera(gl, { fov: 35 });
+    camera.position.set(0, 1, 5);
+    camera.lookAt([0, 0, 0]);
 
-    const num = 100;
-    const position = new Float32Array(num * 3);
-    const random = new Float32Array(num * 4);
+    const targetCamera = new Camera(gl, { fov: 35 });
+    targetCamera.position.set(0, 1, 5);
+    targetCamera.lookAt([0, 0, 0]);
 
-    for (let i = 0; i < num; i++) {
-      position.set([Math.random(), Math.random(), Math.random()], i * 3);
-      random.set(
-        [Math.random(), Math.random(), Math.random(), Math.random()],
-        i * 4
-      );
+    function resize() {
+      // renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Only update aspect of target camera, as first scene will be drawn to a square render target
+      targetCamera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
     }
+    // window.addEventListener('resize', resize, false);
+    resize();
 
-    const geometry = new Geometry(gl, {
-      position: { size: 3, data: position },
-      random: { size: 4, data: random },
-    });
+    const { mesh } = createMesh(gl);
+    const { mesh: targetMesh, target } = createTargetMesh(gl);
+    const { mesh: particles, program: particlesProgram } = createParticlesMesh(
+      gl
+    );
 
-    const program = new Program(gl, {
-      vertex,
-      fragment,
-      uniforms: {
-        uTime: { value: 0 },
-      },
-      transparent: true,
-      depthTest: false,
-    });
-
-    // Make sure mode is gl.POINTS
-    const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
+    const scene = new Transform();
+    // scene.addChild(sphere); // also works
+    targetMesh.setParent(scene);
+    particles.setParent(scene);
 
     requestAnimationFrame(update);
     function update(t) {
       requestAnimationFrame(update);
+
+      mesh.rotation.y -= 0.02;
+      targetMesh.rotation.y -= 0.005;
+      targetMesh.rotation.x -= 0.01;
+
+      // Set background for first render to target
+      gl.clearColor(0.15, 0.05, 0.2, 1);
+
+      // Add target property to render call
+      renderer.render({ scene: mesh, camera, target });
+
+      // Change to final background
+      gl.clearColor(1, 1, 1, 1);
+
+      // Omit target to render to canvas
+      // renderer.render({ scene: targetMesh, camera: targetCamera });
 
       // add some slight overall movement to be more interesting
       particles.rotation.x = Math.sin(t * 0.0002) * 0.1;
       particles.rotation.y = Math.cos(t * 0.0005) * 0.15;
       particles.rotation.z += 0.01;
 
-      program.uniforms.uTime.value = t * 0.001;
-      renderer.render({ scene: particles, camera });
+      particlesProgram.uniforms.uTime.value = t * 0.001;
+      // renderer.render({ scene: particles, camera });
+
+      renderer.render({ scene, camera: targetCamera });
     }
   });
 
