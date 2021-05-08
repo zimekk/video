@@ -3062,6 +3062,22 @@ gl-shader@^4.2.1:
     gl-format-compiler-error "^1.0.2"
     weakmap-shim "^1.1.0"
 
+gl-texture2d@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/gl-texture2d/-/gl-texture2d-2.1.0.tgz#ff6824e7e7c31a8ba6fdcdbe9e5c695d7e2187c7"
+  integrity sha1-/2gk5+fDGoum/c2+nlxpXX4hh8c=
+  dependencies:
+    ndarray "^1.0.15"
+    ndarray-ops "^1.2.2"
+    typedarray-pool "^1.1.0"
+
+gl-transition@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/gl-transition/-/gl-transition-1.13.0.tgz#69b07f26e51930edd24a6922b10cb74e134603fd"
+  integrity sha1-abB/JuUZMO3SSmkisQy3ThNGA/0=
+  dependencies:
+    gl-shader "^4.2.1"
+
 gl-transitions@^1.43.0:
   version "1.43.0"
   resolved "https://registry.yarnpkg.com/gl-transitions/-/gl-transitions-1.43.0.tgz#790ce78f6713c75caba2b354764d7497971edcfd"
@@ -4464,7 +4480,7 @@ ndarray-ops@^1.2.2:
   dependencies:
     cwise-compiler "^1.0.0"
 
-ndarray@^1.0.19:
+ndarray@^1.0.15, ndarray@^1.0.19:
   version "1.0.19"
   resolved "https://registry.yarnpkg.com/ndarray/-/ndarray-1.0.19.tgz#6785b5f5dfa58b83e31ae5b2a058cfd1ab3f694e"
   integrity sha512-B4JHA4vdyZU30ELBw3g7/p9bZupyew5a7tX1Y/gGeF2hafrPaQZhgrGQfsvgfYbgdFZjYwuEcnaobeM/WMW+HQ==
@@ -6445,7 +6461,7 @@ type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typedarray-pool@^1.2.0:
+typedarray-pool@^1.1.0, typedarray-pool@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/typedarray-pool/-/typedarray-pool-1.2.0.tgz#e7e90720144ba02b9ed660438af6f3aacfe33ac3"
   integrity sha512-YTSQbzX43yvtpfRtIDAYygoYtgT+Rpjuxy9iOpczrjpXLgGoyG7aS5USJXV2d3nn8uHTeb9rXDvzS27zUg5KYQ==

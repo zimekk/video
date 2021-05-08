@@ -19,6 +19,7 @@ import Transcode from "./Transcode";
 import Transitions from "./Transitions";
 import Video from "./Video";
 import VideoContext from "./VideoContext";
+import VideoTransitions from "./VideoTransitions";
 import styles from "./App.module.scss";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <div>
           <button onClick={() => dispatch(increment())}>{counter}</button>
         </div>
+        <VideoTransitions />
         <Json2d />
         <Cube />
         <Polylines />
