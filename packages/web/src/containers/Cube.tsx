@@ -81,7 +81,12 @@ function createMesh(gl) {
 
   const mesh = new Mesh(gl, { geometry, program });
 
-  return { mesh };
+  return {
+    mesh,
+    update: (t) => {
+      mesh.rotation.y -= 0.02;
+    },
+  };
 }
 
 function createTargetMesh(gl) {
@@ -105,7 +110,14 @@ function createTargetMesh(gl) {
 
   const targetMesh = new Mesh(gl, { geometry, program: targetProgram });
 
-  return { mesh: targetMesh, target };
+  return {
+    mesh: targetMesh,
+    target,
+    update: (t) => {
+      targetMesh.rotation.y -= 0.005;
+      targetMesh.rotation.x -= 0.01;
+    },
+  };
 }
 
 // https://github.com/oframe/ogl/blob/master/examples/particles.html
@@ -156,18 +168,6 @@ function createParticlesMesh(gl) {
     }
 `;
 
-  //     const renderer = new Renderer({
-  //       canvas,
-  //       width: canvas.width,
-  //       height: canvas.height,
-  //       dpr: 2,
-  //     });
-  //     const gl = renderer.gl;
-  //     gl.clearColor(1, 1, 1, 1);
-
-  //     const camera = new Camera(gl, { fov: 15 });
-  //     camera.position.z = 15;
-
   const num = 100;
   const position = new Float32Array(num * 3);
   const random = new Float32Array(num * 4);
@@ -198,7 +198,52 @@ function createParticlesMesh(gl) {
   // Make sure mode is gl.POINTS
   const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
 
-  return { mesh: particles, program };
+  return {
+    mesh: particles,
+    update: (t) => {
+      // add some slight overall movement to be more interesting
+      particles.rotation.x = Math.sin(t * 0.0002) * 0.1;
+      particles.rotation.y = Math.cos(t * 0.0005) * 0.15;
+      particles.rotation.z += 0.01;
+
+      program.uniforms.uTime.value = t * 0.001;
+      // renderer.render({ scene: particles, camera });
+    },
+  };
+}
+
+// https://codesandbox.io/s/ogl-5i69p
+function createCubeMesh(gl) {
+  const geometry = new Box(gl);
+
+  const program = new Program(gl, {
+    vertex: `
+        attribute vec3 position;
+
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+
+        void main() {
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+        `,
+    fragment: `
+        void main() {
+          gl_FragColor = vec4(1.0);
+        }
+        `,
+  });
+
+  const mesh = new Mesh(gl, { geometry, program });
+
+  return {
+    mesh,
+    program,
+    update: (t) => {
+      mesh.rotation.y -= 0.04;
+      mesh.rotation.x += 0.03;
+    },
+  };
 }
 
 export default function () {
@@ -213,7 +258,6 @@ export default function () {
       height: canvas.height,
       dpr: 2,
     });
-    // const renderer = new Renderer({ dpr: 2 });
     const gl = renderer.gl;
     // document.body.appendChild(gl.canvas);
 
@@ -234,24 +278,34 @@ export default function () {
     // window.addEventListener('resize', resize, false);
     resize();
 
-    const { mesh } = createMesh(gl);
-    const { mesh: targetMesh, target } = createTargetMesh(gl);
-    const { mesh: particles, program: particlesProgram } = createParticlesMesh(
-      gl
-    );
-
     const scene = new Transform();
     // scene.addChild(sphere); // also works
+
+    const { mesh, update: updateMesh } = createMesh(gl);
+
+    const {
+      mesh: targetMesh,
+      target,
+      update: updateTargetMesh,
+    } = createTargetMesh(gl);
     targetMesh.setParent(scene);
+    const {
+      mesh: particles,
+      update: updateParticlesMesh,
+    } = createParticlesMesh(gl);
     particles.setParent(scene);
+
+    const { mesh: cubeMesh, update: updateCubeMesh } = createCubeMesh(gl);
+    cubeMesh.setParent(scene);
 
     requestAnimationFrame(update);
     function update(t) {
       requestAnimationFrame(update);
 
-      mesh.rotation.y -= 0.02;
-      targetMesh.rotation.y -= 0.005;
-      targetMesh.rotation.x -= 0.01;
+      updateMesh(t);
+      updateTargetMesh(t);
+      updateParticlesMesh(t);
+      updateCubeMesh(t);
 
       // Set background for first render to target
       gl.clearColor(0.15, 0.05, 0.2, 1);
@@ -263,16 +317,6 @@ export default function () {
       gl.clearColor(1, 1, 1, 1);
 
       // Omit target to render to canvas
-      // renderer.render({ scene: targetMesh, camera: targetCamera });
-
-      // add some slight overall movement to be more interesting
-      particles.rotation.x = Math.sin(t * 0.0002) * 0.1;
-      particles.rotation.y = Math.cos(t * 0.0005) * 0.15;
-      particles.rotation.z += 0.01;
-
-      particlesProgram.uniforms.uTime.value = t * 0.001;
-      // renderer.render({ scene: particles, camera });
-
       renderer.render({ scene, camera: targetCamera });
     }
   });
