@@ -52,10 +52,12 @@ export default function () {
       width: canvas.width,
       height: canvas.height,
       dpr: 2,
+      alpha: true,
+      premultipliedAlpha: false,
     });
     const gl = renderer.gl;
     // document.body.appendChild(gl.canvas);
-    gl.clearColor(0.9, 0.9, 0.9, 1);
+    // gl.clearColor(0.9, 0.9, 0.9, 1);
 
     const scene = new Transform();
 
@@ -182,7 +184,20 @@ export default function () {
 
   return (
     <div>
-      <canvas ref={canvasRef} width="480" height="270" />
+      <canvas
+        ref={canvasRef}
+        width="480"
+        height="270"
+        style={{
+          background: `#fff
+            url('data:image/svg+xml,\
+           <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"         fill-opacity=".05" >\
+                    <rect x="100" width="100" height="100" />\
+                    <rect y="100" width="100" height="100" />\
+                    </svg>')`,
+          backgroundSize: "10%",
+        }}
+      />
     </div>
   );
 }

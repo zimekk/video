@@ -7,6 +7,7 @@ import Blob from "./Blob";
 import Cube from "./Cube";
 import Fireworks from "./Fireworks";
 import Gradients from "./Gradients";
+import Json2d from "./Json2d";
 import Letters from "./Letters";
 import Luts from "./Luts";
 import Polylines from "./Polylines";
@@ -28,7 +29,10 @@ function App() {
     <div className={styles.App}>
       <h1>Video</h1>
       <div>
-        <button onClick={() => dispatch(increment())}>{counter}</button>
+        <div>
+          <button onClick={() => dispatch(increment())}>{counter}</button>
+        </div>
+        <Json2d />
         <Cube />
         <Polylines />
         <SpriteJs />

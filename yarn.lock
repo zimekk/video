@@ -2262,6 +2262,11 @@ dotenv@^9.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-9.0.0.tgz#2408af4e39378375b7eebe30b7b54989e36d6e46"
   integrity sha512-yy3x9XjojW8ROTBePD25AcMoHqGHsvHmtfw8QWlpEXyMMXXPj6brUA464AptUvHuTPRmNz6Sd3ZLNLeJl6dHJA==
 
+draw-image-normalized@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/draw-image-normalized/-/draw-image-normalized-0.1.1.tgz#5f338b5495bc6413855a44f65162f11ca8c543a3"
+  integrity sha1-XzOLVJW8ZBOFWkT2UWLxHKjFQ6M=
+
 dup@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dup/-/dup-1.0.0.tgz#51fc5ac685f8196469df0b905e934b20af5b4029"
@@ -3949,6 +3954,14 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
+json2d@^1.1.1:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/json2d/-/json2d-1.2.0.tgz#fa1febd985c0845c327ca1b0b5090755f91b2092"
+  integrity sha1-+h/r2YXAhFwyfKGwtQkHVfkbIJI=
+  dependencies:
+    draw-image-normalized "^0.1.1"
+    rect-crop "0.0.0"
+
 json3@^3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/json3/-/json3-3.3.3.tgz#7fc10e375fc5ae42c4705a5cc0aa6f62be305b81"
@@ -5091,7 +5104,7 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-prop-types@^15.6.1, prop-types@^15.7.2:
+prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -5255,6 +5268,14 @@ react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-json2d@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-json2d/-/react-json2d-0.3.0.tgz#97fc11ea87691a9e9aa35f703e7c13836be3ea82"
+  integrity sha512-v40xnfmGoMQkZGp9LPtP7bzQC0muhXC+lTcypWewCj569iMJCSIjbhcrAbrUQ7DIGP1ET4xp7XNYIpDW5BoNZQ==
+  dependencies:
+    json2d "^1.1.1"
+    prop-types "^15.6.0"
+
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -5334,6 +5355,11 @@ rechoir@^0.7.0:
   integrity sha512-ADsDEH2bvbjltXEP+hTIAmeFekTFK0V2BTxMkok6qILyAJEXV0AFfoWcAq4yfll5VdIMd/RVXq0lR+wQi5ZU3Q==
   dependencies:
     resolve "^1.9.0"
+
+rect-crop@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/rect-crop/-/rect-crop-0.0.0.tgz#f6ea75863021177566887d4ca60e466e8a1c3898"
+  integrity sha1-9up1hjAhF3VmiH1Mpg5GboocOJg=
 
 reduce-reducers@^0.4.3:
   version "0.4.3"

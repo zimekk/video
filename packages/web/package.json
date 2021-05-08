@@ -24,6 +24,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-gl-transition": "^1.19.2",
+    "react-json2d": "^0.3.0",
     "react-redux": "^7.2.3",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",

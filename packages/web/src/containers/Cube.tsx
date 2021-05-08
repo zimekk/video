@@ -213,25 +213,49 @@ function createParticlesMesh(gl) {
 }
 
 // https://codesandbox.io/s/ogl-5i69p
-function createCubeMesh(gl) {
+// https://github.com/oframe/ogl/blob/master/examples/textures.html
+function createCubeMesh(gl, { video }) {
   const geometry = new Box(gl);
 
+  // Upload empty texture while source loading
+  const texture = new Texture(gl);
+
   const program = new Program(gl, {
-    vertex: `
-        attribute vec3 position;
-
-        uniform mat4 modelViewMatrix;
-        uniform mat4 projectionMatrix;
-
-        void main() {
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-        `,
-    fragment: `
-        void main() {
-          gl_FragColor = vec4(1.0);
-        }
-        `,
+    vertex: /* glsl */ `
+    attribute vec2 uv;
+    attribute vec3 position;
+    attribute vec3 normal;
+    uniform mat4 modelViewMatrix;
+    uniform mat4 projectionMatrix;
+    uniform mat3 normalMatrix;
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    void main() {
+        vUv = uv;
+        vNormal = normalize(normalMatrix * normal);
+        
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+`,
+    fragment: /* glsl */ `
+    precision highp float;
+    uniform sampler2D tMap;
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    void main() {
+        vec3 normal = normalize(vNormal);
+        vec3 tex = texture2D(tMap, vUv).rgb;
+        
+        vec3 light = normalize(vec3(0.5, 1.0, -0.3));
+        float shading = dot(normal, light) * 0.15;
+        
+        gl_FragColor.rgb = tex + shading;
+        gl_FragColor.a = 1.0;
+    }
+`,
+    uniforms: {
+      tMap: { value: texture },
+    },
   });
 
   const mesh = new Mesh(gl, { geometry, program });
@@ -240,6 +264,12 @@ function createCubeMesh(gl) {
     mesh,
     program,
     update: (t) => {
+      // Attach video and/or update texture when video is ready
+      if (video.readyState >= video.HAVE_ENOUGH_DATA) {
+        if (!texture.image) texture.image = video;
+        texture.needsUpdate = true;
+      }
+
       mesh.rotation.y -= 0.04;
       mesh.rotation.x += 0.03;
     },
@@ -248,6 +278,7 @@ function createCubeMesh(gl) {
 
 export default function () {
   const canvasRef = useRef();
+  const videoRef = useRef();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -295,7 +326,9 @@ export default function () {
     } = createParticlesMesh(gl);
     particles.setParent(scene);
 
-    const { mesh: cubeMesh, update: updateCubeMesh } = createCubeMesh(gl);
+    const { mesh: cubeMesh, update: updateCubeMesh } = createCubeMesh(gl, {
+      video: videoRef.current,
+    });
     cubeMesh.setParent(scene);
 
     requestAnimationFrame(update);
@@ -323,6 +356,15 @@ export default function () {
 
   return (
     <div>
+      <video
+        ref={videoRef}
+        src="https://webrtc.github.io/samples/src/video/chrome.webm"
+        width="480"
+        height="270"
+        preload="none"
+        crossOrigin="anonymous"
+        controls
+      />
       <canvas ref={canvasRef} width="480" height="270" />
     </div>
   );
