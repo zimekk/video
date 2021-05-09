@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { increment } from "../actions";
 import Animation from "./Animation";
 import Blob from "./Blob";
+import Canvas from "./Canvas";
+import CanvasVideo from "./CanvasVideo";
 import Cube from "./Cube";
 import Fireworks from "./Fireworks";
 import Gradients from "./Gradients";
@@ -13,7 +15,6 @@ import Luts from "./Luts";
 import Polylines from "./Polylines";
 import Recorder from "./Recorder";
 import SpriteJs from "./SpriteJs";
-import Canvas from "./Canvas";
 import Thumbnails from "./Thumbnails";
 import Transcode from "./Transcode";
 import Transitions from "./Transitions";
@@ -33,6 +34,7 @@ function App() {
         <div>
           <button onClick={() => dispatch(increment())}>{counter}</button>
         </div>
+        <CanvasVideo />
         <VideoTransitions />
         <Json2d />
         <Cube />

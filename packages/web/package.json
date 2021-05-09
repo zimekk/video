@@ -14,6 +14,7 @@
     "animejs": "^3.2.1",
     "b-spline": "^2.0.1",
     "buffer": "^6.0.3",
+    "canvas2video": "^1.1.4",
     "events": "^3.3.0",
     "gl-react": "^5.0.0",
     "gl-react-dom": "^5.1.0",

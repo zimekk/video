@@ -31,8 +31,6 @@ export class Video extends Component {
   }
   render() {
     const { onFrame, ...rest } = this.props;
-    console.log(["render"]);
-    // return null;
     return <video {...rest} ref="video" />;
   }
 }
