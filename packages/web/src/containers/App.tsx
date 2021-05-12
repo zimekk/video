@@ -20,6 +20,7 @@ import Transcode from "./Transcode";
 import Transitions from "./Transitions";
 import Video from "./Video";
 import VideoContext from "./VideoContext";
+import VideoPlayer from "./VideoPlayer";
 import VideoTransitions from "./VideoTransitions";
 import styles from "./App.module.scss";
 
@@ -34,6 +35,7 @@ function App() {
         <div>
           <button onClick={() => dispatch(increment())}>{counter}</button>
         </div>
+        <VideoPlayer />
         <CanvasVideo />
         <VideoTransitions />
         <Json2d />

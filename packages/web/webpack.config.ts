@@ -57,7 +57,10 @@ const config = {
       events: "events",
       "react-dom": "@hot-loader/react-dom",
     },
-    fallback: { buffer: require.resolve("buffer") },
+    fallback: {
+      buffer: require.resolve("buffer"),
+      stream: require.resolve("stream-browserify"),
+    },
   },
   output: {
     path: path.resolve(__dirname, "public"),
