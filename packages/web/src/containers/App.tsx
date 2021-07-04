@@ -16,6 +16,7 @@ import Polylines from "./Polylines";
 import Recorder from "./Recorder";
 import SpriteJs from "./SpriteJs";
 import Thumbnails from "./Thumbnails";
+import Timeline from "./Timeline";
 import Transcode from "./Transcode";
 import Transitions from "./Transitions";
 import Video from "./Video";
@@ -35,6 +36,7 @@ function App() {
         <div>
           <button onClick={() => dispatch(increment())}>{counter}</button>
         </div>
+        <Timeline />
         <VideoPlayer />
         <CanvasVideo />
         <VideoTransitions />
