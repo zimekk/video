@@ -52,7 +52,10 @@
     "reset": "rm -rf node_modules packages/*/node_modules",
     "serve": "yarn workspace @dev/app serve",
     "start": "yarn workspace @dev/app start",
-    "update": "yarn upgrade-interactive --latest"
+    "dedupe": "yarn-deduplicate",
+    "dedupe:list": "yarn-deduplicate --list",
+    "update": "yarn upgrade-interactive",
+    "update:latest": "yarn upgrade-interactive --latest"
   },
   "workspaces": [
     "packages/*"
@@ -64,8 +67,8 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@typescript-eslint/eslint-plugin": "^4.29.0",
-    "@typescript-eslint/parser": "^4.29.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "^3.4.0",
