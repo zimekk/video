@@ -22,6 +22,7 @@
     "gl-texture2d": "^2.1.0",
     "gl-transition": "^1.13.0",
     "gl-transitions": "^1.43.0",
+    "history": "^5.0.1",
     "hoist-non-react-statics": "^3.3.2",
     "ogl": "^0.0.73",
     "raf": "^3.4.1",
