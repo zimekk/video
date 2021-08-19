@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
@@ -11,27 +12,97 @@ const VIDEOS = [
   "https://mdn.github.io/dom-examples/canvas/chroma-keying/media/video.mp4",
 ];
 
+// https://github.com/ffmpegwasm/ffmpeg.wasm#use-other-version-of-ffmpegwasm-core--ffmpegcore
+const ffmpeg = createFFmpeg({
+  corePath: process.env.FFMPEG_CORE_PATH,
+  log: true,
+});
+
 // https://www.videvo.net/video/flying-over-forest-3/4650/
 // https://mux.com/blog/canvas-adding-filters-and-more-to-video-using-just-a-browser/
 export default function Video({ counter }: { counter: number }) {
   const [options, setOptions] = useState([]);
   const [selected, setSelected] = useState([]);
-  const [frames, setFrames] = useState([]);
+  const [frames, setFrames] = useState([
+    require(`../../assets/triangle/tmp.000.png`).default,
+    require(`../../assets/triangle/tmp.001.png`).default,
+    require(`../../assets/triangle/tmp.002.png`).default,
+    require(`../../assets/triangle/tmp.003.png`).default,
+    require(`../../assets/triangle/tmp.004.png`).default,
+    require(`../../assets/triangle/tmp.005.png`).default,
+    require(`../../assets/triangle/tmp.006.png`).default,
+    require(`../../assets/triangle/tmp.007.png`).default,
+    require(`../../assets/triangle/tmp.008.png`).default,
+    require(`../../assets/triangle/tmp.009.png`).default,
+    require(`../../assets/triangle/tmp.010.png`).default,
+    require(`../../assets/triangle/tmp.011.png`).default,
+    require(`../../assets/triangle/tmp.012.png`).default,
+    require(`../../assets/triangle/tmp.013.png`).default,
+    require(`../../assets/triangle/tmp.014.png`).default,
+    require(`../../assets/triangle/tmp.015.png`).default,
+    require(`../../assets/triangle/tmp.016.png`).default,
+    require(`../../assets/triangle/tmp.017.png`).default,
+    require(`../../assets/triangle/tmp.018.png`).default,
+    require(`../../assets/triangle/tmp.019.png`).default,
+    require(`../../assets/triangle/tmp.020.png`).default,
+    require(`../../assets/triangle/tmp.021.png`).default,
+    require(`../../assets/triangle/tmp.022.png`).default,
+    require(`../../assets/triangle/tmp.023.png`).default,
+    require(`../../assets/triangle/tmp.024.png`).default,
+    require(`../../assets/triangle/tmp.025.png`).default,
+    require(`../../assets/triangle/tmp.026.png`).default,
+    require(`../../assets/triangle/tmp.027.png`).default,
+    require(`../../assets/triangle/tmp.028.png`).default,
+    require(`../../assets/triangle/tmp.029.png`).default,
+    require(`../../assets/triangle/tmp.030.png`).default,
+    require(`../../assets/triangle/tmp.031.png`).default,
+    require(`../../assets/triangle/tmp.032.png`).default,
+    require(`../../assets/triangle/tmp.033.png`).default,
+    require(`../../assets/triangle/tmp.034.png`).default,
+    require(`../../assets/triangle/tmp.035.png`).default,
+    require(`../../assets/triangle/tmp.036.png`).default,
+    require(`../../assets/triangle/tmp.037.png`).default,
+    require(`../../assets/triangle/tmp.038.png`).default,
+    require(`../../assets/triangle/tmp.039.png`).default,
+    require(`../../assets/triangle/tmp.040.png`).default,
+    require(`../../assets/triangle/tmp.041.png`).default,
+    require(`../../assets/triangle/tmp.042.png`).default,
+    require(`../../assets/triangle/tmp.043.png`).default,
+    require(`../../assets/triangle/tmp.044.png`).default,
+    require(`../../assets/triangle/tmp.045.png`).default,
+    require(`../../assets/triangle/tmp.046.png`).default,
+    require(`../../assets/triangle/tmp.047.png`).default,
+    require(`../../assets/triangle/tmp.048.png`).default,
+    require(`../../assets/triangle/tmp.049.png`).default,
+    require(`../../assets/triangle/tmp.050.png`).default,
+    require(`../../assets/triangle/tmp.051.png`).default,
+    require(`../../assets/triangle/tmp.052.png`).default,
+    require(`../../assets/triangle/tmp.053.png`).default,
+    require(`../../assets/triangle/tmp.054.png`).default,
+    require(`../../assets/triangle/tmp.055.png`).default,
+    require(`../../assets/triangle/tmp.056.png`).default,
+    require(`../../assets/triangle/tmp.057.png`).default,
+    require(`../../assets/triangle/tmp.058.png`).default,
+    require(`../../assets/triangle/tmp.059.png`).default,
+  ]);
   const [effect, setEffect] = useState(Object.keys(EFFECTS)[0]);
   const [src, setVideo] = useState(VIDEOS[0]);
+  const [videoSrc, setVideoSrc] = useState("");
+  const [message, setMessage] = useState("Click Start to transcode");
   const video = useRef();
   const canvas = useRef();
-  // const image = useRef();
 
   const capture = useCallback(() => {
     setFrames((frames) => frames.concat(canvas.current.toDataURL()));
   }, [setFrames]);
+
   const remove = useCallback(() => {
     setFrames((frames) =>
       frames.filter((_frame, index) => !selected.includes(index))
     );
     setSelected([]);
   }, [selected, setFrames]);
+
   const toggleSelected = useCallback(
     (index) => {
       setSelected((selected) =>
@@ -42,6 +113,48 @@ export default function Video({ counter }: { counter: number }) {
     },
     [setSelected]
   );
+
+  const doTranscode = useCallback(async () => {
+    // https://github.com/ffmpegwasm/ffmpeg.wasm/blob/master/examples/browser/image2video.html
+    if (!ffmpeg.isLoaded()) {
+      setMessage("Loading ffmpeg-core.js");
+      await ffmpeg.load();
+    }
+    setMessage("Loading data");
+    ffmpeg.FS(
+      "writeFile",
+      "audio.ogg",
+      await fetchFile(require("../../assets/triangle/audio.ogg").default)
+    );
+    for (let i = 0; i < frames.length; i += 1) {
+      const num = `00${i}`.slice(-3);
+      ffmpeg.FS("writeFile", `tmp.${num}.png`, await fetchFile(frames[i]));
+    }
+    setMessage("Start transcoding");
+    await ffmpeg.run(
+      "-framerate",
+      "30",
+      "-pattern_type",
+      "glob",
+      "-i",
+      "*.png",
+      "-i",
+      "audio.ogg",
+      "-c:a",
+      "copy",
+      "-shortest",
+      "-c:v",
+      "libx264",
+      "-pix_fmt",
+      "yuv420p",
+      "out.mp4"
+    );
+    setMessage("Complete transcoding");
+    const data = ffmpeg.FS("readFile", "out.mp4");
+    setVideoSrc(
+      URL.createObjectURL(new Blob([data.buffer], { type: "video/mp4" }))
+    );
+  }, [frames, setMessage, setVideoSrc]);
 
   const counterValue = useRef(counter);
 
@@ -189,6 +302,19 @@ export default function Video({ counter }: { counter: number }) {
         ></canvas>
       </div>
       <div>
+        <video
+          src={videoSrc}
+          width={width}
+          height={height}
+          crossOrigin="anonymous"
+          controls
+        />
+        <div>
+          <button onClick={doTranscode}>Transcode</button>
+        </div>
+        <div>{message}</div>
+      </div>
+      <div>
         <select onChange={(e) => (video.current.currentTime = e.target.value)}>
           {options.map((value, key) => (
             <option key={key} value={value}>
@@ -202,13 +328,6 @@ export default function Video({ counter }: { counter: number }) {
         </button>{" "}
       </div>
       <div>
-        {/* <img
-          ref={image}
-          className={styles.Image}
-          width="480"
-          height="270"
-          alt=""
-        /> */}
         {frames.map((image, index) => (
           <img
             key={index}
