@@ -3,10 +3,6 @@ import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
-const EFFECTS = Object.freeze({
-  GRAY_SCALE: "GRAY_SCALE",
-  CHROMA_KEY: "CHROMA_KEY",
-});
 const VIDEOS = [
   "https://webrtc.github.io/samples/src/video/chrome.webm",
   "https://mdn.github.io/dom-examples/canvas/chroma-keying/media/video.mp4",
@@ -20,8 +16,7 @@ const ffmpeg = createFFmpeg({
 
 // https://www.videvo.net/video/flying-over-forest-3/4650/
 // https://mux.com/blog/canvas-adding-filters-and-more-to-video-using-just-a-browser/
-export default function Video({ counter }: { counter: number }) {
-  const [options, setOptions] = useState([]);
+export default function Video() {
   const [selected, setSelected] = useState([]);
   const [frames, setFrames] = useState([
     require(`../../assets/triangle/tmp.000.png`).default,
@@ -85,7 +80,6 @@ export default function Video({ counter }: { counter: number }) {
     require(`../../assets/triangle/tmp.058.png`).default,
     require(`../../assets/triangle/tmp.059.png`).default,
   ]);
-  const [effect, setEffect] = useState(Object.keys(EFFECTS)[0]);
   const [src, setVideo] = useState(VIDEOS[0]);
   const [videoSrc, setVideoSrc] = useState("");
   const [message, setMessage] = useState("Click Start to transcode");
@@ -156,12 +150,6 @@ export default function Video({ counter }: { counter: number }) {
     );
   }, [frames, setMessage, setVideoSrc]);
 
-  const counterValue = useRef(counter);
-
-  useEffect(() => {
-    counterValue.current = counter;
-  }, [counter]);
-
   useEffect(() => {
     const context = canvas.current.getContext("2d");
 
@@ -197,26 +185,6 @@ export default function Video({ counter }: { counter: number }) {
         canvas.current.height
       );
 
-      const { data } = imageData;
-
-      // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Manipulating_video_using_canvas
-      // https://github.com/mdn/dom-examples/tree/master/canvas/chroma-keying
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i],
-          g = data[i + 1],
-          b = data[i + 2];
-        if (effect === EFFECTS.GRAY_SCALE) {
-          var avg = (r + g + b) / 3;
-          data[i] = avg; // red
-          data[i + 1] = avg; // green
-          data[i + 2] = avg; // blue
-        } else if (effect === EFFECTS.CHROMA_KEY) {
-          if (g > 100 && r > 100 && b < 43) {
-            data[i + 3] = 0;
-          }
-        }
-      }
-
       context.putImageData(
         imageData,
         0,
@@ -227,8 +195,7 @@ export default function Video({ counter }: { counter: number }) {
         video.current.height
       );
 
-      renderText(counterValue.current, 10, 40);
-      renderText(video.current.currentTime, 480 - 10, 270 - 20, "right");
+      renderText(video.current.currentTime, width - 10, height - 20, "right");
 
       // https://web.dev/requestvideoframecallback-rvfc/
       video.current.requestVideoFrameCallback(update);
@@ -244,8 +211,6 @@ export default function Video({ counter }: { counter: number }) {
       // Set canvas dimensions same as video dimensions
       const { videoWidth, videoHeight, duration } = video.current;
       console.log(["loadedmetadata"], { videoWidth, videoHeight, duration });
-
-      setOptions([...Array(Math.floor(duration))].map((i, n) => n));
     };
     // Video playback position is changed
     const timeupdate = () => {
@@ -260,7 +225,7 @@ export default function Video({ counter }: { counter: number }) {
     return () => {
       video.current.removeEventListener("play", play);
     };
-  }, [video, canvas, src, effect]);
+  }, [video, canvas, src]);
 
   const [width, height] = [240, 135];
 
@@ -284,48 +249,26 @@ export default function Video({ counter }: { counter: number }) {
         crossOrigin="anonymous"
         controls
       />
+      <canvas
+        ref={canvas}
+        className={styles.Canvas}
+        width={width}
+        height={height}
+      ></canvas>
+      <video
+        src={videoSrc}
+        width={width}
+        height={height}
+        crossOrigin="anonymous"
+        controls
+      />
       <div>
-        <select value={effect} onChange={(e) => setEffect(e.target.value)}>
-          {Object.entries(EFFECTS).map(([value, label], key) => (
-            <option key={key} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <canvas
-          ref={canvas}
-          className={styles.Canvas}
-          width={width}
-          height={height}
-        ></canvas>
-      </div>
-      <div>
-        <video
-          src={videoSrc}
-          width={width}
-          height={height}
-          crossOrigin="anonymous"
-          controls
-        />
-        <div>
-          <button onClick={doTranscode}>Transcode</button>
-        </div>
-        <div>{message}</div>
-      </div>
-      <div>
-        <select onChange={(e) => (video.current.currentTime = e.target.value)}>
-          {options.map((value, key) => (
-            <option key={key} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-        <button onClick={() => capture()}>capture</button>{" "}
-        <button onClick={() => remove()} disabled={selected.length == 0}>
-          remove
+        <button onClick={() => capture()}>Capture</button>{" "}
+        <button onClick={() => remove()} disabled={selected.length === 0}>
+          Remove{selected.length > 0 && ` (${selected.length})`}
         </button>{" "}
+        <button onClick={doTranscode}>Transcode</button>
+        <span>{message}</span>
       </div>
       <div>
         {frames.map((image, index) => (
