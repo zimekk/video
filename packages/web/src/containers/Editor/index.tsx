@@ -86,6 +86,31 @@ export default function Video() {
   const [message, setMessage] = useState("Click Start to transcode");
   const video = useRef();
   const canvas = useRef();
+  const [media, setMedia] = useState(null);
+
+  const [width, height] = [320, 240];
+
+  const startRecording = useCallback(
+    () =>
+      navigator.mediaDevices
+        // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#parameters
+        .getUserMedia({
+          video: { width, height },
+        })
+        .then((stream) => {
+          video.current.srcObject = stream;
+          video.current.onloadedmetadata = (e) => video.current.play();
+          setMedia({ stream });
+        })
+        .catch(console.info),
+    [setMedia, video, navigator]
+  );
+
+  const stopRecording = useCallback(() => {
+    media.stream.getVideoTracks()[0].stop();
+    video.current.pause();
+    setMedia(null);
+  }, [setMedia, media, video]);
 
   const capture = useCallback(() => {
     setFrames((frames) => frames.concat(canvas.current.toDataURL()));
@@ -114,25 +139,6 @@ export default function Video() {
 
       context.drawImage(image, 0, 0, width, height);
 
-      // const imageData = context.getImageData(
-      //   0,
-      //   0,
-      //   canvas.current.width,
-      //   canvas.current.height
-      // );
-
-      // const imageData = frames[index]
-
-      //     context.putImageData(
-      //       imageData,
-      //       0,
-      //       0,
-      //       0,
-      //       0,
-      //       width,
-      //       height
-      //     );
-
       renderText(`#${index}`, width - 10, height - 20, "right");
     },
     [frames, canvas]
@@ -158,6 +164,8 @@ export default function Video() {
     await ffmpeg.run(
       "-framerate",
       "10",
+      "-video_size",
+      `${width}x${height}`,
       "-pattern_type",
       "glob",
       "-i",
@@ -167,8 +175,6 @@ export default function Video() {
       "-c:a",
       "copy",
       "-shortest",
-      "-vf",
-      "scale=320:240",
       "-c:v",
       "libx264",
       "-pix_fmt",
@@ -202,30 +208,7 @@ export default function Video() {
       }
 
       // http://appcropolis.com/blog/web-technology/using-html5-canvas-to-capture-frames-from-a-video/
-      context.drawImage(
-        video.current,
-        0,
-        0,
-        video.current.width,
-        video.current.height
-      );
-
-      // const imageData = context.getImageData(
-      //   0,
-      //   0,
-      //   canvas.current.width,
-      //   canvas.current.height
-      // );
-
-      // context.putImageData(
-      //   imageData,
-      //   0,
-      //   0,
-      //   0,
-      //   0,
-      //   video.current.width,
-      //   video.current.height
-      // );
+      context.drawImage(video.current, 0, 0, width, height);
 
       renderText(video.current.currentTime, width - 10, height - 20, "right");
 
@@ -258,8 +241,6 @@ export default function Video() {
       video.current.removeEventListener("play", play);
     };
   }, [video, canvas, src]);
-
-  const [width, height] = [240, 135];
 
   return (
     <div>
@@ -295,7 +276,19 @@ export default function Video() {
         controls
       />
       <div>
+        {media ? (
+          <button key="stop" onClick={stopRecording}>
+            Stop Recording
+          </button>
+        ) : (
+          <button key="start" onClick={startRecording}>
+            Start Recording
+          </button>
+        )}
         <button onClick={() => capture()}>Capture</button>{" "}
+        <button onClick={() => setSelected(frames.map((_i, i) => i))}>
+          Select All
+        </button>{" "}
         <button onClick={() => remove()} disabled={selected.length === 0}>
           Remove{selected.length > 0 && ` (${selected.length})`}
         </button>{" "}
