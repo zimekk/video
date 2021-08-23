@@ -18,6 +18,7 @@ const ffmpeg = createFFmpeg({
 // https://mux.com/blog/canvas-adding-filters-and-more-to-video-using-just-a-browser/
 export default function Video() {
   const [selected, setSelected] = useState([]);
+  const [lastSelected, setLastSelected] = useState(null);
   const [frames, setFrames] = useState([
     require(`../../assets/triangle/tmp.000.png`).default,
     require(`../../assets/triangle/tmp.001.png`).default,
@@ -97,15 +98,44 @@ export default function Video() {
     setSelected([]);
   }, [selected, setFrames]);
 
-  const toggleSelected = useCallback(
-    (index) => {
-      setSelected((selected) =>
-        selected.includes(index)
-          ? selected.filter((i) => index !== i)
-          : selected.concat(index)
-      );
+  const showFrame = useCallback(
+    (image, index) => {
+      const context = canvas.current.getContext("2d");
+
+      const renderText = (text, x, y, textAlign = "left") => {
+        context.font = "30px Sans-serif";
+        context.textAlign = textAlign;
+        context.strokeStyle = "black";
+        context.lineWidth = 4;
+        context.strokeText(text, x, y);
+        context.fillStyle = "white";
+        context.fillText(text, x, y);
+      };
+
+      context.drawImage(image, 0, 0, width, height);
+
+      // const imageData = context.getImageData(
+      //   0,
+      //   0,
+      //   canvas.current.width,
+      //   canvas.current.height
+      // );
+
+      // const imageData = frames[index]
+
+      //     context.putImageData(
+      //       imageData,
+      //       0,
+      //       0,
+      //       0,
+      //       0,
+      //       width,
+      //       height
+      //     );
+
+      renderText(`#${index}`, width - 10, height - 20, "right");
     },
-    [setSelected]
+    [frames, canvas]
   );
 
   const doTranscode = useCallback(async () => {
@@ -127,7 +157,7 @@ export default function Video() {
     setMessage("Start transcoding");
     await ffmpeg.run(
       "-framerate",
-      "30",
+      "10",
       "-pattern_type",
       "glob",
       "-i",
@@ -137,6 +167,8 @@ export default function Video() {
       "-c:a",
       "copy",
       "-shortest",
+      "-vf",
+      "scale=320:240",
       "-c:v",
       "libx264",
       "-pix_fmt",
@@ -178,22 +210,22 @@ export default function Video() {
         video.current.height
       );
 
-      const imageData = context.getImageData(
-        0,
-        0,
-        canvas.current.width,
-        canvas.current.height
-      );
+      // const imageData = context.getImageData(
+      //   0,
+      //   0,
+      //   canvas.current.width,
+      //   canvas.current.height
+      // );
 
-      context.putImageData(
-        imageData,
-        0,
-        0,
-        0,
-        0,
-        video.current.width,
-        video.current.height
-      );
+      // context.putImageData(
+      //   imageData,
+      //   0,
+      //   0,
+      //   0,
+      //   0,
+      //   video.current.width,
+      //   video.current.height
+      // );
 
       renderText(video.current.currentTime, width - 10, height - 20, "right");
 
@@ -282,7 +314,35 @@ export default function Video() {
             width={width}
             height={height}
             alt=""
-            onClick={() => toggleSelected(index)}
+            onClick={(e) => {
+              if (e.shiftKey && lastSelected !== null) {
+                const [from, to] =
+                  lastSelected < index
+                    ? [lastSelected, index]
+                    : [index, lastSelected];
+                setLastSelected(index);
+                setSelected((selected) =>
+                  selected
+                    .filter((i) => i < from || to < i)
+                    .concat(
+                      frames
+                        .map((_i, i) => i)
+                        .filter((i) => from <= i && i <= to)
+                    )
+                );
+              } else if (e.metaKey) {
+                setLastSelected(selected.includes(index) ? null : index);
+                setSelected((selected) =>
+                  selected.includes(index)
+                    ? selected.filter((i) => index !== i)
+                    : selected.concat(index)
+                );
+              } else {
+                setLastSelected(index);
+                setSelected([index]);
+                showFrame(e.currentTarget, index);
+              }
+            }}
           />
         ))}
       </div>
