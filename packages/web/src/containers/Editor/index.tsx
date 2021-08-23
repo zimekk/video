@@ -95,16 +95,19 @@ export default function Video() {
   const selectDevice = useCallback(
     () =>
       navigator.mediaDevices
+        // https://www.html5rocks.com/en/tutorials/getusermedia/intro/#toc-source
         .enumerateDevices()
         .then(
           (deviceInfos) =>
             console.log({ deviceInfos }) ||
-            setDevices(
-              deviceInfos
-                .filter(({ kind }) => ["videoinput"].includes(kind))
-                .map(({ deviceId, kind, label }) => ({ deviceId, kind, label }))
-            )
+            deviceInfos
+              .filter(({ kind }) => ["videoinput"].includes(kind))
+              .map(({ deviceId, kind, label }) => ({ deviceId, kind, label }))
         )
+        .then((devices) => {
+          setDeviceId(devices[0].deviceId);
+          setDevices(devices);
+        })
         .catch(console.info),
     [setDevices, navigator]
   );
@@ -269,14 +272,6 @@ export default function Video() {
             </option>
           ))}
         </select>
-        <select value={deviceId} onChange={(e) => setDeviceId(e.target.value)}>
-          <option value="">--</option>
-          {devices.map(({ deviceId, label }, key) => (
-            <option key={key} value={deviceId}>
-              {label}
-            </option>
-          ))}
-        </select>
       </div>
       <video
         ref={video}
@@ -299,8 +294,21 @@ export default function Video() {
         height={height}
         crossOrigin="anonymous"
         controls
+        loop
       />
       <div>
+        {deviceId && (
+          <select
+            value={deviceId}
+            onChange={(e) => setDeviceId(e.target.value)}
+          >
+            {devices.map(({ deviceId, label }, key) => (
+              <option key={key} value={deviceId}>
+                {label}
+              </option>
+            ))}
+          </select>
+        )}
         {deviceId ? (
           media ? (
             <button key="stop" onClick={stopRecording}>
@@ -317,7 +325,10 @@ export default function Video() {
           </button>
         )}
         <button onClick={() => capture()}>Capture</button>{" "}
-        <button onClick={() => setSelected(frames.map((_i, i) => i))}>
+        <button
+          onClick={() => setSelected(frames.map((_i, i) => i))}
+          disabled={selected.length === frames.length}
+        >
           Select All
         </button>{" "}
         <button onClick={() => remove()} disabled={selected.length === 0}>
@@ -326,11 +337,12 @@ export default function Video() {
         <button onClick={doTranscode}>Transcode</button>
         <span>{message}</span>
       </div>
-      <div>
+      <div className={styles.Timeline}>
         {frames.map((image, index) => (
           <img
             key={index}
             src={image}
+            style={{ width: `${width / 2}px`, height: `${height / 2}px` }}
             className={cx(
               styles.Image,
               selected.includes(index) && styles.Image__Selected

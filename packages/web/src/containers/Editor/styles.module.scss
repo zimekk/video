@@ -11,8 +11,18 @@
 }
 
 .Image {
-  border: 1px solid gray;
+  border: 3px solid gray;
   &__Selected {
     border-color: blue;
+  }
+}
+
+.Timeline {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  width: 100%;
+  .Image {
+    margin: 1px;
   }
 }
