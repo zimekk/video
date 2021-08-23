@@ -87,24 +87,41 @@ export default function Video() {
   const video = useRef();
   const canvas = useRef();
   const [media, setMedia] = useState(null);
+  const [devices, setDevices] = useState([]);
+  const [deviceId, setDeviceId] = useState("");
 
   const [width, height] = [320, 240];
 
-  const startRecording = useCallback(
+  const selectDevice = useCallback(
     () =>
       navigator.mediaDevices
-        // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#parameters
-        .getUserMedia({
-          video: { width, height },
-        })
-        .then((stream) => {
-          video.current.srcObject = stream;
-          video.current.onloadedmetadata = (e) => video.current.play();
-          setMedia({ stream });
-        })
+        .enumerateDevices()
+        .then(
+          (deviceInfos) =>
+            console.log({ deviceInfos }) ||
+            setDevices(
+              deviceInfos
+                .filter(({ kind }) => ["videoinput"].includes(kind))
+                .map(({ deviceId, kind, label }) => ({ deviceId, kind, label }))
+            )
+        )
         .catch(console.info),
-    [setMedia, video, navigator]
+    [setDevices, navigator]
   );
+
+  const startRecording = useCallback(() => {
+    navigator.mediaDevices
+      // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#parameters
+      .getUserMedia({
+        video: { deviceId: { exact: deviceId } },
+      })
+      .then((stream) => {
+        video.current.srcObject = stream;
+        video.current.onloadedmetadata = (e) => video.current.play();
+        setMedia({ stream });
+      })
+      .catch(console.info);
+  }, [deviceId, setMedia, video, navigator]);
 
   const stopRecording = useCallback(() => {
     media.stream.getVideoTracks()[0].stop();
@@ -252,6 +269,14 @@ export default function Video() {
             </option>
           ))}
         </select>
+        <select value={deviceId} onChange={(e) => setDeviceId(e.target.value)}>
+          <option value="">--</option>
+          {devices.map(({ deviceId, label }, key) => (
+            <option key={key} value={deviceId}>
+              {label}
+            </option>
+          ))}
+        </select>
       </div>
       <video
         ref={video}
@@ -276,13 +301,19 @@ export default function Video() {
         controls
       />
       <div>
-        {media ? (
-          <button key="stop" onClick={stopRecording}>
-            Stop Recording
-          </button>
+        {deviceId ? (
+          media ? (
+            <button key="stop" onClick={stopRecording}>
+              Stop Recording
+            </button>
+          ) : (
+            <button key="start" onClick={startRecording}>
+              Start Recording
+            </button>
+          )
         ) : (
-          <button key="start" onClick={startRecording}>
-            Start Recording
+          <button key="select" onClick={selectDevice}>
+            Select Device
           </button>
         )}
         <button onClick={() => capture()}>Capture</button>{" "}
