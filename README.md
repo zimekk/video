@@ -20,7 +20,10 @@ ssh-keygen -t rsa -b 4096 -C "" -f ACTIONS_DEPLOY_KEY -N ""
 - [ ] copy/paste frames
 - [ ] move frames
 - [ ] export video
+- [x] select frame rate
 - [ ] select video size
 - [ ] export images
 - [ ] import images
 - [ ] save/load project
+- [ ] show transcode progress
+- [ ] server-side transcode

@@ -3,6 +3,8 @@ import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
+const FRAME_RATES = [10, 12, 15, 20, 24, 30, 50, 60];
+
 // https://github.com/ffmpegwasm/ffmpeg.wasm#use-other-version-of-ffmpegwasm-core--ffmpegcore
 const ffmpeg = createFFmpeg({
   corePath: process.env.FFMPEG_CORE_PATH,
@@ -95,9 +97,9 @@ export default function Video() {
   const [devices, setDevices] = useState([]);
   const [deviceId, setDeviceId] = useState("");
   const [playing, setPlaying] = useState(null);
+  const [frameRate, setFrameRate] = useState(FRAME_RATES[0]);
 
   const [width, height] = [320, 240];
-  const framerate = 10;
 
   const selectDevice = useCallback(
     () =>
@@ -190,10 +192,10 @@ export default function Video() {
             return nextFrame;
           });
           timer();
-        }, 1000 / framerate)
+        }, 1000 / frameRate)
       );
     },
-    [setLastSelected, setPlaying, showFrame, frames]
+    [setLastSelected, setPlaying, showFrame, frames, frameRate]
   );
 
   const stopPlaying = useCallback(() => {
@@ -219,7 +221,7 @@ export default function Video() {
     setMessage("Start transcoding");
     await ffmpeg.run(
       "-framerate",
-      `${framerate}`,
+      `${frameRate}`,
       "-video_size",
       `${width}x${height}`,
       "-pattern_type",
@@ -242,7 +244,7 @@ export default function Video() {
     setVideoSrc(
       URL.createObjectURL(new Blob([data.buffer], { type: "video/mp4" }))
     );
-  }, [frames, setMessage, setVideoSrc]);
+  }, [frames, frameRate, setMessage, setVideoSrc]);
 
   useEffect(() => {
     const context = canvas.current.getContext("2d");
@@ -348,6 +350,16 @@ export default function Video() {
         <button onClick={() => remove()} disabled={selected.length === 0}>
           Remove{selected.length > 0 && ` (${selected.length})`}
         </button>{" "}
+        <select
+          value={frameRate}
+          onChange={(e) => setFrameRate(e.target.value)}
+        >
+          {FRAME_RATES.map((value, key) => (
+            <option key={key} value={value}>
+              {`${value} fps`}
+            </option>
+          ))}
+        </select>
         {playing ? (
           <button key="stopPlaying" onClick={stopPlaying}>
             Stop
