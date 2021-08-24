@@ -356,50 +356,60 @@ export default function Video() {
         <button onClick={doTranscode}>Transcode</button>
         <span>{message}</span>
       </div>
-      <div className={styles.Timeline}>
-        {frames.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            style={{ width: `${width / 2}px`, height: `${height / 2}px` }}
-            className={cx(
-              styles.Image,
-              selected.includes(index) && styles.Image__Selected
-            )}
-            width={width}
-            height={height}
-            alt=""
-            onClick={(e) => {
-              if (e.shiftKey && lastSelected !== null) {
-                const [from, to] =
-                  lastSelected < index
-                    ? [lastSelected, index]
-                    : [index, lastSelected];
-                setLastSelected(index);
-                setSelected((selected) =>
-                  selected
-                    .filter((i) => i < from || to < i)
-                    .concat(
-                      frames
-                        .map((_i, i) => i)
-                        .filter((i) => from <= i && i <= to)
-                    )
-                );
-              } else if (e.metaKey) {
-                setLastSelected(selected.includes(index) ? null : index);
-                setSelected((selected) =>
-                  selected.includes(index)
-                    ? selected.filter((i) => index !== i)
-                    : selected.concat(index)
-                );
-              } else {
-                setLastSelected(index);
-                setSelected([index]);
-                showFrame(image, index);
-              }
-            }}
-          />
-        ))}
+      <div className={styles.Scroller}>
+        <div className={styles.Timeline}>
+          <div className={styles.Time}></div>
+          <div className={styles.Line}>
+            {frames.map((image, index) => (
+              <div
+                key={index}
+                className={cx(
+                  styles.Frame,
+                  selected.includes(index) && styles.Frame__Selected
+                )}
+              >
+                <div className={styles.Scale}>{`#${index}`}</div>
+                <img
+                  src={image}
+                  style={{ width: `${width / 2}px`, height: `${height / 2}px` }}
+                  className={styles.Image}
+                  width={width}
+                  height={height}
+                  alt=""
+                  onClick={(e) => {
+                    if (e.shiftKey && lastSelected !== null) {
+                      const [from, to] =
+                        lastSelected < index
+                          ? [lastSelected, index]
+                          : [index, lastSelected];
+                      setLastSelected(index);
+                      setSelected((selected) =>
+                        selected
+                          .filter((i) => i < from || to < i)
+                          .concat(
+                            frames
+                              .map((_i, i) => i)
+                              .filter((i) => from <= i && i <= to)
+                          )
+                      );
+                    } else if (e.metaKey) {
+                      setLastSelected(selected.includes(index) ? null : index);
+                      setSelected((selected) =>
+                        selected.includes(index)
+                          ? selected.filter((i) => index !== i)
+                          : selected.concat(index)
+                      );
+                    } else {
+                      setLastSelected(index);
+                      setSelected([index]);
+                      showFrame(image, index);
+                    }
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

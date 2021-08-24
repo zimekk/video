@@ -3,26 +3,61 @@
 .Image {
   background: #fff
     url('data:image/svg+xml,\
-   <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"         fill-opacity=".05" >\
-            <rect x="100" width="100" height="100" />\
-            <rect y="100" width="100" height="100" />\
-            </svg>');
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill-opacity=".05" >\
+      <rect x="100" width="100" height="100" />\
+      <rect y="100" width="100" height="100" />\
+      </svg>');
   background-size: 5%;
 }
 
 .Image {
   border: 3px solid gray;
-  &__Selected {
-    border-color: blue;
-  }
+}
+
+.Scroller {
+  overflow-x: scroll;
 }
 
 .Timeline {
   display: flex;
-  flex-direction: row;
-  overflow-x: scroll;
-  width: 100%;
-  .Image {
-    margin: 1px;
+  flex-direction: column;
+  min-width: min-content;
+  .Time {
+    height: 20px;
+    background: #fff
+      url('data:image/svg+xml,\
+        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill-opacity=".05" >\
+        <rect x="100" width="100" height="100" />\
+        <rect y="100" width="100" height="100" />\
+        </svg>');
+    background-size: 166px 20px;
+  }
+  .Line {
+    display: flex;
+    flex-direction: row;
+  }
+  .Frame {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    &__Selected {
+      .Image {
+        border-color: blue;
+      }
+    }
+  }
+  .Scale {
+    font-size: 0.75em;
+    display: flex;
+    height: 15px;
+    padding: 5px;
+    background: #fff
+      url('data:image/svg+xml,\
+        <svg xmlns="http://www.w3.org/2000/svg" fill-opacity=".5" >\
+        <rect x="0" y="5" width="1" height="15" />\
+        <rect x="25%" y="10" width="1" height="10" />\
+        <rect x="50%" y="10" width="1" height="10" />\
+        <rect x="75%" y="10" width="1" height="10" />\
+        </svg>');
   }
 }
