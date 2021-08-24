@@ -163,6 +163,10 @@ export default function Video() {
     setFrames((frames) => frames.concat(canvas.toDataURL()));
   }, [setFrames]);
 
+  // https://stackoverflow.com/questions/19183180/how-to-save-an-image-to-localstorage-and-display-it-on-the-next-page
+  // const importImages = useCallback(() => null, []);
+  // const exportImages = useCallback(() => null, []);
+
   const showFrame = useCallback(
     (src, index) => {
       var image = new window.Image();
