@@ -3,16 +3,22 @@ import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
-const VIDEOS = [
-  "https://webrtc.github.io/samples/src/video/chrome.webm",
-  "https://mdn.github.io/dom-examples/canvas/chroma-keying/media/video.mp4",
-];
-
 // https://github.com/ffmpegwasm/ffmpeg.wasm#use-other-version-of-ffmpegwasm-core--ffmpegcore
 const ffmpeg = createFFmpeg({
   corePath: process.env.FFMPEG_CORE_PATH,
   log: true,
 });
+
+// https://stackoverflow.com/questions/13627111/drawing-text-with-an-outer-stroke-with-html5s-canvas
+const renderText = (context, text, x, y, textAlign = "left") => {
+  context.font = "30px Sans-serif";
+  context.textAlign = textAlign;
+  context.strokeStyle = "black";
+  context.lineWidth = 4;
+  context.strokeText(text, x, y);
+  context.fillStyle = "white";
+  context.fillText(text, x, y);
+};
 
 // https://www.videvo.net/video/flying-over-forest-3/4650/
 // https://mux.com/blog/canvas-adding-filters-and-more-to-video-using-just-a-browser/
@@ -81,7 +87,6 @@ export default function Video() {
     require(`../../assets/triangle/tmp.058.png`).default,
     require(`../../assets/triangle/tmp.059.png`).default,
   ]);
-  const [src, setVideo] = useState(VIDEOS[0]);
   const [videoSrc, setVideoSrc] = useState("");
   const [message, setMessage] = useState("Click Start to transcode");
   const video = useRef();
@@ -89,8 +94,10 @@ export default function Video() {
   const [media, setMedia] = useState(null);
   const [devices, setDevices] = useState([]);
   const [deviceId, setDeviceId] = useState("");
+  const [playing, setPlaying] = useState(null);
 
   const [width, height] = [320, 240];
+  const framerate = 10;
 
   const selectDevice = useCallback(
     () =>
@@ -102,9 +109,17 @@ export default function Video() {
             console.log({ deviceInfos }) ||
             deviceInfos
               .filter(({ kind }) => ["videoinput"].includes(kind))
-              .map(({ deviceId, kind, label }) => ({ deviceId, kind, label }))
+              .map((device) => {
+                const { deviceId, kind, label } = device;
+                const {
+                  width: { max: width },
+                  height: { max: height },
+                } = device.getCapabilities();
+                return { deviceId, kind, label, width, height };
+              })
         )
         .then((devices) => {
+          console.log({ devices });
           setDeviceId(devices[0].deviceId);
           setDevices(devices);
         })
@@ -132,10 +147,6 @@ export default function Video() {
     setMedia(null);
   }, [setMedia, media, video]);
 
-  const capture = useCallback(() => {
-    setFrames((frames) => frames.concat(canvas.current.toDataURL()));
-  }, [setFrames]);
-
   const remove = useCallback(() => {
     setFrames((frames) =>
       frames.filter((_frame, index) => !selected.includes(index))
@@ -143,26 +154,47 @@ export default function Video() {
     setSelected([]);
   }, [selected, setFrames]);
 
+  const capture = useCallback(() => {
+    const canvas = Object.assign(document.createElement("canvas"), {
+      width,
+      height,
+    });
+    canvas.getContext("2d").drawImage(video.current, 0, 0, width, height);
+    setFrames((frames) => frames.concat(canvas.toDataURL()));
+  }, [setFrames]);
+
   const showFrame = useCallback(
-    (image, index) => {
-      const context = canvas.current.getContext("2d");
-
-      const renderText = (text, x, y, textAlign = "left") => {
-        context.font = "30px Sans-serif";
-        context.textAlign = textAlign;
-        context.strokeStyle = "black";
-        context.lineWidth = 4;
-        context.strokeText(text, x, y);
-        context.fillStyle = "white";
-        context.fillText(text, x, y);
-      };
-
-      context.drawImage(image, 0, 0, width, height);
-
-      renderText(`#${index}`, width - 10, height - 20, "right");
+    (src, index) => {
+      var image = new window.Image();
+      image.addEventListener("load", function () {
+        const context = canvas.current.getContext("2d");
+        context.drawImage(image, 0, 0, width, height);
+        renderText(context, `#${index}`, width - 10, height - 20, "right");
+      });
+      image.setAttribute("src", src);
     },
     [frames, canvas]
   );
+
+  const startPlaying = useCallback(
+    function timer() {
+      setPlaying(
+        setTimeout(() => {
+          setLastSelected((index) => {
+            const nextFrame = index < frames.length - 1 ? index + 1 : 0;
+            showFrame(frames[nextFrame], nextFrame);
+            return nextFrame;
+          });
+          timer();
+        }, 1000 / framerate)
+      );
+    },
+    [setLastSelected, setPlaying, showFrame, frames]
+  );
+
+  const stopPlaying = useCallback(() => {
+    setPlaying((playing) => clearTimeout(playing));
+  }, [setPlaying]);
 
   const doTranscode = useCallback(async () => {
     // https://github.com/ffmpegwasm/ffmpeg.wasm/blob/master/examples/browser/image2video.html
@@ -183,7 +215,7 @@ export default function Video() {
     setMessage("Start transcoding");
     await ffmpeg.run(
       "-framerate",
-      "10",
+      `${framerate}`,
       "-video_size",
       `${width}x${height}`,
       "-pattern_type",
@@ -211,17 +243,6 @@ export default function Video() {
   useEffect(() => {
     const context = canvas.current.getContext("2d");
 
-    // https://stackoverflow.com/questions/13627111/drawing-text-with-an-outer-stroke-with-html5s-canvas
-    const renderText = (text, x, y, textAlign = "left") => {
-      context.font = "30px Sans-serif";
-      context.textAlign = textAlign;
-      context.strokeStyle = "black";
-      context.lineWidth = 4;
-      context.strokeText(text, x, y);
-      context.fillStyle = "white";
-      context.fillText(text, x, y);
-    };
-
     const update = () => {
       if (video.current.ended || video.current.paused) {
         return;
@@ -230,7 +251,8 @@ export default function Video() {
       // http://appcropolis.com/blog/web-technology/using-html5-canvas-to-capture-frames-from-a-video/
       context.drawImage(video.current, 0, 0, width, height);
 
-      renderText(video.current.currentTime, width - 10, height - 20, "right");
+      // renderText(video.current.currentTime, width - 10, height - 20, "right");
+      renderText(context, "Live Video", width - 10, height - 20, "right");
 
       // https://web.dev/requestvideoframecallback-rvfc/
       video.current.requestVideoFrameCallback(update);
@@ -260,25 +282,13 @@ export default function Video() {
     return () => {
       video.current.removeEventListener("play", play);
     };
-  }, [video, canvas, src]);
+  }, [video, canvas]);
 
   return (
     <div>
-      <div>
-        <select value={src} onChange={(e) => setVideo(e.target.value)}>
-          {VIDEOS.map((value, key) => (
-            <option key={key} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </div>
       <video
+        style={{ display: "none" }}
         ref={video}
-        src={src}
-        width={width}
-        height={height}
-        // preload="none"
         crossOrigin="anonymous"
         controls
       />
@@ -311,11 +321,11 @@ export default function Video() {
         )}
         {deviceId ? (
           media ? (
-            <button key="stop" onClick={stopRecording}>
+            <button key="stopRecording" onClick={stopRecording}>
               Stop Recording
             </button>
           ) : (
-            <button key="start" onClick={startRecording}>
+            <button key="startRecording" onClick={startRecording}>
               Start Recording
             </button>
           )
@@ -334,6 +344,15 @@ export default function Video() {
         <button onClick={() => remove()} disabled={selected.length === 0}>
           Remove{selected.length > 0 && ` (${selected.length})`}
         </button>{" "}
+        {playing ? (
+          <button key="stopPlaying" onClick={stopPlaying}>
+            Stop
+          </button>
+        ) : (
+          <button key="startPlaying" onClick={startPlaying}>
+            Play
+          </button>
+        )}
         <button onClick={doTranscode}>Transcode</button>
         <span>{message}</span>
       </div>
@@ -376,7 +395,7 @@ export default function Video() {
               } else {
                 setLastSelected(index);
                 setSelected([index]);
-                showFrame(e.currentTarget, index);
+                showFrame(image, index);
               }
             }}
           />
