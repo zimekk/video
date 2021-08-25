@@ -14,14 +14,54 @@
   border: 3px solid gray;
 }
 
+.Layout {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  .Preview {
+    flex: 1;
+  }
+  .Toolbar {
+  }
+  .Scroller {
+  }
+}
+
+.Preview {
+  display: flex;
+  flex-direction: row;
+
+  .Camera {
+    flex: 1;
+  }
+}
+
+.Camera {
+  display: flex;
+  flex-direction: column;
+  .Toolbar {
+  }
+  .Canvas,
+  .Video {
+    flex: 1;
+    max-width: 100%;
+  }
+  .Canvas {
+  }
+  .Video {
+  }
+}
+
 .Scroller {
   overflow-x: scroll;
+  .Timeline {
+    min-width: min-content;
+  }
 }
 
 .Timeline {
   display: flex;
   flex-direction: column;
-  min-width: min-content;
   .Time {
     height: 20px;
     background: #fff

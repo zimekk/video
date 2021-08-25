@@ -99,7 +99,7 @@ export default function Video() {
   const [playing, setPlaying] = useState(null);
   const [frameRate, setFrameRate] = useState(FRAME_RATES[0]);
 
-  const [width, height] = [320, 240];
+  const [width, height] = [1920 / 2, 1080 / 2];
 
   const selectDevice = useCallback(
     () =>
@@ -291,56 +291,88 @@ export default function Video() {
   }, [video, canvas]);
 
   return (
-    <div>
-      <video
-        style={{ display: "none" }}
-        ref={video}
-        crossOrigin="anonymous"
-        controls
-      />
-      <canvas
-        ref={canvas}
-        className={styles.Canvas}
-        width={width}
-        height={height}
-      ></canvas>
-      <video
-        src={videoSrc}
-        width={width}
-        height={height}
-        crossOrigin="anonymous"
-        controls
-        loop
-      />
-      <div>
-        {deviceId && (
-          <select
-            value={deviceId}
-            onChange={(e) => setDeviceId(e.target.value)}
-          >
-            {devices.map(({ deviceId, label }, key) => (
-              <option key={key} value={deviceId}>
-                {label}
-              </option>
-            ))}
-          </select>
-        )}
-        {deviceId ? (
-          media ? (
-            <button key="stopRecording" onClick={stopRecording}>
-              Stop Recording
-            </button>
-          ) : (
-            <button key="startRecording" onClick={startRecording}>
-              Start Recording
-            </button>
-          )
-        ) : (
-          <button key="select" onClick={selectDevice}>
-            Select Device
-          </button>
-        )}
-        <button onClick={() => capture()}>Capture</button>{" "}
+    <div className={styles.Layout}>
+      <div className={styles.Preview}>
+        <div className={styles.Camera}>
+          <div>
+            {deviceId && (
+              <select
+                value={deviceId}
+                onChange={(e) => setDeviceId(e.target.value)}
+              >
+                {devices.map(({ deviceId, label }, key) => (
+                  <option key={key} value={deviceId}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            )}
+            {deviceId ? (
+              media ? (
+                <button key="stopRecording" onClick={stopRecording}>
+                  Stop Recording
+                </button>
+              ) : (
+                <button key="startRecording" onClick={startRecording}>
+                  Start Recording
+                </button>
+              )
+            ) : (
+              <button key="select" onClick={selectDevice}>
+                Select Device
+              </button>
+            )}
+            <button onClick={() => capture()}>Capture</button>{" "}
+          </div>
+          <video
+            style={{ display: "none" }}
+            ref={video}
+            crossOrigin="anonymous"
+            controls
+          />
+          <video
+            className={styles.Video}
+            src={videoSrc}
+            // width={width}
+            // height={height}
+            crossOrigin="anonymous"
+            controls
+            loop
+          />
+        </div>
+        <div className={styles.Camera}>
+          <div>
+            <select
+              value={frameRate}
+              onChange={(e) => setFrameRate(e.target.value)}
+            >
+              {FRAME_RATES.map((value, key) => (
+                <option key={key} value={value}>
+                  {`${value} fps`}
+                </option>
+              ))}
+            </select>
+            {playing ? (
+              <button key="stopPlaying" onClick={stopPlaying}>
+                Stop
+              </button>
+            ) : (
+              <button key="startPlaying" onClick={startPlaying}>
+                Play
+              </button>
+            )}
+            <button onClick={doTranscode}>Transcode</button>
+            <span>{message}</span>
+          </div>
+          <canvas
+            ref={canvas}
+            className={styles.Canvas}
+            width={width}
+            height={height}
+          ></canvas>
+        </div>
+      </div>
+      <div className={styles.Toolbar}>
         <button
           onClick={() => setSelected(frames.map((_i, i) => i))}
           disabled={selected.length === frames.length}
@@ -350,27 +382,6 @@ export default function Video() {
         <button onClick={() => remove()} disabled={selected.length === 0}>
           Remove{selected.length > 0 && ` (${selected.length})`}
         </button>{" "}
-        <select
-          value={frameRate}
-          onChange={(e) => setFrameRate(e.target.value)}
-        >
-          {FRAME_RATES.map((value, key) => (
-            <option key={key} value={value}>
-              {`${value} fps`}
-            </option>
-          ))}
-        </select>
-        {playing ? (
-          <button key="stopPlaying" onClick={stopPlaying}>
-            Stop
-          </button>
-        ) : (
-          <button key="startPlaying" onClick={startPlaying}>
-            Play
-          </button>
-        )}
-        <button onClick={doTranscode}>Transcode</button>
-        <span>{message}</span>
       </div>
       <div className={styles.Scroller}>
         <div className={styles.Timeline}>
