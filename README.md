@@ -27,3 +27,10 @@ ssh-keygen -t rsa -b 4096 -C "" -f ACTIONS_DEPLOY_KEY -N ""
 - [ ] save/load project
 - [ ] show transcode progress
 - [ ] server-side transcode
+
+
+
+
+
+https://user-images.githubusercontent.com/74106850/131114274-009d3e4d-e5dd-45bd-a7ca-718710aaaeb8.mp4
+
