@@ -220,12 +220,14 @@ export default function Video() {
   }, [setPlaying]);
 
   const doTranscode = useCallback(async () => {
+    const files = [];
     // https://github.com/ffmpegwasm/ffmpeg.wasm/blob/master/examples/browser/image2video.html
     if (!ffmpeg.isLoaded()) {
       setMessage("Loading ffmpeg-core.js");
       await ffmpeg.load();
     }
     setMessage("Loading data");
+    files.push("audio.ogg");
     ffmpeg.FS(
       "writeFile",
       "audio.ogg",
@@ -233,6 +235,7 @@ export default function Video() {
     );
     for (let i = 0; i < frames.length; i += 1) {
       const num = `00${i}`.slice(-3);
+      files.push(`tmp.${num}.png`);
       ffmpeg.FS("writeFile", `tmp.${num}.png`, await fetchFile(frames[i]));
     }
     setMessage("Start transcoding");
@@ -257,10 +260,14 @@ export default function Video() {
       "out.mp4"
     );
     setMessage("Complete transcoding");
+    files.push("out.mp4");
     const data = ffmpeg.FS("readFile", "out.mp4");
     setVideoSrc(
       URL.createObjectURL(new Blob([data.buffer], { type: "video/mp4" }))
     );
+    for (let i = 0; i < files.length; i += 1) {
+      ffmpeg.FS("unlink", files[i]);
+    }
   }, [frames, frameRate, setMessage, setVideoSrc]);
 
   useEffect(() => {
