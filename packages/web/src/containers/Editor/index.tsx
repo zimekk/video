@@ -1,9 +1,25 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
 const FRAME_RATES = [10, 12, 15, 20, 24, 30, 50, 60];
+
+// https://www.borrowlenses.com/blog/understanding-video-resolutions/
+const VIDEO_SIZES = {
+  "640x480": "SD (Standard Definition) / 480p / 4:3",
+  "1280x720": "HD (High Definition) / 720p / 16:9",
+  "1920x1080": "Full HD / 1080p / 16:9",
+  "2048x1152": "2K / 1:1.77",
+  "3840x2160": "UHD / 2160p / 16:9",
+  "4096x2160": "DCI 4K / 1:1.9",
+};
 
 // https://github.com/ffmpegwasm/ffmpeg.wasm#use-other-version-of-ffmpegwasm-core--ffmpegcore
 const ffmpeg = createFFmpeg({
@@ -98,8 +114,9 @@ export default function Video() {
   const [deviceId, setDeviceId] = useState("");
   const [playing, setPlaying] = useState(null);
   const [frameRate, setFrameRate] = useState(FRAME_RATES[0]);
+  const [videoSize, setVideoSize] = useState(Object.keys(VIDEO_SIZES)[0]);
 
-  const [width, height] = [1920 / 2, 1080 / 2];
+  const [width, height] = useMemo(() => videoSize.split("x"), [videoSize]);
 
   const selectDevice = useCallback(
     () =>
@@ -322,7 +339,6 @@ export default function Video() {
                 Select Device
               </button>
             )}
-            <button onClick={() => capture()}>Capture</button>{" "}
           </div>
           <video
             style={{ display: "none" }}
@@ -342,6 +358,16 @@ export default function Video() {
         </div>
         <div className={styles.Camera}>
           <div>
+            <select
+              value={videoSize}
+              onChange={(e) => setVideoSize(e.target.value)}
+            >
+              {Object.entries(VIDEO_SIZES).map(([value, label], key) => (
+                <option key={key} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
             <select
               value={frameRate}
               onChange={(e) => setFrameRate(e.target.value)}
@@ -373,6 +399,7 @@ export default function Video() {
         </div>
       </div>
       <div className={styles.Toolbar}>
+        <button onClick={() => capture()}>Capture</button>{" "}
         <button
           onClick={() => setSelected(frames.map((_i, i) => i))}
           disabled={selected.length === frames.length}
@@ -398,10 +425,10 @@ export default function Video() {
                 <div className={styles.Scale}>{`#${index}`}</div>
                 <img
                   src={image}
-                  style={{ width: `${width / 2}px`, height: `${height / 2}px` }}
+                  // style={{ width: `${width / 2}px`, height: `${height / 2}px` }}
                   className={styles.Image}
-                  width={width}
-                  height={height}
+                  // width={width}
+                  // height={height}
                   alt=""
                   onClick={(e) => {
                     if (e.shiftKey && lastSelected !== null) {

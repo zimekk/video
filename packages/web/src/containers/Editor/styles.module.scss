@@ -80,6 +80,9 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    .Image {
+      max-height: 120px;
+    }
     &__Selected {
       .Image {
         border-color: blue;
