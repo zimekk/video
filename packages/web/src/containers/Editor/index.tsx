@@ -21,12 +21,6 @@ const VIDEO_SIZES = {
   "4096x2160": "DCI 4K / 1:1.9",
 };
 
-// https://github.com/ffmpegwasm/ffmpeg.wasm#use-other-version-of-ffmpegwasm-core--ffmpegcore
-const ffmpeg = createFFmpeg({
-  corePath: process.env.FFMPEG_CORE_PATH,
-  log: true,
-});
-
 // https://stackoverflow.com/questions/13627111/drawing-text-with-an-outer-stroke-with-html5s-canvas
 const renderText = (context, text, x, y, textAlign = "left") => {
   context.font = "30px Sans-serif";
@@ -37,6 +31,8 @@ const renderText = (context, text, x, y, textAlign = "left") => {
   context.fillStyle = "white";
   context.fillText(text, x, y);
 };
+
+let ffmpeg = null;
 
 // https://www.videvo.net/video/flying-over-forest-3/4650/
 // https://mux.com/blog/canvas-adding-filters-and-more-to-video-using-just-a-browser/
@@ -106,13 +102,14 @@ export default function Video() {
     require(`../../assets/triangle/tmp.059.png`).default,
   ]);
   const [videoSrc, setVideoSrc] = useState("");
-  const [message, setMessage] = useState("Click Start to transcode");
+  const [message, setMessage] = useState(["Click Start to transcode"]);
   const video = useRef();
   const canvas = useRef();
   const [media, setMedia] = useState(null);
   const [devices, setDevices] = useState([]);
   const [deviceId, setDeviceId] = useState("");
   const [playing, setPlaying] = useState(null);
+  const [progress, setProgress] = useState(null);
   const [frameRate, setFrameRate] = useState(FRAME_RATES[0]);
   const [videoSize, setVideoSize] = useState(Object.keys(VIDEO_SIZES)[0]);
 
@@ -219,14 +216,41 @@ export default function Video() {
     setPlaying((playing) => clearTimeout(playing));
   }, [setPlaying]);
 
+  // https://github.com/ffmpegwasm/ffmpegwasm.github.io/blob/main/src/components/FFmpeg.js
+  useEffect(() => {
+    if (ffmpeg === null) {
+      // https://github.com/ffmpegwasm/ffmpeg.wasm#use-other-version-of-ffmpegwasm-core--ffmpegcore
+      ffmpeg = createFFmpeg({
+        corePath: process.env.FFMPEG_CORE_PATH,
+        // log: true,
+      });
+    }
+    ffmpeg.setLogger(({ type, message }) => {
+      console.log({ type, message });
+      if (type !== "info") {
+        setMessage((m) => m.concat(message));
+      }
+    });
+    ffmpeg.setProgress(({ ratio }) => {
+      if (ratio >= 0 && ratio <= 1) {
+        setProgress(ratio * 100);
+      }
+      if (ratio === 1) {
+        setTimeout(() => {
+          setProgress(null);
+        }, 1000);
+      }
+    });
+  });
+
   const doTranscode = useCallback(async () => {
     const files = [];
     // https://github.com/ffmpegwasm/ffmpeg.wasm/blob/master/examples/browser/image2video.html
     if (!ffmpeg.isLoaded()) {
-      setMessage("Loading ffmpeg-core.js");
+      // setMessage("Loading ffmpeg-core.js");
       await ffmpeg.load();
     }
-    setMessage("Loading data");
+    // setMessage("Loading data");
     files.push("audio.ogg");
     ffmpeg.FS(
       "writeFile",
@@ -238,7 +262,7 @@ export default function Video() {
       files.push(`tmp.${num}.png`);
       ffmpeg.FS("writeFile", `tmp.${num}.png`, await fetchFile(frames[i]));
     }
-    setMessage("Start transcoding");
+    // setMessage("Start transcoding");
     await ffmpeg.run(
       "-framerate",
       `${frameRate}`,
@@ -259,7 +283,7 @@ export default function Video() {
       "yuv420p",
       "out.mp4"
     );
-    setMessage("Complete transcoding");
+    // setMessage("Complete transcoding");
     files.push("out.mp4");
     const data = ffmpeg.FS("readFile", "out.mp4");
     setVideoSrc(
@@ -356,8 +380,6 @@ export default function Video() {
           <video
             className={styles.Video}
             src={videoSrc}
-            // width={width}
-            // height={height}
             crossOrigin="anonymous"
             controls
             loop
@@ -394,8 +416,10 @@ export default function Video() {
                 Play
               </button>
             )}
-            <button onClick={doTranscode}>Transcode</button>
-            <span>{message}</span>
+            <button onClick={doTranscode} disabled={progress !== null}>
+              Transcode{progress === null ? "" : ` (${progress.toFixed(1)}%)`}
+            </button>
+            {message.length && <span>{message[message.length - 1]}</span>}
           </div>
           <canvas
             ref={canvas}
