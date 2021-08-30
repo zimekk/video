@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import cx from "classnames";
+import { WaveformWrapper } from "./Waveform";
 import styles from "./styles.module.scss";
 
 const FRAME_RATES = [10, 12, 15, 20, 24, 30, 50, 60];
@@ -493,6 +494,11 @@ export default function Video() {
                 />
               </div>
             ))}
+          </div>
+          <div className={styles.Line}>
+            <WaveformWrapper
+              src={require("../../assets/triangle/audio.ogg").default}
+            />
           </div>
         </div>
       </div>
