@@ -88,7 +88,9 @@ const config = {
         to: "ffmpeg",
       })),
     }),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      favicon: require.resolve("./src/assets/favicon.ico"),
+    }),
   ],
 };
 
