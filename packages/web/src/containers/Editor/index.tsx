@@ -500,6 +500,7 @@ export default function Video() {
               src={require("../../assets/triangle/audio.ogg").default}
             />
           </div>
+          <div className={styles.Slider} style={{ marginLeft: 100 }}></div>
         </div>
       </div>
     </div>
