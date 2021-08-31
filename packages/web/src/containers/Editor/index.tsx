@@ -169,16 +169,26 @@ export default function Video() {
       frames.filter((_frame, index) => !selected.includes(index))
     );
     setSelected([]);
-  }, [selected, setFrames]);
+    if (selected.includes(lastSelected)) {
+      setLastSelected(null);
+    }
+  }, [selected, lastSelected, setFrames, setLastSelected]);
 
   const capture = useCallback(() => {
+    const index = lastSelected === null ? frames.length : lastSelected;
     const canvas = Object.assign(document.createElement("canvas"), {
       width,
       height,
     });
     canvas.getContext("2d").drawImage(video.current, 0, 0, width, height);
-    setFrames((frames) => frames.concat(canvas.toDataURL()));
-  }, [setFrames]);
+    setFrames((frames) =>
+      frames
+        .slice(0, index)
+        .concat(canvas.toDataURL())
+        .concat(frames.slice(index))
+    );
+    setLastSelected(index + 1);
+  }, [lastSelected, setFrames, setLastSelected]);
 
   // https://stackoverflow.com/questions/19183180/how-to-save-an-image-to-localstorage-and-display-it-on-the-next-page
   // const importImages = useCallback(() => null, []);
@@ -444,7 +454,16 @@ export default function Video() {
       </div>
       <div className={styles.Scroller}>
         <div className={styles.Timeline}>
-          <div className={styles.Time}></div>
+          <div className={styles.Time}>
+            {lastSelected !== null && (
+              <div
+                className={styles.Slider}
+                style={{
+                  marginLeft: `${(100 * lastSelected) / frames.length}%`,
+                }}
+              ></div>
+            )}
+          </div>
           <div className={styles.Line}>
             {frames.map((image, index) => (
               <div
@@ -500,7 +519,6 @@ export default function Video() {
               src={require("../../assets/triangle/audio.ogg").default}
             />
           </div>
-          <div className={styles.Slider} style={{ marginLeft: 100 }}></div>
         </div>
       </div>
     </div>

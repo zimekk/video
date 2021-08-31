@@ -12,10 +12,10 @@ ssh-keygen -t rsa -b 4096 -C "" -f ACTIONS_DEPLOY_KEY -N ""
 - [x] frame selection
 - [x] frame playback
 - [x] video device selection
-- [ ] insert frames
+- [x] insert frames
 - [x] show selected frame
 - [x] scroll timeline
-- [ ] add time cursor
+- [x] add time slider
 - [ ] add audio track
 - [ ] copy/paste frames
 - [ ] move frames
