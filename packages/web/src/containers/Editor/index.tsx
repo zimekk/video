@@ -38,6 +38,16 @@ const renderText = (context, text, x, y, textAlign = "left") => {
   context.fillText(text, x, y);
 };
 
+// function download(text, name, type)
+//     {
+//         const file = new Blob([text], {type: type});
+//             const a = Object.assign(document.createElement('a'), {
+//               href: URL.createObjectURL(file),
+//               download: name
+//               });
+//             a.click();
+//      }
+
 let ffmpeg = null;
 
 // https://www.videvo.net/video/flying-over-forest-3/4650/
@@ -109,6 +119,7 @@ export default function Video() {
   ]);
   const [videoSrc, setVideoSrc] = useState("");
   const [message, setMessage] = useState(["Click Start to transcode"]);
+  const fileRef = useRef();
   const video = useRef();
   const canvas = useRef();
   const [audio, setAudio] = useState("");
@@ -357,6 +368,28 @@ export default function Video() {
     };
   }, [video, canvas]);
 
+  useEffect(() => {
+    const readImage = (file) => {
+      // Check if the file is an image.
+      if (file.type && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.addEventListener("load", (e) => {
+          // img.src = e.target.result;
+          console.log({ file });
+          setFrames((frames) => frames.concat(e.target.result));
+        });
+        reader.readAsDataURL(file);
+      }
+    };
+
+    fileRef.current.addEventListener("change", (e) => {
+      const fileList = e.target.files;
+      console.log({ fileList });
+      [...fileList].forEach(readImage);
+      e.target.value = "";
+    });
+  }, [setFrames, fileRef]);
+
   return (
     <div className={styles.Layout}>
       <div className={styles.Preview}>
@@ -459,6 +492,14 @@ export default function Video() {
         <button onClick={() => remove()} disabled={selected.length === 0}>
           Remove{selected.length > 0 && ` (${selected.length})`}
         </button>{" "}
+        <button onClick={() => fileRef.current.click()}>Import files</button>{" "}
+        <input
+          ref={fileRef}
+          type="file"
+          id="file-selector"
+          multiple
+          style={{ display: "none" }}
+        />
         <select value={audio} onChange={(e) => setAudio(e.target.value)}>
           {Object.keys(AUDIO_FILES).map((audio, key) => (
             <option key={key} value={audio}>
