@@ -22,6 +22,11 @@ const VIDEO_SIZES = {
   "4096x2160": "DCI 4K / 1:1.9",
 };
 
+const AUDIO_FILES = {
+  "": "",
+  "audio.ogg": require("../../assets/triangle/audio.ogg").default,
+};
+
 // https://stackoverflow.com/questions/13627111/drawing-text-with-an-outer-stroke-with-html5s-canvas
 const renderText = (context, text, x, y, textAlign = "left") => {
   context.font = "30px Sans-serif";
@@ -106,6 +111,7 @@ export default function Video() {
   const [message, setMessage] = useState(["Click Start to transcode"]);
   const video = useRef();
   const canvas = useRef();
+  const [audio, setAudio] = useState("");
   const [media, setMedia] = useState(null);
   const [devices, setDevices] = useState([]);
   const [deviceId, setDeviceId] = useState("");
@@ -262,12 +268,10 @@ export default function Video() {
       await ffmpeg.load();
     }
     // setMessage("Loading data");
-    files.push("audio.ogg");
-    ffmpeg.FS(
-      "writeFile",
-      "audio.ogg",
-      await fetchFile(require("../../assets/triangle/audio.ogg").default)
-    );
+    if (audio) {
+      files.push(audio);
+      ffmpeg.FS("writeFile", audio, await fetchFile(AUDIO_FILES[audio]));
+    }
     for (let i = 0; i < frames.length; i += 1) {
       const num = `00${i}`.slice(-3);
       files.push(`tmp.${num}.png`);
@@ -275,35 +279,39 @@ export default function Video() {
     }
     // setMessage("Start transcoding");
     await ffmpeg.run(
-      "-framerate",
-      `${frameRate}`,
-      "-video_size",
-      `${width}x${height}`,
-      "-pattern_type",
-      "glob",
-      "-i",
-      "*.png",
-      "-i",
-      "audio.ogg",
-      "-c:a",
-      "copy",
-      "-shortest",
-      "-c:v",
-      "libx264",
-      "-pix_fmt",
-      "yuv420p",
-      "out.mp4"
+      ...[
+        "-framerate",
+        `${frameRate}`,
+        "-video_size",
+        `${width}x${height}`,
+        "-pattern_type",
+        "glob",
+        "-i",
+        "*.png",
+      ]
+        .concat(audio ? ["-i", audio, "-c:a", "copy"] : [])
+        .concat([
+          "-shortest",
+          "-c:v",
+          "libx264",
+          "-pix_fmt",
+          "yuv420p",
+          "out.mp4",
+        ])
     );
     // setMessage("Complete transcoding");
     files.push("out.mp4");
-    const data = ffmpeg.FS("readFile", "out.mp4");
     setVideoSrc(
-      URL.createObjectURL(new Blob([data.buffer], { type: "video/mp4" }))
+      URL.createObjectURL(
+        new Blob([ffmpeg.FS("readFile", "out.mp4").buffer], {
+          type: "video/mp4",
+        })
+      )
     );
     for (let i = 0; i < files.length; i += 1) {
       ffmpeg.FS("unlink", files[i]);
     }
-  }, [frames, frameRate, setMessage, setVideoSrc]);
+  }, [audio, width, height, frames, frameRate, setMessage, setVideoSrc]);
 
   useEffect(() => {
     const context = canvas.current.getContext("2d");
@@ -451,6 +459,13 @@ export default function Video() {
         <button onClick={() => remove()} disabled={selected.length === 0}>
           Remove{selected.length > 0 && ` (${selected.length})`}
         </button>{" "}
+        <select value={audio} onChange={(e) => setAudio(e.target.value)}>
+          {Object.keys(AUDIO_FILES).map((audio, key) => (
+            <option key={key} value={audio}>
+              {audio}
+            </option>
+          ))}
+        </select>
       </div>
       <div className={styles.Scroller}>
         <div className={styles.Timeline}>
@@ -515,9 +530,7 @@ export default function Video() {
             ))}
           </div>
           <div className={styles.Line}>
-            <Waveform
-              src={require("../../assets/triangle/audio.ogg").default}
-            />
+            {audio && <Waveform src={AUDIO_FILES[audio]} />}
           </div>
         </div>
       </div>
