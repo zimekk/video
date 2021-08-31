@@ -38,15 +38,17 @@ const renderText = (context, text, x, y, textAlign = "left") => {
   context.fillText(text, x, y);
 };
 
-// function download(text, name, type)
-//     {
-//         const file = new Blob([text], {type: type});
-//             const a = Object.assign(document.createElement('a'), {
-//               href: URL.createObjectURL(file),
-//               download: name
-//               });
-//             a.click();
-//      }
+const downloadFile = (href, download) =>
+  Object.assign(document.createElement("a"), {
+    href,
+    download,
+  }).dispatchEvent(
+    new MouseEvent("click", {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    })
+  );
 
 let ffmpeg = null;
 
@@ -390,6 +392,12 @@ export default function Video() {
     });
   }, [setFrames, fileRef]);
 
+  const download = useCallback(() => {
+    selected.forEach((i) =>
+      downloadFile(frames[i], `frame_${(i / 100).toFixed(2).split(".")[1]}`)
+    );
+  }, [selected, frames]);
+
   return (
     <div className={styles.Layout}>
       <div className={styles.Preview}>
@@ -492,7 +500,10 @@ export default function Video() {
         <button onClick={() => remove()} disabled={selected.length === 0}>
           Remove{selected.length > 0 && ` (${selected.length})`}
         </button>{" "}
-        <button onClick={() => fileRef.current.click()}>Import files</button>{" "}
+        <button onClick={() => download()} disabled={selected.length === 0}>
+          Export{selected.length > 0 && ` (${selected.length})`}
+        </button>{" "}
+        <button onClick={() => fileRef.current.click()}>Import</button>{" "}
         <input
           ref={fileRef}
           type="file"
