@@ -25,6 +25,11 @@ const VIDEO_SIZES = {
 const AUDIO_FILES = {
   "": "",
   "audio.ogg": require("../../assets/triangle/audio.ogg").default,
+  // hhttps://github.com/remotion-dev/remotion/tree/main/packages/example/src/AudioTesting
+  "music.mp3": require("../../assets/music.mp3").default,
+  // https://github.com/remotion-dev/remotion/tree/main/packages/example/src/resources
+  "sound1.mp3": require("../../assets/sound1.mp3").default,
+  "sound2.mp3": require("../../assets/sound2.mp3").default,
 };
 
 // https://stackoverflow.com/questions/13627111/drawing-text-with-an-outer-stroke-with-html5s-canvas

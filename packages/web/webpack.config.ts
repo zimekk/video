@@ -37,7 +37,7 @@ const config = {
         ],
       },
       {
-        test: /\.(ogg|png|avi)$/,
+        test: /\.(mp3|ogg|png|avi)$/,
         use: ["file-loader"],
       },
       {
