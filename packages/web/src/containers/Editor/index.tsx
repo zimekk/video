@@ -5,8 +5,11 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { DndProvider, useDrag, useDrop, DropTargetMonitor } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import cx from "classnames";
+import update from "immutability-helper";
 import { Waveform } from "./Waveform";
 import styles from "./styles.module.scss";
 
@@ -56,6 +59,113 @@ const downloadFile = (href, download) =>
   );
 
 let ffmpeg = null;
+
+// https://github.com/react-dnd/react-dnd/tree/main/packages/examples-hooks/src/04-sortable/simple
+const ItemTypes = {
+  CARD: "CARD",
+};
+
+interface DragItem {
+  index: number;
+  type: string;
+}
+
+function Frame({ image, index, selected, onClick, moveCard }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [{ handlerId }, drop] = useDrop({
+    accept: ItemTypes.CARD,
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
+    hover(item: DragItem, monitor: DropTargetMonitor) {
+      if (!ref.current) {
+        return;
+      }
+      const dragIndex = item.index;
+      const hoverIndex = index;
+
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+
+      // Determine rectangle on screen
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+
+      // Get vertical middle
+      const hoverMiddleX =
+        (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
+
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset();
+
+      // Get pixels to the top
+      const hoverClientX = (clientOffset as XYCoord).x - hoverBoundingRect.left;
+
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
+        return;
+      }
+
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
+        return;
+      }
+
+      // Time to actually perform the action
+      moveCard(dragIndex, hoverIndex);
+
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      item.index = hoverIndex;
+    },
+  });
+
+  const [{ opacity }, drag] = useDrag(
+    () => ({
+      type: ItemTypes.CARD,
+      item: { index },
+      collect: (monitor) => ({
+        opacity: monitor.isDragging() ? 0.5 : 1,
+      }),
+    }),
+    []
+  );
+
+  drag(drop(ref));
+
+  return (
+    <div
+      ref={ref}
+      className={cx(
+        styles.Frame,
+        selected.includes(index) && styles.Frame__Selected
+      )}
+      style={{ opacity }}
+      data-handler-id={handlerId}
+    >
+      <div className={styles.Scale}>{`#${index}`}</div>
+      <img
+        src={image}
+        // style={{ width: `${width / 2}px`, height: `${height / 2}px` }}
+        className={styles.Image}
+        // width={width}
+        // height={height}
+        alt=""
+        onClick={onClick}
+      />
+    </div>
+  );
+}
 
 // https://www.videvo.net/video/flying-over-forest-3/4650/
 // https://mux.com/blog/canvas-adding-filters-and-more-to-video-using-just-a-browser/
@@ -448,181 +558,188 @@ export default function Video() {
     );
   }, [selected, frames]);
 
+  const moveCard = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      const dragCard = frames[dragIndex];
+      setFrames(
+        update(frames, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragCard],
+          ],
+        })
+      );
+    },
+    [frames]
+  );
+
   return (
-    <div className={styles.Layout}>
-      <div className={styles.Preview}>
-        <div className={styles.Camera}>
-          <div>
-            <select
-              value={selectedVideo}
-              onChange={(e) => setSelectedVideo(e.target.value)}
-            >
-              <option value="">Video Input</option>
-              {videos.map((url, key) => (
-                <option key={key} value={key}>
-                  {url}
-                </option>
-              ))}
-            </select>
-            <button
-              onClick={() => (
-                setVideos((videos) =>
-                  videos.filter(
-                    (_video, index) => String(index) !== selectedVideo
-                  )
-                ),
-                setSelectedVideo("")
-              )}
-              disabled={selectedVideo === ""}
-            >
-              Delete
-            </button>{" "}
-            <button
-              onClick={() =>
-                downloadFile(videos[selectedVideo], `video_${selectedVideo}`)
-              }
-              disabled={selectedVideo === ""}
-            >
-              Download
-            </button>{" "}
-            {deviceId && (
+    <DndProvider backend={HTML5Backend}>
+      <div className={styles.Layout}>
+        <div className={styles.Preview}>
+          <div className={styles.Camera}>
+            <div>
               <select
-                value={deviceId}
-                onChange={(e) => setDeviceId(e.target.value)}
+                value={selectedVideo}
+                onChange={(e) => setSelectedVideo(e.target.value)}
               >
-                {devices.map(({ deviceId, label }, key) => (
-                  <option key={key} value={deviceId}>
+                <option value="">Video Input</option>
+                {videos.map((url, key) => (
+                  <option key={key} value={key}>
+                    {url}
+                  </option>
+                ))}
+              </select>
+              <button
+                onClick={() => (
+                  setVideos((videos) =>
+                    videos.filter(
+                      (_video, index) => String(index) !== selectedVideo
+                    )
+                  ),
+                  setSelectedVideo("")
+                )}
+                disabled={selectedVideo === ""}
+              >
+                Delete
+              </button>{" "}
+              <button
+                onClick={() =>
+                  downloadFile(videos[selectedVideo], `video_${selectedVideo}`)
+                }
+                disabled={selectedVideo === ""}
+              >
+                Download
+              </button>{" "}
+              {deviceId && (
+                <select
+                  value={deviceId}
+                  onChange={(e) => setDeviceId(e.target.value)}
+                >
+                  {devices.map(({ deviceId, label }, key) => (
+                    <option key={key} value={deviceId}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              )}
+              {deviceId ? (
+                media ? (
+                  <button key="stopRecording" onClick={stopRecording}>
+                    Stop Recording
+                  </button>
+                ) : (
+                  <button key="startRecording" onClick={startRecording}>
+                    Start Recording
+                  </button>
+                )
+              ) : (
+                <button key="select" onClick={selectDevice}>
+                  Select Device
+                </button>
+              )}
+            </div>
+            <video
+              className={styles.Video}
+              ref={video}
+              crossOrigin="anonymous"
+              controls
+            />
+          </div>
+          <div className={styles.Camera}>
+            <div>
+              <select
+                value={videoSize}
+                onChange={(e) => setVideoSize(e.target.value)}
+              >
+                {Object.entries(VIDEO_SIZES).map(([value, label], key) => (
+                  <option key={key} value={value}>
                     {label}
                   </option>
                 ))}
               </select>
-            )}
-            {deviceId ? (
-              media ? (
-                <button key="stopRecording" onClick={stopRecording}>
-                  Stop Recording
+              <select
+                value={frameRate}
+                onChange={(e) => setFrameRate(e.target.value)}
+              >
+                {FRAME_RATES.map((value, key) => (
+                  <option key={key} value={value}>
+                    {`${value} fps`}
+                  </option>
+                ))}
+              </select>
+              {playing ? (
+                <button key="stopPlaying" onClick={stopPlaying}>
+                  Stop
                 </button>
               ) : (
-                <button key="startRecording" onClick={startRecording}>
-                  Start Recording
+                <button key="startPlaying" onClick={startPlaying}>
+                  Play
                 </button>
-              )
-            ) : (
-              <button key="select" onClick={selectDevice}>
-                Select Device
+              )}
+              <button onClick={doTranscode} disabled={progress !== null}>
+                Transcode{progress === null ? "" : ` (${progress.toFixed(1)}%)`}
               </button>
-            )}
+              {message.length && <span>{message[message.length - 1]}</span>}
+            </div>
+            <canvas
+              ref={canvas}
+              className={styles.Canvas}
+              width={width}
+              height={height}
+            ></canvas>
           </div>
-          <video
-            className={styles.Video}
-            ref={video}
-            crossOrigin="anonymous"
-            controls
+        </div>
+        <div className={styles.Toolbar}>
+          <button onClick={() => capture()}>Capture</button>{" "}
+          <button
+            onClick={() => setSelected(frames.map((_i, i) => i))}
+            disabled={selected.length === frames.length}
+          >
+            Select All
+          </button>{" "}
+          <button onClick={() => remove()} disabled={selected.length === 0}>
+            Remove{selected.length > 0 && ` (${selected.length})`}
+          </button>{" "}
+          <button onClick={() => download()} disabled={selected.length === 0}>
+            Export{selected.length > 0 && ` (${selected.length})`}
+          </button>{" "}
+          <button onClick={() => fileRef.current.click()}>Import</button>{" "}
+          <input
+            ref={fileRef}
+            type="file"
+            id="file-selector"
+            multiple
+            style={{ display: "none" }}
           />
+          <select value={audio} onChange={(e) => setAudio(e.target.value)}>
+            {Object.keys(AUDIO_FILES).map((audio, key) => (
+              <option key={key} value={audio}>
+                {audio}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className={styles.Camera}>
-          <div>
-            <select
-              value={videoSize}
-              onChange={(e) => setVideoSize(e.target.value)}
-            >
-              {Object.entries(VIDEO_SIZES).map(([value, label], key) => (
-                <option key={key} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
-            <select
-              value={frameRate}
-              onChange={(e) => setFrameRate(e.target.value)}
-            >
-              {FRAME_RATES.map((value, key) => (
-                <option key={key} value={value}>
-                  {`${value} fps`}
-                </option>
-              ))}
-            </select>
-            {playing ? (
-              <button key="stopPlaying" onClick={stopPlaying}>
-                Stop
-              </button>
-            ) : (
-              <button key="startPlaying" onClick={startPlaying}>
-                Play
-              </button>
-            )}
-            <button onClick={doTranscode} disabled={progress !== null}>
-              Transcode{progress === null ? "" : ` (${progress.toFixed(1)}%)`}
-            </button>
-            {message.length && <span>{message[message.length - 1]}</span>}
-          </div>
-          <canvas
-            ref={canvas}
-            className={styles.Canvas}
-            width={width}
-            height={height}
-          ></canvas>
-        </div>
-      </div>
-      <div className={styles.Toolbar}>
-        <button onClick={() => capture()}>Capture</button>{" "}
-        <button
-          onClick={() => setSelected(frames.map((_i, i) => i))}
-          disabled={selected.length === frames.length}
-        >
-          Select All
-        </button>{" "}
-        <button onClick={() => remove()} disabled={selected.length === 0}>
-          Remove{selected.length > 0 && ` (${selected.length})`}
-        </button>{" "}
-        <button onClick={() => download()} disabled={selected.length === 0}>
-          Export{selected.length > 0 && ` (${selected.length})`}
-        </button>{" "}
-        <button onClick={() => fileRef.current.click()}>Import</button>{" "}
-        <input
-          ref={fileRef}
-          type="file"
-          id="file-selector"
-          multiple
-          style={{ display: "none" }}
-        />
-        <select value={audio} onChange={(e) => setAudio(e.target.value)}>
-          {Object.keys(AUDIO_FILES).map((audio, key) => (
-            <option key={key} value={audio}>
-              {audio}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className={styles.Scroller}>
-        <div className={styles.Timeline}>
-          <div className={styles.Time}>
-            {lastSelected !== null && (
-              <div
-                className={styles.Slider}
-                style={{
-                  marginLeft: `${(100 * lastSelected) / frames.length}%`,
-                }}
-              ></div>
-            )}
-          </div>
-          <div className={styles.Line}>
-            {frames.map((image, index) => (
-              <div
-                key={index}
-                className={cx(
-                  styles.Frame,
-                  selected.includes(index) && styles.Frame__Selected
-                )}
-              >
-                <div className={styles.Scale}>{`#${index}`}</div>
-                <img
-                  src={image}
-                  // style={{ width: `${width / 2}px`, height: `${height / 2}px` }}
-                  className={styles.Image}
-                  // width={width}
-                  // height={height}
-                  alt=""
+        <div className={styles.Scroller}>
+          <div className={styles.Timeline}>
+            <div className={styles.Time}>
+              {lastSelected !== null && (
+                <div
+                  className={styles.Slider}
+                  style={{
+                    marginLeft: `${(100 * lastSelected) / frames.length}%`,
+                  }}
+                ></div>
+              )}
+            </div>
+            <div className={styles.Line}>
+              {frames.map((image, index) => (
+                <Frame
+                  key={index}
+                  image={image}
+                  index={index}
+                  selected={selected}
+                  moveCard={moveCard}
                   onClick={(e) => {
                     if (e.shiftKey && lastSelected !== null) {
                       const [from, to] =
@@ -652,14 +769,14 @@ export default function Video() {
                     }
                   }}
                 />
-              </div>
-            ))}
-          </div>
-          <div className={styles.Line}>
-            {audio && <Waveform src={AUDIO_FILES[audio]} />}
+              ))}
+            </div>
+            <div className={styles.Line}>
+              {audio && <Waveform src={AUDIO_FILES[audio]} />}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </DndProvider>
   );
 }

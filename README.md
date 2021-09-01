@@ -18,7 +18,7 @@ ssh-keygen -t rsa -b 4096 -C "" -f ACTIONS_DEPLOY_KEY -N ""
 - [x] add time slider
 - [x] add audio track
 - [ ] copy/paste frames
-- [ ] move frames
+- [x] move frames
 - [x] download video
 - [x] select frame rate
 - [x] select video size
