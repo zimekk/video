@@ -214,38 +214,39 @@ export default function Video() {
   // const importImages = useCallback(() => null, []);
   // const exportImages = useCallback(() => null, []);
 
-  const showFrame = useCallback(
-    (src, index) => {
-      var image = new window.Image();
-      image.addEventListener("load", function () {
-        const context = canvas.current.getContext("2d");
-        context.drawImage(image, 0, 0, width, height);
-        renderText(context, `#${index}`, width - 10, height - 20, "right");
-      });
-      image.setAttribute("src", src);
-    },
-    [frames, canvas]
+  const [image] = useState(() =>
+    Object.assign(new window.Image(), {
+      onload: () => render(),
+    })
+  );
+
+  useEffect(
+    () =>
+      image.setAttribute(
+        "src",
+        lastSelected === null ? "" : frames[lastSelected]
+      ),
+    [image, frames, lastSelected]
   );
 
   const startPlaying = useCallback(
     function timer() {
       setPlaying(
         setTimeout(() => {
-          setLastSelected((index) => {
-            const nextFrame = index < frames.length - 1 ? index + 1 : 0;
-            showFrame(frames[nextFrame], nextFrame);
-            return nextFrame;
-          });
+          setLastSelected((index) =>
+            index < frames.length - 1 ? index + 1 : 0
+          );
           timer();
         }, 1000 / frameRate)
       );
     },
-    [setLastSelected, setPlaying, showFrame, frames, frameRate]
+    [setLastSelected, setPlaying, frames, frameRate]
   );
 
-  const stopPlaying = useCallback(() => {
-    setPlaying((playing) => clearTimeout(playing));
-  }, [setPlaying]);
+  const stopPlaying = useCallback(
+    () => setPlaying((playing) => clearTimeout(playing)),
+    [setPlaying]
+  );
 
   // https://github.com/ffmpegwasm/ffmpegwasm.github.io/blob/main/src/components/FFmpeg.js
   useEffect(() => {
@@ -352,6 +353,7 @@ export default function Video() {
               src: "",
             }
           : {
+              loop: true,
               oncanplay: null,
               srcObject: null,
               src: videos[selectedVideo],
@@ -360,20 +362,38 @@ export default function Video() {
     [media, video, videos, selectedVideo]
   );
 
-  useEffect(() => {
+  const render = useCallback(() => {
     const context = canvas.current.getContext("2d");
+    // http://appcropolis.com/blog/web-technology/using-html5-canvas-to-capture-frames-from-a-video/
+    if (video.current.srcObject || video.current.getAttribute("src")) {
+      context.drawImage(video.current, 0, 0, width, height);
+    }
+    if (image.src) {
+      // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
+      const imageData = context.getImageData(0, 0, width, height);
+      context.drawImage(image, 0, 0, width, height);
+      if (video.current.srcObject || video.current.getAttribute("src")) {
+        const { data: data2 } = context.getImageData(0, 0, width, height);
+        const { data } = imageData;
+        const opacity = 0.8;
+        for (var i = 0; i < data.length; i += 4) {
+          data[i + 0] = opacity * data[i + 0] + (1 - opacity) * data2[i + 0]; // red
+          data[i + 1] = opacity * data[i + 1] + (1 - opacity) * data2[i + 1]; // green
+          data[i + 2] = opacity * data[i + 2] + (1 - opacity) * data2[i + 2]; // blue
+          data[i + 3] = opacity * data[i + 3] + (1 - opacity) * data2[i + 3]; // alpha
+        }
+        context.putImageData(imageData, 0, 0);
+      }
+    }
+    renderText(context, "Live Video", width - 10, height - 20, "right");
+  }, [media, canvas, lastSelected]);
 
+  useEffect(() => {
     const update = () => {
+      render();
       if (video.current.ended || video.current.paused) {
         return;
       }
-
-      // http://appcropolis.com/blog/web-technology/using-html5-canvas-to-capture-frames-from-a-video/
-      context.drawImage(video.current, 0, 0, width, height);
-
-      // renderText(video.current.currentTime, width - 10, height - 20, "right");
-      renderText(context, "Live Video", width - 10, height - 20, "right");
-
       // https://web.dev/requestvideoframecallback-rvfc/
       video.current.requestVideoFrameCallback(update);
     };
@@ -392,8 +412,8 @@ export default function Video() {
     // Video playback position is changed
     const timeupdate = () => {
       // You are now ready to grab the thumbnail from the <canvas> element
-      const { currentTime } = video.current;
-      console.log(["timeupdate"], { currentTime });
+      // const { currentTime } = video.current;
+      // console.log(["timeupdate"], { currentTime });
     };
 
     video.current.addEventListener("play", play, false);
@@ -402,7 +422,7 @@ export default function Video() {
     return () => {
       // video.current.removeEventListener("play", play);
     };
-  }, [video, canvas]);
+  }, [video]);
 
   useEffect(() => {
     const readImage = (file) => {
@@ -447,7 +467,9 @@ export default function Video() {
             <button
               onClick={() => (
                 setVideos((videos) =>
-                  videos.filter((_, index) => String(index) !== selectedVideo)
+                  videos.filter(
+                    (_video, index) => String(index) !== selectedVideo
+                  )
                 ),
                 setSelectedVideo("")
               )}
@@ -627,7 +649,6 @@ export default function Video() {
                     } else {
                       setLastSelected(index);
                       setSelected([index]);
-                      showFrame(image, index);
                     }
                   }}
                 />
