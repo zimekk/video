@@ -132,6 +132,8 @@ export default function Video() {
   const [progress, setProgress] = useState(null);
   const [frameRate, setFrameRate] = useState(FRAME_RATES[0]);
   const [videoSize, setVideoSize] = useState(Object.keys(VIDEO_SIZES)[0]);
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState("");
 
   const [width, height] = useMemo(() => videoSize.split("x"), [videoSize]);
 
@@ -314,17 +316,32 @@ export default function Video() {
     );
     // setMessage("Complete transcoding");
     files.push("out.mp4");
-    setVideoSrc(
-      URL.createObjectURL(
-        new Blob([ffmpeg.FS("readFile", "out.mp4").buffer], {
-          type: "video/mp4",
-        })
-      )
+    const url = URL.createObjectURL(
+      new Blob([ffmpeg.FS("readFile", "out.mp4").buffer], {
+        type: "video/mp4",
+      })
+    );
+    setVideos(
+      (videos) => (setSelectedVideo(videos.length), videos.concat(url))
     );
     for (let i = 0; i < files.length; i += 1) {
       ffmpeg.FS("unlink", files[i]);
     }
-  }, [audio, width, height, frames, frameRate, setMessage, setVideoSrc]);
+  }, [
+    audio,
+    width,
+    height,
+    frames,
+    frameRate,
+    setMessage,
+    setVideos,
+    setSelectedVideo,
+  ]);
+
+  useEffect(
+    () => selectedVideo !== "" && setVideoSrc(videos[selectedVideo]),
+    [videos, selectedVideo]
+  );
 
   useEffect(() => {
     const context = canvas.current.getContext("2d");
@@ -403,6 +420,22 @@ export default function Video() {
       <div className={styles.Preview}>
         <div className={styles.Camera}>
           <div>
+            <select
+              value={selectedVideo}
+              onChange={(e) => setSelectedVideo(e.target.value)}
+            >
+              {videos.map((url, key) => (
+                <option key={key} value={key}>
+                  {url}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={() => downloadFile(videoSrc, `video_${selectedVideo}`)}
+              disabled={selectedVideo === ""}
+            >
+              Download
+            </button>{" "}
             {deviceId && (
               <select
                 value={deviceId}

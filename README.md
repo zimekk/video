@@ -19,7 +19,7 @@ ssh-keygen -t rsa -b 4096 -C "" -f ACTIONS_DEPLOY_KEY -N ""
 - [x] add audio track
 - [ ] copy/paste frames
 - [ ] move frames
-- [ ] export video
+- [x] download video
 - [x] select frame rate
 - [x] select video size
 - [x] export images
