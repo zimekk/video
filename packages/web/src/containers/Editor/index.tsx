@@ -119,7 +119,6 @@ export default function Video() {
     require(`../../assets/triangle/tmp.058.png`).default,
     require(`../../assets/triangle/tmp.059.png`).default,
   ]);
-  const [videoSrc, setVideoSrc] = useState("");
   const [message, setMessage] = useState(["Click Start to transcode"]);
   const fileRef = useRef();
   const video = useRef();
@@ -171,19 +170,14 @@ export default function Video() {
       .getUserMedia({
         video: { deviceId: { exact: deviceId } },
       })
-      .then((stream) => {
-        video.current.srcObject = stream;
-        video.current.onloadedmetadata = (e) => video.current.play();
-        setMedia({ stream });
-      })
+      .then((stream) => setMedia({ stream }))
       .catch(console.info);
-  }, [deviceId, setMedia, video, navigator]);
+  }, [deviceId, setMedia, navigator]);
 
-  const stopRecording = useCallback(() => {
-    media.stream.getVideoTracks()[0].stop();
-    video.current.pause();
-    setMedia(null);
-  }, [setMedia, media, video]);
+  const stopRecording = useCallback(
+    () => setMedia((media) => media.stream.getVideoTracks()[0].stop() || null),
+    [setMedia]
+  );
 
   const remove = useCallback(() => {
     setFrames((frames) =>
@@ -316,13 +310,17 @@ export default function Video() {
     );
     // setMessage("Complete transcoding");
     files.push("out.mp4");
-    const url = URL.createObjectURL(
-      new Blob([ffmpeg.FS("readFile", "out.mp4").buffer], {
-        type: "video/mp4",
-      })
-    );
     setVideos(
-      (videos) => (setSelectedVideo(videos.length), videos.concat(url))
+      (videos) => (
+        setSelectedVideo(videos.length),
+        videos.concat(
+          URL.createObjectURL(
+            new Blob([ffmpeg.FS("readFile", "out.mp4").buffer], {
+              type: "video/mp4",
+            })
+          )
+        )
+      )
     );
     for (let i = 0; i < files.length; i += 1) {
       ffmpeg.FS("unlink", files[i]);
@@ -339,8 +337,22 @@ export default function Video() {
   ]);
 
   useEffect(
-    () => selectedVideo !== "" && setVideoSrc(videos[selectedVideo]),
-    [videos, selectedVideo]
+    () =>
+      Object.assign(
+        video.current,
+        selectedVideo === ""
+          ? {
+              oncanplay: () => video.current.play(), // fixme
+              srcObject: media ? media.stream : null,
+              src: "",
+            }
+          : {
+              oncanplay: null,
+              srcObject: null,
+              src: videos[selectedVideo],
+            }
+      ),
+    [media, video, videos, selectedVideo]
   );
 
   useEffect(() => {
@@ -383,7 +395,7 @@ export default function Video() {
     video.current.addEventListener("loadedmetadata", loadedmetadata);
     video.current.addEventListener("timeupdate", timeupdate);
     return () => {
-      video.current.removeEventListener("play", play);
+      // video.current.removeEventListener("play", play);
     };
   }, [video, canvas]);
 
@@ -392,19 +404,15 @@ export default function Video() {
       // Check if the file is an image.
       if (file.type && file.type.startsWith("image/")) {
         const reader = new FileReader();
-        reader.addEventListener("load", (e) => {
-          // img.src = e.target.result;
-          console.log({ file });
-          setFrames((frames) => frames.concat(e.target.result));
-        });
+        reader.addEventListener("load", (e) =>
+          setFrames((frames) => frames.concat(e.target.result))
+        );
         reader.readAsDataURL(file);
       }
     };
 
     fileRef.current.addEventListener("change", (e) => {
-      const fileList = e.target.files;
-      console.log({ fileList });
-      [...fileList].forEach(readImage);
+      [...e.target.files].forEach(readImage);
       e.target.value = "";
     });
   }, [setFrames, fileRef]);
@@ -424,6 +432,7 @@ export default function Video() {
               value={selectedVideo}
               onChange={(e) => setSelectedVideo(e.target.value)}
             >
+              <option value="">Video Input</option>
               {videos.map((url, key) => (
                 <option key={key} value={key}>
                   {url}
@@ -431,7 +440,9 @@ export default function Video() {
               ))}
             </select>
             <button
-              onClick={() => downloadFile(videoSrc, `video_${selectedVideo}`)}
+              onClick={() =>
+                downloadFile(videos[selectedVideo], `video_${selectedVideo}`)
+              }
               disabled={selectedVideo === ""}
             >
               Download
@@ -465,17 +476,10 @@ export default function Video() {
             )}
           </div>
           <video
-            style={{ display: "none" }}
+            className={styles.Video}
             ref={video}
             crossOrigin="anonymous"
             controls
-          />
-          <video
-            className={styles.Video}
-            src={videoSrc}
-            crossOrigin="anonymous"
-            controls
-            loop
           />
         </div>
         <div className={styles.Camera}>
