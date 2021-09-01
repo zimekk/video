@@ -440,6 +440,17 @@ export default function Video() {
               ))}
             </select>
             <button
+              onClick={() => (
+                setVideos((videos) =>
+                  videos.filter((_, index) => String(index) !== selectedVideo)
+                ),
+                setSelectedVideo("")
+              )}
+              disabled={selectedVideo === ""}
+            >
+              Delete
+            </button>{" "}
+            <button
               onClick={() =>
                 downloadFile(videos[selectedVideo], `video_${selectedVideo}`)
               }
