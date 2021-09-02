@@ -154,15 +154,7 @@ function Frame({ image, index, selected, onClick, moveCard }) {
       data-handler-id={handlerId}
     >
       <div className={styles.Scale}>{`#${index}`}</div>
-      <img
-        src={image}
-        // style={{ width: `${width / 2}px`, height: `${height / 2}px` }}
-        className={styles.Image}
-        // width={width}
-        // height={height}
-        alt=""
-        onClick={onClick}
-      />
+      <img src={image} className={styles.Image} alt="" onClick={onClick} />
     </div>
   );
 }
@@ -305,7 +297,7 @@ export default function Video() {
   }, [selected, lastSelected, setFrames, setLastSelected]);
 
   const capture = useCallback(() => {
-    const index = lastSelected === null ? frames.length : lastSelected;
+    const index = lastSelected === null ? frames.length - 1 : lastSelected;
     const canvas = Object.assign(document.createElement("canvas"), {
       width,
       height,
@@ -318,7 +310,7 @@ export default function Video() {
         .concat(frames.slice(index))
     );
     setLastSelected(index + 1);
-  }, [lastSelected, setFrames, setLastSelected]);
+  }, [frames, lastSelected, setFrames, setLastSelected]);
 
   // https://stackoverflow.com/questions/19183180/how-to-save-an-image-to-localstorage-and-display-it-on-the-next-page
   // const importImages = useCallback(() => null, []);
@@ -389,10 +381,8 @@ export default function Video() {
     const files = [];
     // https://github.com/ffmpegwasm/ffmpeg.wasm/blob/master/examples/browser/image2video.html
     if (!ffmpeg.isLoaded()) {
-      // setMessage("Loading ffmpeg-core.js");
       await ffmpeg.load();
     }
-    // setMessage("Loading data");
     if (audio) {
       files.push(audio);
       ffmpeg.FS("writeFile", audio, await fetchFile(AUDIO_FILES[audio]));
@@ -402,7 +392,6 @@ export default function Video() {
       files.push(`tmp.${num}.png`);
       ffmpeg.FS("writeFile", `tmp.${num}.png`, await fetchFile(frames[i]));
     }
-    // setMessage("Start transcoding");
     await ffmpeg.run(
       ...[
         "-framerate",
@@ -424,7 +413,6 @@ export default function Video() {
           "out.mp4",
         ])
     );
-    // setMessage("Complete transcoding");
     files.push("out.mp4");
     setVideos(
       (videos) => (
@@ -438,9 +426,7 @@ export default function Video() {
         )
       )
     );
-    for (let i = 0; i < files.length; i += 1) {
-      ffmpeg.FS("unlink", files[i]);
-    }
+    files.forEach((file) => ffmpeg.FS("unlink", file));
   }, [
     audio,
     width,
