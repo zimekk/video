@@ -44,7 +44,7 @@
     "wavesurfer.js": "^5.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
+    "@babel/core": "^7.15.4",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.15.0",
     "@hot-loader/react-dom": "^17.0.1",
@@ -66,12 +66,12 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
     "react-hot-loader": "^4.13.0",
-    "sass": "^1.38.2",
+    "sass": "^1.39.0",
     "sass-loader": "^12.1.0",
     "serve": "^12.0.0",
     "stream-browserify": "^3.0.0",
     "style-loader": "^3.2.1",
-    "webpack": "^5.51.1",
+    "webpack": "^5.52.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.1.0"
   }
