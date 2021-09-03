@@ -6,6 +6,11 @@
 ssh-keygen -t rsa -b 4096 -C "" -f ACTIONS_DEPLOY_KEY -N ""
 ```
 
+```sh
+yarn husky add .husky/pre-commit "yarn pretty-quick --staged"
+yarn husky add .husky/commit-msg "yarn commitlint --edit \$1"
+```
+
 ## todo
 
 - [x] transcode video
