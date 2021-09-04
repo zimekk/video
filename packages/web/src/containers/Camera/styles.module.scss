@@ -1,0 +1,131 @@
+// https://codepen.io/rux/pen/GRpqOzR
+.Canvas,
+.Image {
+  background: #fff
+    url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill-opacity=".05" >\
+      <rect x="100" width="100" height="100" />\
+      <rect y="100" width="100" height="100" />\
+      </svg>');
+  background-size: 5%;
+}
+
+.Image {
+  border: 3px solid gray;
+}
+
+.Layout {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  .Preview {
+    flex: 1;
+  }
+  .Toolbar {
+  }
+  .Scroller {
+  }
+}
+
+.Preview {
+  display: flex;
+  flex-direction: row;
+
+  .Camera {
+    flex: 1;
+  }
+}
+
+.Camera {
+  display: flex;
+  flex-direction: column;
+  .Toolbar {
+  }
+  .Canvas,
+  .Video {
+    flex: 1;
+    max-width: 100%;
+  }
+  .Canvas {
+  }
+  .Video {
+  }
+}
+
+.Scroller {
+  overflow-x: scroll;
+  .Timeline {
+    min-width: min-content;
+  }
+}
+
+.Timeline {
+  display: flex;
+  flex-direction: column;
+  .Time {
+    position: relative;
+    height: 20px;
+    background: #fff
+      url('data:image/svg+xml,\
+        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill-opacity=".05" >\
+        <rect x="100" width="100" height="100" />\
+        <rect y="100" width="100" height="100" />\
+        </svg>');
+    background-size: 166px 20px;
+  }
+  .Line {
+    display: flex;
+    flex-direction: row;
+  }
+  .Frame {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .Image {
+      max-height: 120px;
+    }
+    &__Selected {
+      .Image {
+        border-color: blue;
+      }
+    }
+  }
+  .Scale {
+    font-size: 0.75em;
+    display: flex;
+    height: 15px;
+    padding: 5px;
+    background: #fff
+      url('data:image/svg+xml,\
+        <svg xmlns="http://www.w3.org/2000/svg" fill-opacity=".5" >\
+        <rect x="0" y="5" width="1" height="15" />\
+        <rect x="25%" y="10" width="1" height="10" />\
+        <rect x="50%" y="10" width="1" height="10" />\
+        <rect x="75%" y="10" width="1" height="10" />\
+        </svg>');
+  }
+}
+
+.Slider {
+  position: absolute;
+  z-index: 1;
+  margin-top: 5px;
+  width: 1px;
+  height: 280px;
+  background: #f02c00;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    margin-left: -10px;
+    // https://github.com/remotion-dev/remotion/blob/main/packages/cli/src/editor/components/Timeline/TimelineSliderHandle.tsx
+    background: url('data:image/svg+xml,\
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159 212" fill="%23f02c00">\
+        <path d="M17.0234375,1.07763419 L143.355469,1.07763419 C151.63974,1.07763419 158.355469,7.79336295 158.355469,16.0776342 L158.355469,69.390507 C158.355469,73.7938677 156.420655,77.9748242 153.064021,80.8248415 L89.3980057,134.881757 C83.7986799,139.635978 75.5802263,139.635978 69.9809005,134.881757 L6.66764807,81.1243622 C3.0872392,78.0843437 1.0234375,73.6246568 1.0234375,68.9277387 L1.0234375,17.0776342 C1.0234375,8.2410782 8.1868815,1.07763419 17.0234375,1.07763419 Z"/>\
+        </svg>')
+      no-repeat;
+    background-size: 100%;
+  }
+}
