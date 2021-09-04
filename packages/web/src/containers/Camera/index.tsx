@@ -29,12 +29,7 @@ export default function Camera() {
 
       function gotStream(stream) {
         console.log("getUserMedia() got stream: ", stream);
-        setMediaStream((mediaStream) => {
-          if (mediaStream) {
-            mediaStream.getTracks().forEach((track) => track.stop());
-          }
-          return stream;
-        });
+        setMediaStream(stream);
       }
 
       // Get a video stream from the currently selected camera source.
@@ -64,6 +59,11 @@ export default function Camera() {
 
       setImageCapture(new ImageCapture(mediaStream.getVideoTracks()[0]));
     }
+    return () => {
+      if (mediaStream) {
+        mediaStream.getTracks().forEach((track) => track.stop());
+      }
+    };
   }, [videoRef, mediaStream, setImageCapture]);
 
   useEffect(() => {
