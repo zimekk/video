@@ -639,6 +639,8 @@
 
 /*! ./controllers/BaseURLController */
 
+/*! ./controllers/BlacklistController */
+
 /*! ./controllers/BufferController */
 
 /*! ./controllers/FragmentController */
@@ -982,6 +984,8 @@
 /*! isarray */
 
 /*! no static exports found */
+
+/*! path-browserify */
 
 /*! process-nextick-args */
 
@@ -1565,6 +1569,10 @@
 
 /*!***********************************************!*\
   !*** ./node_modules/imsc/src/main/js/main.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
   \***********************************************/
 
 /*!***********************************************!*\
