@@ -27,10 +27,10 @@ export default function Camera() {
     if (videoSource) {
       console.log({ videoSource });
 
-      function gotStream(stream) {
+      const gotStream = (stream) => {
         console.log("getUserMedia() got stream: ", stream);
         setMediaStream(stream);
-      }
+      };
 
       // Get a video stream from the currently selected camera source.
       const constraints = {

@@ -14,16 +14,17 @@
       "node": true
     },
     "extends": [
-      "eslint:recommended",
-      "plugin:prettier/recommended",
-      "plugin:react/recommended"
+      "eslint:recommended"
     ],
-    "root": true,
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint",
       "prettier"
     ],
+    "root": true,
+    "rules": {
+      "no-unused-vars": "warn"
+    },
     "settings": {
       "react": {
         "version": "detect"
@@ -46,7 +47,7 @@
     "reset": "rm -rf node_modules packages/*/node_modules",
     "serve": "yarn workspace @dev/app serve",
     "start": "yarn workspace @dev/app start",
-    "dedupe": "yarn-deduplicate",
+    "dedupe": "yarn-deduplicate && yarn",
     "dedupe:list": "yarn-deduplicate --list",
     "update": "yarn upgrade-interactive",
     "update:latest": "yarn upgrade-interactive --latest",
@@ -55,24 +56,20 @@
   "workspaces": [
     "packages/*"
   ],
-  "resolutions": {
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "@typescript-eslint/parser": "^4.30.0",
-    "eslint": "^7.32.0",
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-conventional": "^14.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.25.1",
-    "husky": "^7.0.0",
-    "prettier": "^2.3.2",
+    "eslint-plugin-react": "^7.27.0",
+    "husky": "^7.0.4",
+    "prettier": "^2.4.1",
     "pretty-quick": "^3.1.1",
-    "type-coverage": "^2.18.2",
-    "typescript": "^4.4.2",
+    "type-coverage": "^2.19.0",
+    "typescript": "^4.4.4",
     "yarn-deduplicate": "^3.1.0"
   }
 }

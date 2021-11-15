@@ -103,7 +103,7 @@ function Frame({ image, index, selected, onClick, moveCard }) {
       const clientOffset = monitor.getClientOffset();
 
       // Get pixels to the top
-      const hoverClientX = (clientOffset as XYCoord).x - hoverBoundingRect.left;
+      const hoverClientX = clientOffset.x - hoverBoundingRect.left;
 
       // Only perform the move when the mouse has crossed half of the items height
       // When dragging downwards, only move when the cursor is below 50%

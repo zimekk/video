@@ -336,7 +336,7 @@ function Particles({ children = null }) {
     // backgroundGradient.addColorStop(0,"#171e26");
     // backgroundGradient.addColorStop(1,"#3f586b");
 
-    for (var i = 0; i < stars.length; i++) {
+    for (let i = 0; i < stars.length; i++) {
       stars[i].update(context);
       // console.log(stars[0].isAlive());
 
@@ -345,7 +345,7 @@ function Particles({ children = null }) {
       }
     }
 
-    for (var i = 0; i < explosions.length; i++) {
+    for (let i = 0; i < explosions.length; i++) {
       if (explosions[i].length <= 0) {
         explosions.splice(i, 1);
       }
