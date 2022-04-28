@@ -14,7 +14,9 @@ const config = {
     port: 8080,
   },
   devtool: dev && "inline-source-map",
-  entry: ["react-hot-loader/patch"].concat(require.resolve("./src")),
+  entry: ["regenerator-runtime/runtime"]
+    .concat(dev ? ["react-hot-loader/patch"] : [])
+    .concat(require.resolve("./src")),
   module: {
     rules: [
       {
@@ -45,7 +47,11 @@ const config = {
         loader: "babel-loader",
         exclude: /node_modules/,
         options: {
-          presets: ["@babel/preset-react", "@babel/preset-typescript"],
+          presets: [
+            "@babel/preset-env",
+            "@babel/preset-react",
+            "@babel/preset-typescript",
+          ],
           plugins: ["react-hot-loader/babel"],
         },
       },
