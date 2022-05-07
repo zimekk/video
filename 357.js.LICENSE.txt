@@ -65,6 +65,8 @@
 
 /*! ../../../externals/xml2json */
 
+/*! ../../../models/CustomParametersModel */
+
 /*! ../../../streaming/constants/Constants */
 
 /*! ../../MediaPlayerEvents */
@@ -235,6 +237,8 @@
 
 /*! ../models/CmcdModel */
 
+/*! ../models/CustomParametersModel */
+
 /*! ../models/DashManifestModel */
 
 /*! ../models/FragmentModel */
@@ -364,6 +368,8 @@
 /*! ../vo/PatchOperation */
 
 /*! ../vo/Period */
+
+/*! ../vo/ProducerReferenceTime */
 
 /*! ../vo/Range */
 
@@ -643,6 +649,8 @@
 
 /*! ./controllers/BufferController */
 
+/*! ./controllers/CatchupController */
+
 /*! ./controllers/FragmentController */
 
 /*! ./controllers/GapController */
@@ -658,6 +666,8 @@
 /*! ./controllers/ProtectionKeyController */
 
 /*! ./controllers/ScheduleController */
+
+/*! ./controllers/ServiceDescriptionController */
 
 /*! ./controllers/StreamController */
 
@@ -758,6 +768,8 @@
 /*! ./metrics/MetricsHandlerFactory */
 
 /*! ./models/CmcdModel */
+
+/*! ./models/CustomParametersModel */
 
 /*! ./models/DashManifestModel */
 
@@ -1532,6 +1544,10 @@
   \**********************************************/
 
 /*!**********************************************!*\
+  !*** ./src/dash/vo/ProducerReferenceTime.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
   !*** ./src/streaming/constants/Constants.js ***!
   \**********************************************/
 
@@ -1960,6 +1976,10 @@
   \*******************************************************/
 
 /*!*******************************************************!*\
+  !*** ./src/streaming/models/CustomParametersModel.js ***!
+  \*******************************************************/
+
+/*!*******************************************************!*\
   !*** ./src/streaming/protection/servers/PlayReady.js ***!
   \*******************************************************/
 
@@ -2009,6 +2029,10 @@
 
 /*!********************************************************!*\
   !*** ./src/streaming/controllers/BaseURLController.js ***!
+  \********************************************************/
+
+/*!********************************************************!*\
+  !*** ./src/streaming/controllers/CatchupController.js ***!
   \********************************************************/
 
 /*!********************************************************!*\
@@ -2314,6 +2338,10 @@
 /*!******************************************************************!*\
   !*** ./src/streaming/metrics/controllers/ReportingController.js ***!
   \******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./src/streaming/controllers/ServiceDescriptionController.js ***!
+  \*******************************************************************/
 
 /*!*******************************************************************!*\
   !*** ./src/streaming/metrics/metrics/handlers/HttpListHandler.js ***!
