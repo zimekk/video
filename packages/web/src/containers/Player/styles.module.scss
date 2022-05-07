@@ -1,0 +1,154 @@
+.Section {
+  display: block;
+}
+.Player {
+  position: relative;
+  display: inline-flex;
+  .Overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0%;
+    right: 0;
+    .Counter,
+    .SessionProgress,
+    .Countdown,
+    .Description,
+    .Label {
+      position: absolute;
+    }
+  }
+}
+.Label {
+  left: 2.8%;
+  bottom: 4.7%;
+  height: 12%;
+  width: 16.4%;
+  color: white;
+  background: black;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+}
+.Countdown {
+  top: 50%;
+  left: 50%;
+  color: black;
+  font-size: 800%;
+  line-height: 100%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+.Counter {
+  left: 14%;
+  top: 9.5%;
+  height: 12%;
+  width: 30%;
+  color: black;
+  text-align: left;
+  font-size: 130%;
+  line-height: 120%;
+  display: flex;
+  align-items: center;
+  padding-left: 1.5%;
+  i {
+    position: absolute;
+    top: -35%;
+    left: -35%;
+    width: 32%;
+    font-size: 200%;
+    text-align: center;
+    line-height: 150%;
+    border-radius: 50%;
+    border: 3px solid currentColor;
+  }
+}
+.SessionProgress {
+  right: 3%;
+  top: 5%;
+  width: 27%;
+  color: black;
+  text-align: left;
+  font-size: 130%;
+  line-height: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1.5%;
+  i {
+    position: absolute;
+    right: 0;
+    top: 125%;
+  }
+}
+.Description {
+  right: 20%;
+  bottom: 9.5%;
+  height: 12%;
+  width: 16.4%;
+  color: black;
+  text-align: right;
+  font-size: 130%;
+  line-height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-right: 1px solid currentColor;
+  padding-right: 1.5%;
+}
+.Progress {
+  position: absolute;
+  bottom: 0;
+  width: calc(640px - 2 * 12px);
+  height: 3px;
+  margin: 0 12px;
+  background: darkslategray;
+  i {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    background: red;
+  }
+}
+.Mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.Play {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.75);
+  font-size: 50%;
+  // line-height: 100%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  width: 10%;
+  height: 12%;
+  border-radius: 20%;
+  border: 0;
+  padding: 0;
+
+  &:hover {
+    background-color: red;
+  }
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-color: transparent transparent transparent currentColor;
+    border-style: solid;
+    border-width: 1em 0 1em 2em;
+    transform: translate(-50%, -50%);
+  }
+}
