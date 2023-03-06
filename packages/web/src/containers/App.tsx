@@ -7,6 +7,7 @@ const Spinner = () => <span>Loading...</span>;
 
 const PAGES = {
   player: lazy(() => import("./Player")),
+  shapes: lazy(() => import("./Shapes")),
   editor: lazy(() => import("./Editor")),
   camera: lazy(() => import("./Camera")),
   demo: lazy(() => import("./Demo")),
