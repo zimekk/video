@@ -16,13 +16,6 @@
 /*!
  * The buffer module from node.js, for the browser.
  *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
- */
-
-/*!
- * The buffer module from node.js, for the browser.
- *
  * @author   Feross Aboukhadijeh <https://feross.org>
  * @license  MIT
  */
@@ -60,6 +53,10 @@
 /*! ../../../core/errors/ErrorsBase */
 
 /*! ../../../core/events/Events */
+
+/*! ../../../dash/controllers/ContentSteeringController */
+
+/*! ../../../errors */
 
 /*! ../../../externals/cea608-parser */
 
@@ -127,6 +124,8 @@
 
 /*! ../../streaming/net/SchemeLoaderFactory */
 
+/*! ../../streaming/net/URLLoader */
+
 /*! ../../streaming/net/XHRLoader */
 
 /*! ../../streaming/thumbnail/ThumbnailTracks */
@@ -138,6 +137,8 @@
 /*! ../../streaming/utils/URLUtils */
 
 /*! ../../streaming/vo/DashJSError */
+
+/*! ../../streaming/vo/metrics/HTTPRequest */
 
 /*! ../../utils/CustomTimeRanges */
 
@@ -160,6 +161,8 @@
 /*! ../MediaPlayerEvents */
 
 /*! ../MetricsReportingEvents */
+
+/*! ../PreBufferSink */
 
 /*! ../ProcessingNodes/processingnode */
 
@@ -213,15 +216,21 @@
 
 /*! ../dash/constants/DashConstants */
 
+/*! ../dash/controllers/ContentSteeringController */
+
 /*! ../dash/controllers/RepresentationController */
 
 /*! ../dash/controllers/SegmentBaseController */
 
 /*! ../dash/controllers/SegmentsController */
 
+/*! ../dash/controllers/ServiceDescriptionController */
+
 /*! ../dash/parser/DashParser */
 
 /*! ../dash/utils/TimelineConverter */
+
+/*! ../errors */
 
 /*! ../errors/ProtectionErrors */
 
@@ -236,6 +245,8 @@
 /*! ../models/BaseURLTreeModel */
 
 /*! ../models/CmcdModel */
+
+/*! ../models/CmsdModel */
 
 /*! ../models/CustomParametersModel */
 
@@ -305,6 +316,8 @@
 
 /*! ../utils/SegmentBaseGetter */
 
+/*! ../utils/SegmentResponseModifier */
+
 /*! ../utils/SegmentsUtils */
 
 /*! ../utils/SupervisorTools */
@@ -319,6 +332,8 @@
 
 /*! ../utils/VTTParser */
 
+/*! ../utils/VttCustomRenderingParser */
+
 /*! ../vo/AdaptationSet */
 
 /*! ../vo/BaseURL */
@@ -326,6 +341,12 @@
 /*! ../vo/BitrateInfo */
 
 /*! ../vo/ClearKeyKeySet */
+
+/*! ../vo/ContentSteering */
+
+/*! ../vo/ContentSteeringRequest */
+
+/*! ../vo/ContentSteeringResponse */
 
 /*! ../vo/DVBErrors */
 
@@ -411,8 +432,6 @@
 
 /*! ./ */
 
-/*! ./../../../webpack/buildin/global.js */
-
 /*! ./../../core/EventBus */
 
 /*! ./../../core/errors/Errors */
@@ -420,14 +439,6 @@
 /*! ./../../core/events/Events */
 
 /*! ./../../dash/vo/MediaInfo */
-
-/*! ./../../node-libs-browser/node_modules/buffer/index.js */
-
-/*! ./../../node-libs-browser/node_modules/timers-browserify/main.js */
-
-/*! ./../../process/browser.js */
-
-/*! ./../../webpack/buildin/global.js */
 
 /*! ./../CommonEncryption */
 
@@ -447,8 +458,6 @@
 
 /*! ./../drm/KeySystemWidevine */
 
-/*! ./../process/browser.js */
-
 /*! ./../servers/ClearKey */
 
 /*! ./../servers/DRMToday */
@@ -460,8 +469,6 @@
 /*! ./../vo/DashJSError */
 
 /*! ./../vo/Segment */
-
-/*! ./../webpack/buildin/global.js */
 
 /*! ./AbandonRequestsRule */
 
@@ -619,6 +626,8 @@
 
 /*! ./baseUrlResolution/BasicSelector */
 
+/*! ./baseUrlResolution/ContentSteeringSelector */
+
 /*! ./baseUrlResolution/DVBSelector */
 
 /*! ./canvasnode */
@@ -667,8 +676,6 @@
 
 /*! ./controllers/ScheduleController */
 
-/*! ./controllers/ServiceDescriptionController */
-
 /*! ./controllers/StreamController */
 
 /*! ./controllers/XlinkController */
@@ -685,6 +692,8 @@
 
 /*! ./crossfade.vert */
 
+/*! ./defaults.json */
+
 /*! ./destinationnode.frag */
 
 /*! ./destinationnode.vert */
@@ -699,11 +708,15 @@
 
 /*! ./effectnode */
 
+/*! ./end-of-stream */
+
 /*! ./errors/ProtectionErrors */
 
 /*! ./events/Events */
 
 /*! ./exceptions.js */
+
+/*! ./fields.json */
 
 /*! ./handlers/BufferLevelHandler */
 
@@ -731,25 +744,29 @@
 
 /*! ./index_mediaplayerOnly */
 
-/*! ./internal/streams/BufferList */
+/*! ./internal/streams/async_iterator */
+
+/*! ./internal/streams/buffer_list */
 
 /*! ./internal/streams/destroy */
+
+/*! ./internal/streams/from */
+
+/*! ./internal/streams/state */
 
 /*! ./internal/streams/stream */
 
 /*! ./isd */
 
-/*! ./lib/_stream_duplex.js */
+/*! ./lib */
 
-/*! ./lib/_stream_passthrough.js */
+/*! ./lib/parse */
 
-/*! ./lib/_stream_readable.js */
-
-/*! ./lib/_stream_transform.js */
-
-/*! ./lib/_stream_writable.js */
+/*! ./lib/stringify */
 
 /*! ./lolp/LoLpRule.js */
+
+/*! ./many.json */
 
 /*! ./maps/RepresentationBaseValuesMap */
 
@@ -759,15 +776,21 @@
 
 /*! ./matchers/DurationMatcher */
 
+/*! ./matchers/LangMatcher */
+
 /*! ./matchers/NumericMatcher */
 
 /*! ./matchers/StringMatcher */
+
+/*! ./matches.json */
 
 /*! ./medianode */
 
 /*! ./metrics/MetricsHandlerFactory */
 
 /*! ./models/CmcdModel */
+
+/*! ./models/CmsdModel */
 
 /*! ./models/CustomParametersModel */
 
@@ -803,7 +826,7 @@
 
 /*! ./net/URLLoader */
 
-/*! ./node_modules/webpack/buildin/global.js */
+/*! ./normalize.json */
 
 /*! ./objectiron */
 
@@ -821,7 +844,7 @@
 
 /*! ./randomDissolve.vert */
 
-/*! ./readable */
+/*! ./regular.json */
 
 /*! ./rendergraph.js */
 
@@ -947,39 +970,21 @@
 
 /*! base64-js */
 
+/*! bcp-47 */
+
+/*! bcp-47-match */
+
+/*! bcp-47-normalize */
+
 /*! buffer */
 
 /*! codem-isoboxer */
 
 /*! codem-isoboxer v0.3.6 https://github.com/madebyhiro/codem-isoboxer/blob/master/LICENSE.txt */
 
-/*! core-util-is */
-
 /*! es6-promise/auto */
 
 /*! events */
-
-/*! exports provided: HTTPRequest, HTTPRequestTrace */
-
-/*! exports provided: ManifestUpdate, ManifestUpdateStreamInfo, ManifestUpdateRepresentationInfo */
-
-/*! exports provided: PlayList, PlayListTrace */
-
-/*! exports provided: THUMBNAILS_SCHEME_ID_URIS, default */
-
-/*! exports provided: checkParameterType, checkInteger, checkRange, checkIsVideoOrAudioType */
-
-/*! exports provided: default */
-
-/*! exports provided: default, MediaPlayer, FactoryMaker, Debug */
-
-/*! exports provided: default, MediaPlayer, Protection, MetricsReporting, MediaPlayerFactory, Debug, supportsMediaSource */
-
-/*! exports provided: getVersionString */
-
-/*! exports provided: supportsMediaSource, default */
-
-/*! exports provided: unescapeDollarsInTemplate, replaceIDForTemplate, replaceTokenForTemplate, getIndexBasedSegment, getTimeBasedSegment */
 
 /*! fast-deep-equal */
 
@@ -993,35 +998,41 @@
 
 /*! inherits */
 
-/*! isarray */
+/*! is-alphabetical */
+
+/*! is-alphanumerical */
+
+/*! is-decimal */
 
 /*! no static exports found */
 
 /*! path-browserify */
 
-/*! process-nextick-args */
+/*! readable-stream/lib/_stream_duplex.js */
 
-/*! readable-stream/duplex.js */
+/*! readable-stream/lib/_stream_passthrough.js */
 
-/*! readable-stream/passthrough.js */
+/*! readable-stream/lib/_stream_readable.js */
 
-/*! readable-stream/readable.js */
+/*! readable-stream/lib/_stream_transform.js */
 
-/*! readable-stream/transform.js */
+/*! readable-stream/lib/_stream_writable.js */
 
-/*! readable-stream/writable.js */
+/*! readable-stream/lib/internal/streams/end-of-stream.js */
+
+/*! readable-stream/lib/internal/streams/pipeline.js */
 
 /*! safe-buffer */
 
 /*! sax */
-
-/*! setimmediate */
 
 /*! stream */
 
 /*! string_decoder */
 
 /*! string_decoder/ */
+
+/*! ua-parser-js */
 
 /*! util */
 
@@ -1144,10 +1155,6 @@
   \**********************************/
 
 /*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-
-/*!***********************************!*\
   !*** ./src/core/errors/Errors.js ***!
   \***********************************/
 
@@ -1188,6 +1195,14 @@
   \*************************************/
 
 /*!**************************************!*\
+  !*** ./node_modules/bcp-47/index.js ***!
+  \**************************************/
+
+/*!**************************************!*\
+  !*** ./node_modules/buffer/index.js ***!
+  \**************************************/
+
+/*!**************************************!*\
   !*** ./src/Definitions/crop/crop.js ***!
   \**************************************/
 
@@ -1224,11 +1239,7 @@
   \**************************************/
 
 /*!***************************************!*\
-  !*** ./node_modules/ieee754/index.js ***!
-  \***************************************/
-
-/*!***************************************!*\
-  !*** ./node_modules/isarray/index.js ***!
+  !*** ./node_modules/events/events.js ***!
   \***************************************/
 
 /*!***************************************!*\
@@ -1292,6 +1303,14 @@
   \****************************************/
 
 /*!****************************************!*\
+  !*** ./src/dash/vo/ContentSteering.js ***!
+  \****************************************/
+
+/*!****************************************!*\
+  !*** ./src/streaming/PreBufferSink.js ***!
+  \****************************************/
+
+/*!****************************************!*\
   !*** ./src/streaming/net/URLLoader.js ***!
   \****************************************/
 
@@ -1302,14 +1321,6 @@
 /*!****************************************!*\
   !*** ./src/streaming/utils/IsoFile.js ***!
   \****************************************/
-
-/*!*****************************************!*\
-  !*** ./node_modules/base64-js/index.js ***!
-  \*****************************************/
-
-/*!*****************************************!*\
-  !*** ./node_modules/process/browser.js ***!
-  \*****************************************/
 
 /*!*****************************************!*\
   !*** ./src/dash/parser/maps/MapNode.js ***!
@@ -1356,7 +1367,15 @@
   \*****************************************/
 
 /*!******************************************!*\
+  !*** ./node_modules/bcp-47/lib/parse.js ***!
+  \******************************************/
+
+/*!******************************************!*\
   !*** ./node_modules/es6-promise/auto.js ***!
+  \******************************************/
+
+/*!******************************************!*\
+  !*** ./node_modules/is-decimal/index.js ***!
   \******************************************/
 
 /*!******************************************!*\
@@ -1416,6 +1435,10 @@
   \*******************************************/
 
 /*!*******************************************!*\
+  !*** ./src/streaming/models/CmsdModel.js ***!
+  \*******************************************/
+
+/*!*******************************************!*\
   !*** ./src/streaming/utils/DOMStorage.js ***!
   \*******************************************/
 
@@ -1430,6 +1453,10 @@
 /*!*******************************************!*\
   !*** ./src/streaming/vo/TextTrackInfo.js ***!
   \*******************************************/
+
+/*!********************************************!*\
+  !*** ./node_modules/bcp-47-match/index.js ***!
+  \********************************************/
 
 /*!********************************************!*\
   !*** ./src/Definitions/combine/combine.js ***!
@@ -1508,6 +1535,14 @@
   \*********************************************/
 
 /*!**********************************************!*\
+  !*** ./node_modules/bcp-47/lib/regular.json ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ./node_modules/bcp-47/lib/stringify.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
   !*** ./node_modules/imsc/src/main/js/doc.js ***!
   \**********************************************/
 
@@ -1572,10 +1607,6 @@
   \**********************************************/
 
 /*!***********************************************!*\
-  !*** ./node_modules/core-util-is/lib/util.js ***!
-  \***********************************************/
-
-/*!***********************************************!*\
   !*** ./node_modules/fast-deep-equal/index.js ***!
   \***********************************************/
 
@@ -1585,6 +1616,10 @@
 
 /*!***********************************************!*\
   !*** ./node_modules/imsc/src/main/js/main.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
+  !*** ./node_modules/is-alphabetical/index.js ***!
   \***********************************************/
 
 /*!***********************************************!*\
@@ -1604,6 +1639,10 @@
   \***********************************************/
 
 /*!***********************************************!*\
+  !*** ./src/dash/vo/ContentSteeringRequest.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
   !*** ./src/streaming/metrics/vo/DVBErrors.js ***!
   \***********************************************/
 
@@ -1618,6 +1657,14 @@
 /*!***********************************************!*\
   !*** ./src/streaming/models/ManifestModel.js ***!
   \***********************************************/
+
+/*!************************************************!*\
+  !*** ./node_modules/bcp-47-normalize/index.js ***!
+  \************************************************/
+
+/*!************************************************!*\
+  !*** ./node_modules/bcp-47/lib/normalize.json ***!
+  \************************************************/
 
 /*!************************************************!*\
   !*** ./node_modules/imsc/src/main/js/names.js ***!
@@ -1657,6 +1704,10 @@
 
 /*!************************************************!*\
   !*** ./src/dash/parser/maps/CommonProperty.js ***!
+  \************************************************/
+
+/*!************************************************!*\
+  !*** ./src/dash/vo/ContentSteeringResponse.js ***!
   \************************************************/
 
 /*!************************************************!*\
@@ -1700,11 +1751,19 @@
   \*************************************************/
 
 /*!*************************************************!*\
+  !*** ./node_modules/is-alphanumerical/index.js ***!
+  \*************************************************/
+
+/*!*************************************************!*\
   !*** ./node_modules/stream-browserify/index.js ***!
   \*************************************************/
 
 /*!*************************************************!*\
   !*** ./src/dash/parser/matchers/BaseMatcher.js ***!
+  \*************************************************/
+
+/*!*************************************************!*\
+  !*** ./src/dash/parser/matchers/LangMatcher.js ***!
   \*************************************************/
 
 /*!*************************************************!*\
@@ -1792,18 +1851,6 @@
   \**************************************************/
 
 /*!***************************************************!*\
-  !*** ./node_modules/inherits/inherits_browser.js ***!
-  \***************************************************/
-
-/*!***************************************************!*\
-  !*** ./node_modules/readable-stream/transform.js ***!
-  \***************************************************/
-
-/*!***************************************************!*\
-  !*** ./node_modules/setimmediate/setImmediate.js ***!
-  \***************************************************/
-
-/*!***************************************************!*\
   !*** ./src/dash/parser/matchers/StringMatcher.js ***!
   \***************************************************/
 
@@ -1832,7 +1879,11 @@
   \***************************************************/
 
 /*!****************************************************!*\
-  !*** ./node_modules/process-nextick-args/index.js ***!
+  !*** ./node_modules/bcp-47-normalize/lib/index.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ./node_modules/ua-parser-js/src/ua-parser.js ***!
   \****************************************************/
 
 /*!****************************************************!*\
@@ -1872,7 +1923,7 @@
   \****************************************************/
 
 /*!*****************************************************!*\
-  !*** ./node_modules/readable-stream/passthrough.js ***!
+  !*** ./node_modules/bcp-47-normalize/lib/many.json ***!
   \*****************************************************/
 
 /*!*****************************************************!*\
@@ -1956,6 +2007,10 @@
   \******************************************************/
 
 /*!*******************************************************!*\
+  !*** ./node_modules/bcp-47-normalize/lib/fields.json ***!
+  \*******************************************************/
+
+/*!*******************************************************!*\
   !*** ./node_modules/codem-isoboxer/dist/iso_boxer.js ***!
   \*******************************************************/
 
@@ -1996,7 +2051,7 @@
   \*******************************************************/
 
 /*!********************************************************!*\
-  !*** ./node_modules/readable-stream/duplex-browser.js ***!
+  !*** ./node_modules/bcp-47-normalize/lib/matches.json ***!
   \********************************************************/
 
 /*!********************************************************!*\
@@ -2059,6 +2114,14 @@
   !*** ./src/streaming/thumbnail/ThumbnailController.js ***!
   \********************************************************/
 
+/*!********************************************************!*\
+  !*** ./src/streaming/utils/SegmentResponseModifier.js ***!
+  \********************************************************/
+
+/*!*********************************************************!*\
+  !*** ./node_modules/bcp-47-normalize/lib/defaults.json ***!
+  \*********************************************************/
+
 /*!*********************************************************!*\
   !*** ./src/streaming/controllers/FragmentController.js ***!
   \*********************************************************/
@@ -2083,13 +2146,9 @@
   !*** ./src/streaming/metrics/utils/MetricSerialiser.js ***!
   \*********************************************************/
 
-/*!**********************************************************!*\
-  !*** ./node_modules/readable-stream/readable-browser.js ***!
-  \**********************************************************/
-
-/*!**********************************************************!*\
-  !*** ./node_modules/readable-stream/writable-browser.js ***!
-  \**********************************************************/
+/*!*********************************************************!*\
+  !*** ./src/streaming/utils/VttCustomRenderingParser.js ***!
+  \*********************************************************/
 
 /*!**********************************************************!*\
   !*** ./src/Definitions/aaf_video_crop/aaf_video_crop.js ***!
@@ -2140,7 +2199,15 @@
   \**********************************************************/
 
 /*!***********************************************************!*\
+  !*** ./node_modules/buffer/node_modules/ieee754/index.js ***!
+  \***********************************************************/
+
+/*!***********************************************************!*\
   !*** ./node_modules/string_decoder/lib/string_decoder.js ***!
+  \***********************************************************/
+
+/*!***********************************************************!*\
+  !*** ./src/dash/controllers/ContentSteeringController.js ***!
   \***********************************************************/
 
 /*!***********************************************************!*\
@@ -2158,10 +2225,6 @@
 /*!***********************************************************!*\
   !*** ./src/streaming/rules/abr/InsufficientBufferRule.js ***!
   \***********************************************************/
-
-/*!************************************************************!*\
-  !*** ./node_modules/readable-stream/lib/_stream_duplex.js ***!
-  \************************************************************/
 
 /*!************************************************************!*\
   !*** ./src/Definitions/aaf_video_crop/aaf_video_crop.frag ***!
@@ -2248,6 +2311,10 @@
   \************************************************************/
 
 /*!*************************************************************!*\
+  !*** ./node_modules/buffer/node_modules/base64-js/index.js ***!
+  \*************************************************************/
+
+/*!*************************************************************!*\
   !*** ./src/dash/parser/maps/RepresentationBaseValuesMap.js ***!
   \*************************************************************/
 
@@ -2260,19 +2327,15 @@
   \*************************************************************/
 
 /*!**************************************************************!*\
-  !*** ./node_modules/readable-stream/lib/_stream_readable.js ***!
-  \**************************************************************/
-
-/*!**************************************************************!*\
-  !*** ./node_modules/readable-stream/lib/_stream_writable.js ***!
-  \**************************************************************/
-
-/*!**************************************************************!*\
   !*** ./src/Definitions/aaf_video_scale/aaf_video_scale.frag ***!
   \**************************************************************/
 
 /*!**************************************************************!*\
   !*** ./src/Definitions/aaf_video_scale/aaf_video_scale.vert ***!
+  \**************************************************************/
+
+/*!**************************************************************!*\
+  !*** ./src/dash/controllers/ServiceDescriptionController.js ***!
   \**************************************************************/
 
 /*!**************************************************************!*\
@@ -2286,10 +2349,6 @@
 /*!**************************************************************!*\
   !*** ./src/streaming/utils/baseUrlResolution/DVBSelector.js ***!
   \**************************************************************/
-
-/*!***************************************************************!*\
-  !*** ./node_modules/readable-stream/lib/_stream_transform.js ***!
-  \***************************************************************/
 
 /*!***************************************************************!*\
   !*** ./src/streaming/protection/vo/KeySystemConfiguration.js ***!
@@ -2316,10 +2375,6 @@
   \****************************************************************/
 
 /*!*****************************************************************!*\
-  !*** ./node_modules/readable-stream/lib/_stream_passthrough.js ***!
-  \*****************************************************************/
-
-/*!*****************************************************************!*\
   !*** ./src/streaming/text/NotFragmentedTextBufferController.js ***!
   \*****************************************************************/
 
@@ -2338,10 +2393,6 @@
 /*!******************************************************************!*\
   !*** ./src/streaming/metrics/controllers/ReportingController.js ***!
   \******************************************************************/
-
-/*!*******************************************************************!*\
-  !*** ./src/streaming/controllers/ServiceDescriptionController.js ***!
-  \*******************************************************************/
 
 /*!*******************************************************************!*\
   !*** ./src/streaming/metrics/metrics/handlers/HttpListHandler.js ***!
@@ -2372,20 +2423,8 @@
   \********************************************************************/
 
 /*!*********************************************************************!*\
-  !*** ./node_modules/node-libs-browser/node_modules/buffer/index.js ***!
-  \*********************************************************************/
-
-/*!*********************************************************************!*\
   !*** ./src/streaming/protection/models/ProtectionModel_3Feb2014.js ***!
   \*********************************************************************/
-
-/*!**********************************************************************!*\
-  !*** ./node_modules/node-libs-browser/node_modules/events/events.js ***!
-  \**********************************************************************/
-
-/*!**********************************************************************!*\
-  !*** ./node_modules/readable-stream/lib/internal/streams/destroy.js ***!
-  \**********************************************************************/
 
 /*!**********************************************************************!*\
   !*** ./src/streaming/metrics/metrics/handlers/BufferLevelHandler.js ***!
@@ -2408,10 +2447,6 @@
   \************************************************************************/
 
 /*!*************************************************************************!*\
-  !*** ./node_modules/readable-stream/lib/internal/streams/BufferList.js ***!
-  \*************************************************************************/
-
-/*!*************************************************************************!*\
   !*** ./src/streaming/protection/controllers/ProtectionKeyController.js ***!
   \*************************************************************************/
 
@@ -2419,10 +2454,66 @@
   !*** ./src/streaming/metrics/controllers/MetricsCollectionController.js ***!
   \**************************************************************************/
 
-/*!*****************************************************************************!*\
-  !*** ./node_modules/readable-stream/lib/internal/streams/stream-browser.js ***!
-  \*****************************************************************************/
+/*!**************************************************************************!*\
+  !*** ./src/streaming/utils/baseUrlResolution/ContentSteeringSelector.js ***!
+  \**************************************************************************/
 
-/*!*******************************************************************************!*\
-  !*** ./node_modules/node-libs-browser/node_modules/timers-browserify/main.js ***!
-  \*******************************************************************************/
+/*!**********************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/inherits/inherits_browser.js ***!
+  \**********************************************************************************/
+
+/*!***************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/errors-browser.js ***!
+  \***************************************************************************************/
+
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_duplex.js ***!
+  \*******************************************************************************************/
+
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_readable.js ***!
+  \*********************************************************************************************/
+
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_writable.js ***!
+  \*********************************************************************************************/
+
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_transform.js ***!
+  \**********************************************************************************************/
+
+/*!************************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_passthrough.js ***!
+  \************************************************************************************************/
+
+/*!***************************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/state.js ***!
+  \***************************************************************************************************/
+
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/destroy.js ***!
+  \*****************************************************************************************************/
+
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/pipeline.js ***!
+  \******************************************************************************************************/
+
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/buffer_list.js ***!
+  \*********************************************************************************************************/
+
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/from-browser.js ***!
+  \**********************************************************************************************************/
+
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/end-of-stream.js ***!
+  \***********************************************************************************************************/
+
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/async_iterator.js ***!
+  \************************************************************************************************************/
+
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/stream-browser.js ***!
+  \************************************************************************************************************/
