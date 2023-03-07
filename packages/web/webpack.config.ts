@@ -1,5 +1,6 @@
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import * as path from "path";
 import webpack from "webpack";
 import env from "dotenv";
@@ -14,9 +15,7 @@ const config = {
     port: 8080,
   },
   devtool: dev && "inline-source-map",
-  entry: ["regenerator-runtime/runtime"]
-    .concat(dev ? ["react-hot-loader/patch"] : [])
-    .concat(require.resolve("./src")),
+  entry: ["regenerator-runtime/runtime"].concat(require.resolve("./src")),
   module: {
     rules: [
       {
@@ -52,7 +51,7 @@ const config = {
             "@babel/preset-react",
             "@babel/preset-typescript",
           ],
-          plugins: ["react-hot-loader/babel"],
+          plugins: dev ? ["react-refresh/babel"] : [],
         },
       },
     ],
@@ -61,7 +60,6 @@ const config = {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       events: "events",
-      "react-dom": "@hot-loader/react-dom",
     },
     fallback: {
       buffer: require.resolve("buffer"),
@@ -94,6 +92,7 @@ const config = {
         to: "ffmpeg",
       })),
     }),
+    ...(dev ? [new ReactRefreshPlugin()] : []),
     new HtmlWebpackPlugin({
       favicon: require.resolve("./src/assets/favicon.ico"),
     }),

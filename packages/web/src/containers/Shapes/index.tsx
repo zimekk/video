@@ -1,4 +1,4 @@
-import React, { type ComponentProps } from "react";
+import React, { type ComponentProps, useId } from "react";
 import styles from "./styles.module.scss";
 
 function Circle() {
@@ -104,10 +104,11 @@ function Shape4() {
 
 // https://css-tricks.com/snippets/svg/svg-patterns/
 function Shapes(props: ComponentProps<"svg">) {
+  const pattern = useId();
   return (
     <svg xmlns="http://www.w3.org/2000/svg" {...props}>
       <pattern
-        id="pattern"
+        id={pattern}
         x="0"
         y="0"
         width="250"
@@ -126,7 +127,13 @@ function Shapes(props: ComponentProps<"svg">) {
         <Shape3 />
         <Shape4 />
       </pattern>
-      <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern)"></rect>
+      <rect
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        fill={`url(#${pattern})`}
+      ></rect>
     </svg>
   );
 }

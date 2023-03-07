@@ -1,5 +1,4 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
-import { hot } from "react-hot-loader/root";
 import history from "history/browser";
 import styles from "./App.module.scss";
 
@@ -14,12 +13,13 @@ const PAGES = {
 };
 
 const getPage = (location: { hash: string }) => {
-  const [path, hash = Object.keys(PAGES)[0]] =
-    decodeURI(location.hash).match(/^#(.+)/) || [];
-  return hash;
+  const [_, hash] = decodeURI(location.hash).match(/^#([-\w]+)/) || [];
+  return ((keys) => (keys.includes(hash) ? hash : keys[0]))(
+    Object.keys(PAGES)
+  ) as keyof typeof PAGES;
 };
 
-function App() {
+export default function App() {
   const [page, setPage] = useState(getPage(history.location));
 
   useEffect(() =>
@@ -29,7 +29,7 @@ function App() {
     )
   );
 
-  const Demo = PAGES[page] || null;
+  const Demo = PAGES[page];
 
   return (
     <section className={styles.App}>
@@ -48,5 +48,3 @@ function App() {
     </section>
   );
 }
-
-export default hot(App);
