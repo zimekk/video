@@ -4,11 +4,11 @@
     opacity: 0.2;
     width: 500px;
     margin-left: 140px;
-    margin-top: -138px;
+    // margin-top: -138px;
   }
   svg {
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     top: 0;
     left: 0;
     width: 100%;
