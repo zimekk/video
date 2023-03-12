@@ -1,0 +1,26 @@
+.Palette {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+.Swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+}
+.Color {
+  display: flex;
+  position: relative;
+  z-index: 2;
+  span {
+    font-family: "Courier New", Courier, monospace;
+    font-size: x-small;
+    display: flex;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 5em;
+    height: 5em;
+    align-items: center;
+    justify-content: center;
+  }
+}

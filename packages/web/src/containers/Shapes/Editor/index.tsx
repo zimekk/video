@@ -117,7 +117,7 @@ function Rect({
   const [[x, y], [w, h]] = points;
   const width = w - x;
   const height = h - y;
-  console.log({ x, y, width, height });
+
   return (
     <>
       <g

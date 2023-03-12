@@ -1,5 +1,6 @@
-import React, { type ComponentProps, useId, useRef, useState } from "react";
+import React, { type ComponentProps, useId, useRef } from "react";
 import Editor from "./Editor";
+import Palette from "./Palette";
 import styles from "./styles.module.scss";
 
 function Circle() {
@@ -140,14 +141,18 @@ function Shapes(props: ComponentProps<"svg">) {
 }
 
 export default function Section() {
+  const imgRef = useRef(null);
+
   return (
     <section className={styles.Section}>
       <h3>Shapes</h3>
       <Editor />
+      <Palette imgRef={imgRef} />
       {/* <Shapes /> */}
       {/* https://stock.adobe.com/bg/images/colorful-vector-seamless-pattern-background-with-abstract-geometric-shapes-for-80s-or-90s-design/453607568 */}
       {/* <img alt="GeeksforGeeks logo" referrerPolicy="no-referrer" src="https://as2.ftcdn.net/v2/jpg/04/53/60/75/1000_F_453607568_N4D1ybFt79FIulodcweiTBNyzDYNfBlm.jpg" /> */}
       <img
+        ref={imgRef}
         alt="GeeksforGeeks logo"
         referrerPolicy="no-referrer"
         src="https://as2.ftcdn.net/v2/jpg/05/09/82/53/1000_F_509825373_MUTTNQoNQA2WmGtwTD0ZrP3O0PgxY7ie.jpg"
