@@ -1,6 +1,7 @@
 import React, { type ComponentProps, useId, useRef } from "react";
 import Editor from "./Editor";
 import Palette from "./Palette";
+import Proxify from "./Proxify";
 import styles from "./styles.module.scss";
 
 function Circle() {
@@ -146,6 +147,7 @@ export default function Section() {
   return (
     <section className={styles.Section}>
       <h3>Shapes</h3>
+      <Proxify />
       <Editor />
       <Palette imgRef={imgRef} />
       {/* <Shapes /> */}
