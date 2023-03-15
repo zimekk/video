@@ -322,14 +322,12 @@ export default function Video() {
     })
   );
 
-  useEffect(
-    () =>
-      image.setAttribute(
-        "src",
-        lastSelected === null ? "" : frames[lastSelected]
-      ),
-    [image, frames, lastSelected]
-  );
+  useEffect(() => {
+    image.setAttribute(
+      "src",
+      lastSelected === null ? "" : frames[lastSelected]
+    );
+  }, [image, frames, lastSelected]);
 
   const startPlaying = useCallback(
     function timer() {
@@ -375,7 +373,7 @@ export default function Video() {
         }, 1000);
       }
     });
-  });
+  }, []);
 
   const doTranscode = useCallback(async () => {
     const files = [];
@@ -414,16 +412,13 @@ export default function Video() {
         ])
     );
     files.push("out.mp4");
+    const blob = new Blob([ffmpeg.FS("readFile", "out.mp4").buffer], {
+      type: "video/mp4",
+    });
     setVideos(
       (videos) => (
         setSelectedVideo(videos.length),
-        videos.concat(
-          URL.createObjectURL(
-            new Blob([ffmpeg.FS("readFile", "out.mp4").buffer], {
-              type: "video/mp4",
-            })
-          )
-        )
+        videos.concat(URL.createObjectURL(blob))
       )
     );
     files.forEach((file) => ffmpeg.FS("unlink", file));
@@ -438,25 +433,23 @@ export default function Video() {
     setSelectedVideo,
   ]);
 
-  useEffect(
-    () =>
-      Object.assign(
-        video.current,
-        selectedVideo === ""
-          ? {
-              oncanplay: () => video.current.play(), // fixme
-              srcObject: media ? media.stream : null,
-              src: "",
-            }
-          : {
-              loop: true,
-              oncanplay: null,
-              srcObject: null,
-              src: videos[selectedVideo],
-            }
-      ),
-    [media, video, videos, selectedVideo]
-  );
+  useEffect(() => {
+    Object.assign(
+      video.current,
+      selectedVideo === ""
+        ? {
+            oncanplay: () => video.current.play(), // fixme
+            srcObject: media ? media.stream : null,
+            src: "",
+          }
+        : {
+            loop: true,
+            oncanplay: null,
+            srcObject: null,
+            src: videos[selectedVideo],
+          }
+    );
+  }, [media, video, videos, selectedVideo]);
 
   const render = useCallback(() => {
     const context = canvas.current.getContext("2d");

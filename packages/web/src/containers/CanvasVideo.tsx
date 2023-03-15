@@ -71,7 +71,7 @@ export default function () {
       .then((url) => (videoRef.current.src = url))
       .catch((err) => console.error(err));
     setRecording(null);
-  });
+  }, []);
 
   // https://github.com/welefen/canvas2video
   const startRecording = useCallback(() => {

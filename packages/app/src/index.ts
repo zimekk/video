@@ -33,12 +33,12 @@ const PORT = 8080;
 export default express()
   .use(require("morgan")("combined"))
   .use(cors({ origin: "*" }))
-  .use((req, res, next) => {
+  .use((_req, res, next) => {
     // https://developer.chrome.com/blog/enabling-shared-array-buffer/#cross-origin-isolation
     // res.setHeader("Content-Security-Policy", "frame-ancestors 'none';");
-    // res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
     res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-    // res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
     // res.setHeader("X-Frame-Options", "*");
     // res.setHeader("Access-Control-Allow-Origin", "*");
     // res.setHeader(
