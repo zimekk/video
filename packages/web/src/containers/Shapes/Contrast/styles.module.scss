@@ -1,0 +1,61 @@
+.Contrast {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  margin: 3em 0 0;
+  div {
+    position: relative;
+    width: 3em;
+    height: 1em;
+    padding: 2em 0.5em 0.5em 0.5em;
+    font-size: xx-large;
+    font-weight: bold;
+    small {
+      position: absolute;
+      top: 1em;
+      font-size: x-small;
+      font-weight: normal;
+    }
+  }
+  .BrightGreen {
+    color: #153300;
+    background-color: #a0e971;
+  }
+  .BrightPink {
+    color: #330708;
+    background-color: #ffd7ed;
+  }
+  .BrightOrange {
+    color: #26092e;
+    background-color: #ffc193;
+  }
+  .BrightYellow {
+    color: #3b3418;
+    background-color: #ffeb69;
+  }
+  .BrightBlue {
+    color: #23241f;
+    background-color: #a0e2e3;
+  }
+  .ForestGreen {
+    color: #9deb71;
+    background-color: #163300;
+  }
+  .DarkMaroon {
+    color: #fed9ef;
+    background-color: #330708;
+  }
+  .DarkPurple {
+    color: #fec193;
+    background-color: #26092e;
+  }
+  .DarkGold {
+    color: #feea68;
+    background-color: #3b341b;
+  }
+  .DarkCharcoal {
+    color: #a0e2e3;
+    background-color: #22231e;
+  }
+}

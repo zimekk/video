@@ -1,4 +1,5 @@
 import React, { type ComponentProps, useId, useRef } from "react";
+import Contrast from "./Contrast";
 import Editor from "./Editor";
 import Palette from "./Palette";
 import Proxify from "./Proxify";
@@ -150,6 +151,7 @@ export default function Section() {
       <Proxify />
       <Editor />
       <Palette imgRef={imgRef} />
+      <Contrast />
       {/* <Shapes /> */}
       {/* https://stock.adobe.com/bg/images/colorful-vector-seamless-pattern-background-with-abstract-geometric-shapes-for-80s-or-90s-design/453607568 */}
       {/* <img alt="GeeksforGeeks logo" referrerPolicy="no-referrer" src="https://as2.ftcdn.net/v2/jpg/04/53/60/75/1000_F_453607568_N4D1ybFt79FIulodcweiTBNyzDYNfBlm.jpg" /> */}
