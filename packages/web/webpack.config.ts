@@ -31,7 +31,7 @@ const config = {
             options: {
               implementation: require("sass"),
               sassOptions: {
-                fiber: require("fibers"),
+                // fiber: require("fibers"),
               },
             },
           },
