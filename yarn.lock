@@ -1224,10 +1224,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.51.0.tgz#6d419c240cfb2b66da37df230f7e7eef801c32fa"
   integrity sha512-HxjQ8Qn+4SI3/AFv6sOrDB+g6PpUTDwSJiQqOrnneEk8L71161srI9gjzzZvYVbzHiVg/BvcH95+cK/zfIt4pg==
 
-"@ffmpeg/core@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@ffmpeg/core/-/core-0.10.0.tgz#f6a58361b22d7c23c6f7071b9fff6d572bc3f499"
-  integrity sha512-qunWJl5PezpXEm31tb8Qu5z37B5KVA1VYZCpXchMhuAb3X9T7PuE3SlhOwphEoRhzaOa3lpofDfzihAUMFaVPQ==
+"@ffmpeg/core@^0.12.0":
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/@ffmpeg/core/-/core-0.12.4.tgz#8303680922b3af021b8ca9cfdf7cafa6f81b84ec"
+  integrity sha512-m+H+P66TSEPlf1vK5WwVDr+Uksd1GULi7jk4o/447X5HQouTLaZjicAXC00C/IrrmyqJ8YX/8cfhqMryvNZGSg==
 
 "@ffmpeg/ffmpeg@^0.10.1":
   version "0.10.1"
