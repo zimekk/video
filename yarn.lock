@@ -1638,14 +1638,14 @@
     csstype "^3.0.2"
 
 "@types/redux-actions@^2.6.2":
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-2.6.3.tgz#b001d2c978a586af94059e74bbff2f4d3dc11ac9"
-  integrity sha512-dmBoPJcJjiRXgc3Bw1dfUy2IiJI95DuN7dJ4V/G/FsbZ+LY5aKyS8qBAldMLq23JOLc/DxxwvLOF82Hr7HtY/g==
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-2.6.4.tgz#a7e1f4c1c0ba372e978562aab8f3c9c634feca2d"
+  integrity sha512-oXaibuxd4DOuWAz1W8Mbc18v9KDAi2Ex/pEv7Sml1CO2Xj1+cPYBR2esG/ioawXATBNhR0DXfFNHLPQsKB1wuQ==
 
 "@types/relateurl@*":
-  version "0.2.30"
-  resolved "https://registry.yarnpkg.com/@types/relateurl/-/relateurl-0.2.30.tgz#c2711bc978da74b2ed4ec3ff2eeaffb1d5a151fa"
-  integrity sha512-OzTBOmeBmS6FV7uFdbbUaE/rqWNcTrOTfRpDMWMczHa8nvNZi4exDD7d3ZKcxHH2GbgZ50dJkNhx9spRxSxmGg==
+  version "0.2.31"
+  resolved "https://registry.yarnpkg.com/@types/relateurl/-/relateurl-0.2.31.tgz#7b1efc6f9b22847663d1bff61825e2a39dcd1d5f"
+  integrity sha512-vpqphbm0l/+6qWraFPDB2dq+vkJYFHKSdogLaOqdqjLZ6v4q/0HEBv3HGeEVlCdWXo8HEdAzA2vBNk7ZRXo2Cw==
 
 "@types/retry@0.12.0":
   version "0.12.0"
@@ -1653,19 +1653,19 @@
   integrity sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==
 
 "@types/scheduler@*":
-  version "0.16.4"
-  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.4.tgz#fedc3e5b15c26dc18faae96bf1317487cb3658cf"
-  integrity sha512-2L9ifAGl7wmXwP4v3pN4p2FLhD0O1qsJpvKmNin5VA8+UvNVb447UDaAEV6UdrkA+m/Xs58U1RFps44x6TFsVQ==
+  version "0.16.5"
+  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.5.tgz#4751153abbf8d6199babb345a52e1eb4167d64af"
+  integrity sha512-s/FPdYRmZR8SjLWGMCuax7r3qCWQw9QKHzXVukAuuIJkXkDRwp+Pu5LMIVFi0Fxbav35WURicYr8u1QsoybnQw==
 
 "@types/semver@^7.5.0":
-  version "7.5.3"
-  resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.3.tgz#9a726e116beb26c24f1ccd6850201e1246122e04"
-  integrity sha512-OxepLK9EuNEIPxWNME+C6WwbRAOOI2o2BaQEGzz5Lu2e4Z5eDnEo+/aVEDMIXywoJitJ7xWd641wrGLZdtwRyw==
+  version "7.5.4"
+  resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.5.4.tgz#0a41252ad431c473158b22f9bfb9a63df7541cff"
+  integrity sha512-MMzuxN3GdFwskAnb6fz0orFvhfqi752yjaXylr0Rp4oDg5H0Zn1IuyRhDVvYOwAXoJirx2xuS16I3WjxnAIHiQ==
 
 "@types/send@*":
-  version "0.17.2"
-  resolved "https://registry.yarnpkg.com/@types/send/-/send-0.17.2.tgz#af78a4495e3c2b79bfbdac3955fdd50e03cc98f2"
-  integrity sha512-aAG6yRf6r0wQ29bkS+x97BIs64ZLxeE/ARwyS6wrldMm3C1MdKwCcnnEwMC1slI8wuxJOpiUH9MioC0A0i+GJw==
+  version "0.17.3"
+  resolved "https://registry.yarnpkg.com/@types/send/-/send-0.17.3.tgz#81b2ea5a3a18aad357405af2d643ccbe5a09020b"
+  integrity sha512-/7fKxvKUoETxjFUsuFlPB9YndePpxxRAOfGC/yJdc9kTjTeP5kRCTzfnE8kPUKCeyiyIZu0YQ76s50hCedI1ug==
   dependencies:
     "@types/mime" "^1"
     "@types/node" "*"
