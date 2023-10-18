@@ -1760,9 +1760,9 @@
     "@types/node" "*"
 
 "@types/youtube-player@^5.5.7":
-  version "5.5.8"
-  resolved "https://registry.yarnpkg.com/@types/youtube-player/-/youtube-player-5.5.8.tgz#0b870fcb30199a01f793a903430ef21e96d02479"
-  integrity sha512-WU6l9UyIp1TKEK3xN8K5Y1nZpP4FTnrz4ArAPjQknReNNkN9UeLbmAuFu2F69YthLkLkOAMWi9O3a6kJCIWH5g==
+  version "5.5.9"
+  resolved "https://registry.yarnpkg.com/@types/youtube-player/-/youtube-player-5.5.9.tgz#0321bbfced21fc5690af757509770b648dd546f2"
+  integrity sha512-l2Q7ESxMv6HK2jc6I1qwMMGbh5bpHYQVCpXs0GsFmzaXoPibX50pHzs+PGfmegDY8TvmMGKWBgGI16ytqK6iIw==
 
 "@typescript-eslint/eslint-plugin@^6.7.5":
   version "6.8.0"
