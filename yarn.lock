@@ -1527,9 +1527,9 @@
     "@types/uglify-js" "*"
 
 "@types/html-webpack-plugin@^3.2.6":
-  version "3.2.8"
-  resolved "https://registry.yarnpkg.com/@types/html-webpack-plugin/-/html-webpack-plugin-3.2.8.tgz#3539e73b32b0961b99708296513a2279b606c793"
-  integrity sha512-2FFXqf26xTsmWiunmA0QfzB2KUo1Rb+FDtIZyHhrdjm3etnNt8Lbg/J2wL+vVDnX1+Ye8H5HhAxgBD2UgbDDQw==
+  version "3.2.9"
+  resolved "https://registry.yarnpkg.com/@types/html-webpack-plugin/-/html-webpack-plugin-3.2.9.tgz#9c94e8f4af5066d845b170245ec0f7bf3bda8188"
+  integrity sha512-puFExKcpqjZ27RYnRcsPLPXY+6tnBpyqVrJdLOx1NwiwCdqhyzLui8K2WVQTTUsR+0hhb2Y02Cjsdj540FlgZw==
   dependencies:
     "@types/html-minifier" "*"
     "@types/tapable" "^1"
