@@ -1628,14 +1628,14 @@
     csstype "^3.0.2"
 
 "@types/redux-actions@^2.6.2":
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-2.6.4.tgz#a7e1f4c1c0ba372e978562aab8f3c9c634feca2d"
-  integrity sha512-oXaibuxd4DOuWAz1W8Mbc18v9KDAi2Ex/pEv7Sml1CO2Xj1+cPYBR2esG/ioawXATBNhR0DXfFNHLPQsKB1wuQ==
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-2.6.5.tgz#3728477ada6c4bc0fe54ffae11def23a65c0714b"
+  integrity sha512-RgXOigay5cNweP+xH1ru+Vaaj1xXYLpWIfSVO8cSA8Ii2xvR+HRfWYdLe1UVOA8X0kIklalGOa0DTDyld0obkg==
 
 "@types/relateurl@*":
-  version "0.2.31"
-  resolved "https://registry.yarnpkg.com/@types/relateurl/-/relateurl-0.2.31.tgz#7b1efc6f9b22847663d1bff61825e2a39dcd1d5f"
-  integrity sha512-vpqphbm0l/+6qWraFPDB2dq+vkJYFHKSdogLaOqdqjLZ6v4q/0HEBv3HGeEVlCdWXo8HEdAzA2vBNk7ZRXo2Cw==
+  version "0.2.32"
+  resolved "https://registry.yarnpkg.com/@types/relateurl/-/relateurl-0.2.32.tgz#145d58cecb77c6b85868dd66208271ca408444d3"
+  integrity sha512-S3RXiF4jV2ECprVGfKLyRHbObSV2UOfpml1pHzqSgBLj/jd79siRtyR1Qyv/I57P079DVHaMOj4UwDOqYh3vQA==
 
 "@types/retry@0.12.0":
   version "0.12.0"
@@ -1643,9 +1643,9 @@
   integrity sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==
 
 "@types/scheduler@*":
-  version "0.16.5"
-  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.5.tgz#4751153abbf8d6199babb345a52e1eb4167d64af"
-  integrity sha512-s/FPdYRmZR8SjLWGMCuax7r3qCWQw9QKHzXVukAuuIJkXkDRwp+Pu5LMIVFi0Fxbav35WURicYr8u1QsoybnQw==
+  version "0.16.6"
+  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.6.tgz#eb26db6780c513de59bee0b869ef289ad3068711"
+  integrity sha512-Vlktnchmkylvc9SnwwwozTv04L/e1NykF5vgoQ0XTmI8DD+wxfjQuHuvHS3p0r2jz2x2ghPs2h1FVeDirIteWA==
 
 "@types/semver@^7.5.0":
   version "7.5.4"
@@ -1653,9 +1653,9 @@
   integrity sha512-MMzuxN3GdFwskAnb6fz0orFvhfqi752yjaXylr0Rp4oDg5H0Zn1IuyRhDVvYOwAXoJirx2xuS16I3WjxnAIHiQ==
 
 "@types/send@*":
-  version "0.17.3"
-  resolved "https://registry.yarnpkg.com/@types/send/-/send-0.17.3.tgz#81b2ea5a3a18aad357405af2d643ccbe5a09020b"
-  integrity sha512-/7fKxvKUoETxjFUsuFlPB9YndePpxxRAOfGC/yJdc9kTjTeP5kRCTzfnE8kPUKCeyiyIZu0YQ76s50hCedI1ug==
+  version "0.17.4"
+  resolved "https://registry.yarnpkg.com/@types/send/-/send-0.17.4.tgz#6619cd24e7270793702e4e6a4b958a9010cfc57a"
+  integrity sha512-x2EM6TJOybec7c52BX0ZspPodMsQUd5L6PRwOunVyVUhXiBSKf3AezDL8Dgvgt5o0UfKNfuA0eMLr2wLT4AiBA==
   dependencies:
     "@types/mime" "^1"
     "@types/node" "*"
