@@ -36,7 +36,7 @@
     "react-gl-transition": "^1.19.2",
     "react-json2d": "^0.3.0",
     "react-redux": "^8.0.5",
-    "redux": "^4.2.1",
+    "redux": "^5.0.0",
     "redux-actions": "^3.0.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
