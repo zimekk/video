@@ -1,4 +1,5 @@
 *.log
-lib
+.DS_Store
 node_modules
-public
+/packages/*/lib
+/packages/*/public

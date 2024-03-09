@@ -6,6 +6,7 @@ const Spinner = () => <span>Loading...</span>;
 
 const PAGES = {
   player: lazy(() => import("./Player")),
+  prompter: lazy(() => import("./Prompter")),
   shapes: lazy(() => import("./Shapes")),
   editor: lazy(() => import("./Editor")),
   camera: lazy(() => import("./Camera")),
@@ -15,7 +16,7 @@ const PAGES = {
 const getPage = (location: { hash: string }) => {
   const [_, hash] = decodeURI(location.hash).match(/^#([-\w]+)/) || [];
   return ((keys) => (keys.includes(hash) ? hash : keys[0]))(
-    Object.keys(PAGES)
+    Object.keys(PAGES),
   ) as keyof typeof PAGES;
 };
 
@@ -25,8 +26,8 @@ export default function App() {
   useEffect(() =>
     // location is an object like window.location
     history.listen(({ location, action, ...rest }) =>
-      setPage(getPage(location))
-    )
+      setPage(getPage(location)),
+    ),
   );
 
   const Demo = PAGES[page];

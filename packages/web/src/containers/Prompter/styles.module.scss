@@ -1,0 +1,24 @@
+.Section {
+  display: block;
+}
+.List {
+  .selected {
+    a {
+      color: red;
+    }
+  }
+}
+.Item {
+  display: flex;
+  flex-direction: column;
+  textarea {
+    display: flex;
+    border: 1px solid blue;
+  }
+}
+.Text {
+  border: 1px solid red;
+  :global(.fullscreen.fullscreen-enabled) & {
+    color: white;
+  }
+}
