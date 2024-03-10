@@ -7,7 +7,8 @@ import React, {
 } from "react";
 import { DndProvider, useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { fetchFile } from "@ffmpeg/util";
 import cx from "classnames";
 import update from "immutability-helper";
 import { Waveform } from "./Waveform";
@@ -55,10 +56,10 @@ const downloadFile = (href, download) =>
       view: window,
       bubbles: true,
       cancelable: true,
-    })
+    }),
   );
 
-let ffmpeg = null;
+let ffmpeg: FFmpeg | null = null;
 
 // https://github.com/react-dnd/react-dnd/tree/main/packages/examples-hooks/src/04-sortable/simple
 const ItemTypes = {
@@ -138,7 +139,7 @@ function Frame({ image, index, selected, onClick, moveCard }) {
         opacity: monitor.isDragging() ? 0.5 : 1,
       }),
     }),
-    []
+    [],
   );
 
   drag(drop(ref));
@@ -148,7 +149,7 @@ function Frame({ image, index, selected, onClick, moveCard }) {
       ref={ref}
       className={cx(
         styles.Frame,
-        selected.includes(index) && styles.Frame__Selected
+        selected.includes(index) && styles.Frame__Selected,
       )}
       style={{ opacity }}
       data-handler-id={handlerId}
@@ -227,6 +228,7 @@ export default function Video() {
     require(`../../assets/triangle/tmp.059.png`).default,
   ]);
   const [message, setMessage] = useState(["Click Start to transcode"]);
+  const loadedRef = useRef(false);
   const fileRef = useRef();
   const video = useRef();
   const canvas = useRef();
@@ -235,7 +237,7 @@ export default function Video() {
   const [devices, setDevices] = useState([]);
   const [deviceId, setDeviceId] = useState("");
   const [playing, setPlaying] = useState(null);
-  const [progress, setProgress] = useState(null);
+  const [progress, setProgress] = useState<number | null>(null);
   const [frameRate, setFrameRate] = useState(FRAME_RATES[0]);
   const [videoSize, setVideoSize] = useState(Object.keys(VIDEO_SIZES)[0]);
   const [videos, setVideos] = useState([]);
@@ -260,7 +262,7 @@ export default function Video() {
                   height: { max: height },
                 } = device.getCapabilities();
                 return { deviceId, kind, label, width, height };
-              })
+              }),
         )
         .then((devices) => {
           console.log({ devices });
@@ -268,7 +270,7 @@ export default function Video() {
           setDevices(devices);
         })
         .catch(console.info),
-    [setDevices, navigator]
+    [setDevices, navigator],
   );
 
   const startRecording = useCallback(() => {
@@ -283,12 +285,12 @@ export default function Video() {
 
   const stopRecording = useCallback(
     () => setMedia((media) => media.stream.getVideoTracks()[0].stop() || null),
-    [setMedia]
+    [setMedia],
   );
 
   const remove = useCallback(() => {
     setFrames((frames) =>
-      frames.filter((_frame, index) => !selected.includes(index))
+      frames.filter((_frame, index) => !selected.includes(index)),
     );
     setSelected([]);
     if (selected.includes(lastSelected)) {
@@ -307,7 +309,7 @@ export default function Video() {
       frames
         .slice(0, index)
         .concat(canvas.toDataURL())
-        .concat(frames.slice(index))
+        .concat(frames.slice(index)),
     );
     setLastSelected(index + 1);
   }, [frames, lastSelected, setFrames, setLastSelected]);
@@ -319,13 +321,13 @@ export default function Video() {
   const [image] = useState(() =>
     Object.assign(new window.Image(), {
       onload: () => render(),
-    })
+    }),
   );
 
   useEffect(() => {
     image.setAttribute(
       "src",
-      lastSelected === null ? "" : frames[lastSelected]
+      lastSelected === null ? "" : frames[lastSelected],
     );
   }, [image, frames, lastSelected]);
 
@@ -334,40 +336,42 @@ export default function Video() {
       setPlaying(
         setTimeout(() => {
           setLastSelected((index) =>
-            index < frames.length - 1 ? index + 1 : 0
+            index < frames.length - 1 ? index + 1 : 0,
           );
           timer();
-        }, 1000 / frameRate)
+        }, 1000 / frameRate),
       );
     },
-    [setLastSelected, setPlaying, frames, frameRate]
+    [setLastSelected, setPlaying, frames, frameRate],
   );
 
   const stopPlaying = useCallback(
     () => setPlaying((playing) => clearTimeout(playing)),
-    [setPlaying]
+    [setPlaying],
   );
 
   // https://github.com/ffmpegwasm/ffmpegwasm.github.io/blob/main/src/components/FFmpeg.js
   useEffect(() => {
     if (ffmpeg === null) {
       // https://github.com/ffmpegwasm/ffmpeg.wasm#use-other-version-of-ffmpegwasm-core--ffmpegcore
-      ffmpeg = createFFmpeg({
-        corePath: process.env.FFMPEG_CORE_PATH,
-        // log: true,
-      });
+      ffmpeg = new FFmpeg();
+      // corePath: process.env.FFMPEG_CORE_PATH,
+      // log: true,
     }
-    ffmpeg.setLogger(({ type, message }) => {
+    if (!ffmpeg) {
+      return;
+    }
+    ffmpeg.on("log", ({ type, message }) => {
       console.log({ type, message });
       if (type !== "info") {
         setMessage((m) => m.concat(message));
       }
     });
-    ffmpeg.setProgress(({ ratio }) => {
-      if (ratio >= 0 && ratio <= 1) {
-        setProgress(ratio * 100);
+    ffmpeg.on("progress", ({ progress }) => {
+      if (progress >= 0 && progress <= 1) {
+        setProgress(progress * 100);
       }
-      if (ratio === 1) {
+      if (progress === 1) {
         setTimeout(() => {
           setProgress(null);
         }, 1000);
@@ -377,21 +381,30 @@ export default function Video() {
 
   const doTranscode = useCallback(async () => {
     const files = [];
+    if (!ffmpeg) {
+      return;
+    }
     // https://github.com/ffmpegwasm/ffmpeg.wasm/blob/master/examples/browser/image2video.html
-    if (!ffmpeg.isLoaded()) {
-      await ffmpeg.load();
+    if (!loadedRef.current) {
+      loadedRef.current = true;
+      await ffmpeg.load({
+        // coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+        // wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+        coreURL: process.env.FFMPEG_CORE_PATH,
+        wasmURL: process.env.FFMPEG_WASM_PATH,
+      });
     }
     if (audio) {
       files.push(audio);
-      ffmpeg.FS("writeFile", audio, await fetchFile(AUDIO_FILES[audio]));
+      ffmpeg.writeFile(audio, await fetchFile(AUDIO_FILES[audio]));
     }
     for (let i = 0; i < frames.length; i += 1) {
       const num = `00${i}`.slice(-3);
       files.push(`tmp.${num}.png`);
-      ffmpeg.FS("writeFile", `tmp.${num}.png`, await fetchFile(frames[i]));
+      ffmpeg.writeFile(`tmp.${num}.png`, await fetchFile(frames[i]));
     }
-    await ffmpeg.run(
-      ...[
+    await ffmpeg.exec(
+      [
         "-framerate",
         `${frameRate}`,
         "-video_size",
@@ -409,25 +422,26 @@ export default function Video() {
           "-pix_fmt",
           "yuv420p",
           "out.mp4",
-        ])
+        ]),
     );
     files.push("out.mp4");
-    const blob = new Blob([ffmpeg.FS("readFile", "out.mp4").buffer], {
+    const blob = new Blob([(await ffmpeg.readFile("out.mp4")).buffer], {
       type: "video/mp4",
     });
     setVideos(
       (videos) => (
         setSelectedVideo(videos.length),
         videos.concat(URL.createObjectURL(blob))
-      )
+      ),
     );
-    files.forEach((file) => ffmpeg.FS("unlink", file));
+    files.forEach((file) => ffmpeg?.deleteFile(file));
   }, [
     audio,
     width,
     height,
     frames,
     frameRate,
+    loadedRef,
     setMessage,
     setVideos,
     setSelectedVideo,
@@ -447,7 +461,7 @@ export default function Video() {
             oncanplay: null,
             srcObject: null,
             src: videos[selectedVideo],
-          }
+          },
     );
   }, [media, video, videos, selectedVideo]);
 
@@ -519,7 +533,7 @@ export default function Video() {
       if (file.type && file.type.startsWith("image/")) {
         const reader = new FileReader();
         reader.addEventListener("load", (e) =>
-          setFrames((frames) => frames.concat(e.target.result))
+          setFrames((frames) => frames.concat(e.target.result)),
         );
         reader.readAsDataURL(file);
       }
@@ -533,7 +547,7 @@ export default function Video() {
 
   const download = useCallback(() => {
     selected.forEach((i) =>
-      downloadFile(frames[i], `frame_${(i / 100).toFixed(2).split(".")[1]}`)
+      downloadFile(frames[i], `frame_${(i / 100).toFixed(2).split(".")[1]}`),
     );
   }, [selected, frames]);
 
@@ -546,10 +560,10 @@ export default function Video() {
             [dragIndex, 1],
             [hoverIndex, 0, dragCard],
           ],
-        })
+        }),
       );
     },
-    [frames]
+    [frames],
   );
 
   return (
@@ -573,8 +587,8 @@ export default function Video() {
                 onClick={() => (
                   setVideos((videos) =>
                     videos.filter(
-                      (_video, index) => String(index) !== selectedVideo
-                    )
+                      (_video, index) => String(index) !== selectedVideo,
+                    ),
                   ),
                   setSelectedVideo("")
                 )}
@@ -732,15 +746,15 @@ export default function Video() {
                           .concat(
                             frames
                               .map((_i, i) => i)
-                              .filter((i) => from <= i && i <= to)
-                          )
+                              .filter((i) => from <= i && i <= to),
+                          ),
                       );
                     } else if (e.metaKey) {
                       setLastSelected(selected.includes(index) ? null : index);
                       setSelected((selected) =>
                         selected.includes(index)
                           ? selected.filter((i) => index !== i)
-                          : selected.concat(index)
+                          : selected.concat(index),
                       );
                     } else {
                       setLastSelected(index);

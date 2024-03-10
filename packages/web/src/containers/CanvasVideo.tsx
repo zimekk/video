@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Group, Label, Layer, Sprite } from "spritejs";
 import { Canvas2Video } from "canvas2video";
-import FFmpeg from "@ffmpeg/ffmpeg";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
 
 Object.assign(window, { FFmpeg });
 
 export default function () {
-  const canvasRef = useRef();
-  const videoRef = useRef();
-  const [recording, setRecording] = useState(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [recording, setRecording] = useState<Canvas2Video | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -58,24 +58,30 @@ export default function () {
         duration: 3000,
         iterations: Infinity,
         direction: "alternate",
-      }
+      },
     );
 
     group.append(text1, text2);
   }, []);
 
   const stopRecording = useCallback(() => {
+    if (!recording) {
+      return;
+    }
     recording.stopRecord();
     recording
       .getStreamURL()
-      .then((url) => (videoRef.current.src = url))
+      .then((url) => videoRef.current && (videoRef.current.src = url))
       .catch((err) => console.error(err));
     setRecording(null);
-  }, []);
+  }, [recording]);
 
   // https://github.com/welefen/canvas2video
   const startRecording = useCallback(() => {
     const canvas = canvasRef.current;
+    if (!canvas) {
+      return;
+    }
     const recording = new Canvas2Video({
       canvas,
       outVideoType: "mp4",
@@ -88,7 +94,7 @@ export default function () {
     });
     recording.startRecord();
     setRecording(recording);
-  });
+  }, []);
 
   return (
     <div>

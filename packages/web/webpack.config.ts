@@ -74,6 +74,7 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin({
       FFMPEG_CORE_PATH: "ffmpeg/ffmpeg-core.js",
+      FFMPEG_WASM_PATH: "ffmpeg/ffmpeg-core.wasm",
       NODE_ENV: "development",
     }),
     new webpack.ProvidePlugin({
@@ -83,11 +84,11 @@ const config = {
       patterns: [
         "ffmpeg-core.js",
         "ffmpeg-core.wasm",
-        "ffmpeg-core.worker.js",
+        // "ffmpeg-core.worker.js",
       ].map((fileName: string) => ({
         from: path.join(
           path.dirname(require.resolve("@ffmpeg/core")),
-          fileName
+          fileName,
         ),
         to: "ffmpeg",
       })),
