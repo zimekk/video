@@ -11,6 +11,41 @@ import { marked } from "marked";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
+const LIST = [
+  `
+# Heading 1
+
+## Heading 1.1
+
+Text 1
+
+Text 2
+
+Text 3
+
+## Heading 1.2
+
+Text 1
+
+Text 2
+
+Text 3
+
+## Heading 1.3
+
+Text 1
+
+Text 2
+
+Text 3
+`,
+  `
+# Text 2
+
+
+`,
+];
+
 function List({
   list,
   selected,
@@ -53,7 +88,7 @@ function Item({
 
   return (
     <section className={styles.Item}>
-      <div>
+      <div style={{ width: "10%" }}>
         <label>
           <input
             type="checkbox"
@@ -64,21 +99,43 @@ function Item({
         </label>
         <button onClick={handle.enter}>fullscreen</button>
       </div>
-      {editable && <textarea value={item} onChange={handleChange} rows={10} />}
-      {typeof text === "string" && (
+      <div style={{ width: "40%", display: "flex", flexDirection: "column" }}>
+        {editable && (
+          <textarea value={item} onChange={handleChange} rows={10} />
+        )}
+      </div>
+      <div style={{ width: "50%" }}>
         <FullScreen handle={handle}>
           <article
             className={styles.Text}
             dangerouslySetInnerHTML={{ __html: text }}
           />
         </FullScreen>
-      )}
+      </div>
+    </section>
+  );
+}
+
+function Preview({ item }: { item: string }) {
+  // https://github.com/snakesilk/react-fullscreen
+  const handle = useFullScreenHandle();
+
+  const text = useMemo(() => marked.parse(item) as string, [item]);
+
+  return (
+    <section className={styles.Preview}>
+      <FullScreen handle={handle}>
+        <article
+          className={styles.Text}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
+      </FullScreen>
     </section>
   );
 }
 
 function Prompter() {
-  const [list, setList] = useState(["Text 1", "Text 2"]);
+  const [list, setList] = useState(LIST);
   const [selected, setSelected] = useState(0);
 
   const handleChange = useCallback(

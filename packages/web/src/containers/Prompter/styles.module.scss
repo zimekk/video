@@ -10,15 +10,27 @@
 }
 .Item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  height: 400px;
   textarea {
-    display: flex;
+    flex: 1;
     border: 1px solid blue;
   }
 }
+:global(.fullscreen) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.Preview {
+  display: flex;
+}
 .Text {
+  overflow-y: scroll;
   border: 1px solid red;
+  font-size: 2em;
   :global(.fullscreen.fullscreen-enabled) & {
+    font-size: 4em;
     color: white;
   }
 }
