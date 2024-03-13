@@ -14,13 +14,15 @@ jobs:
         with:
           node-version: "18.x"
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: npm i -g pnpm && pnpm i --frozen-lockfile
+      - name: Check type coverage
+        run: pnpm coverage
       - name: Build application
-        run: yarn build
-      # https://github.com/marketplace/actions/deploy-to-github-pages#using-an-ssh-deploy-key-
+        run: pnpm build
+        # https://github.com/marketplace/actions/deploy-to-github-pages#using-an-ssh-deploy-key-
       # https://medium.com/@cmichel/how-to-deploy-a-create-react-app-with-github-actions-5e01f7a7b6b
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: packages/web/public

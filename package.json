@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "engines": {
-    "node": "^14 || ^16 || ^18 || ^20.0.0"
+    "node": "^14 || ^16 || ^18 || ^20"
   },
   "eslintConfig": {
     "env": {
@@ -44,22 +44,17 @@
     "*.{json,js,jsx,md,scss,ts,tsx,css,yml,yaml}": "prettier --write"
   },
   "scripts": {
-    "build": "yarn workspaces run build",
-    "clean": "rm -rf packages/*/public packages/*/lib",
+    "build": "pnpm -r run build",
+    "clean": "rm -rf packages/*/lib packages/*/node_modules/.vite packages/*/public",
+    "coverage": "pnpm -r run coverage",
     "lint": "eslint . --ext .json,.js,.jsx,.ts,.tsx",
     "reset": "rm -rf node_modules packages/*/node_modules",
-    "serve": "yarn workspace @dev/app serve",
-    "start": "yarn workspace @dev/app start",
-    "dedupe": "yarn-deduplicate && yarn",
-    "dedupe:list": "yarn-deduplicate --list",
-    "update": "yarn upgrade-interactive",
-    "update:dedupe": "yarn-deduplicate && yarn",
-    "update:latest": "yarn upgrade-interactive --latest",
-    "prepare": "husky install"
+    "serve": "pnpm --filter=@dev/app run serve",
+    "start": "pnpm --filter=@dev/app run start",
+    "update:dedupe": "pnpm dedupe",
+    "update:latest": "pnpm -r up -i",
+    "prepare": "husky"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "devDependencies": {
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
@@ -73,7 +68,6 @@
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.0",
     "type-coverage": "^2.25.0",
-    "typescript": "^5.0.2",
-    "yarn-deduplicate": "^6.0.1"
+    "typescript": "^5.0.2"
   }
 }
