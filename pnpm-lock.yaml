@@ -86,7 +86,7 @@ importers:
         version: 5.91.0(webpack-cli@5.1.4)
       webpack-dev-middleware:
         specifier: ^7.0.0
-        version: 7.0.0(webpack@5.91.0)
+        version: 7.1.1(webpack@5.91.0)
       webpack-hot-middleware:
         specifier: ^2.25.3
         version: 2.26.1
@@ -5700,13 +5700,6 @@ packages:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
 
-  /memfs@4.7.7:
-    resolution: {integrity: sha512-x9qc6k88J/VVwnfTkJV8pRRswJ2156Rc4w5rciRqKceFDZ0y1MqsNL9pkg5sE0GOcDzZYbonreALhaHzg1siFw==}
-    engines: {node: '>= 4.0.0'}
-    dependencies:
-      tslib: 2.6.2
-    dev: true
-
   /memfs@4.8.0:
     resolution: {integrity: sha512-fcs7trFxZlOMadmTw5nyfOwS3il9pr3y+6xzLfXNwmuR/D0i4wz6rJURxArAbcJDGalbpbMvQ/IFI0NojRZgRg==}
     engines: {node: '>= 4.0.0'}
@@ -7900,23 +7893,6 @@ packages:
       webpack: 5.91.0(webpack-cli@5.1.4)
       webpack-dev-server: 5.0.4(webpack-cli@5.1.4)(webpack@5.91.0)
       webpack-merge: 5.10.0
-    dev: true
-
-  /webpack-dev-middleware@7.0.0(webpack@5.91.0):
-    resolution: {integrity: sha512-tZ5hqsWwww/8DislmrzXE3x+4f+v10H1z57mA2dWFrILb4i3xX+dPhTkcdR0DLyQztrhF2AUmO5nN085UYjd/Q==}
-    engines: {node: '>= 18.12.0'}
-    peerDependencies:
-      webpack: ^5.0.0
-    peerDependenciesMeta:
-      webpack:
-        optional: true
-    dependencies:
-      colorette: 2.0.20
-      memfs: 4.7.7
-      mime-types: 2.1.35
-      range-parser: 1.2.1
-      schema-utils: 4.2.0
-      webpack: 5.91.0(webpack-cli@5.1.4)
     dev: true
 
   /webpack-dev-middleware@7.1.1(webpack@5.91.0):
