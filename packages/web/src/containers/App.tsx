@@ -8,6 +8,7 @@ const PAGES = {
   player: lazy(() => import("./Player")),
   prompter: lazy(() => import("./Prompter")),
   shapes: lazy(() => import("./Shapes")),
+  sources: lazy(() => import("./Sources")),
   editor: lazy(() => import("./Editor")),
   camera: lazy(() => import("./Camera")),
   demo: lazy(() => import("./Demo")),
