@@ -222,7 +222,7 @@ importers:
         version: 7.24.1(@babel/core@7.24.4)
       '@pmmmwh/react-refresh-webpack-plugin':
         specifier: ^0.5.10
-        version: 0.5.11(@types/webpack@5.28.5)(react-refresh@0.14.2)(webpack-dev-server@5.0.4)(webpack@5.91.0)
+        version: 0.5.13(@types/webpack@5.28.5)(react-refresh@0.14.2)(webpack-dev-server@5.0.4)(webpack@5.91.0)
       '@types/node':
         specifier: ^20.8.6
         version: 20.12.7
@@ -1964,8 +1964,8 @@ packages:
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     dev: true
 
-  /@pmmmwh/react-refresh-webpack-plugin@0.5.11(@types/webpack@5.28.5)(react-refresh@0.14.2)(webpack-dev-server@5.0.4)(webpack@5.91.0):
-    resolution: {integrity: sha512-7j/6vdTym0+qZ6u4XbSAxrWBGYSdCfTzySkj7WAFgDLmSyWlOrWvpyzxlFh5jtw9dn0oL/jtW+06XfFiisN3JQ==}
+  /@pmmmwh/react-refresh-webpack-plugin@0.5.13(@types/webpack@5.28.5)(react-refresh@0.14.2)(webpack-dev-server@5.0.4)(webpack@5.91.0):
+    resolution: {integrity: sha512-odZVYXly+JwzYri9rKqqUAk0cY6zLpv4dxoKinhoJNShV36Gpxf+CyDIILJ4tYsJ1ZxIWs233Y39iVnynvDA/g==}
     engines: {node: '>= 10.13'}
     peerDependencies:
       '@types/webpack': 4.x || 5.x
@@ -1973,7 +1973,7 @@ packages:
       sockjs-client: ^1.4.0
       type-fest: '>=0.17.0 <5.0.0'
       webpack: '>=4.43.0 <6.0.0'
-      webpack-dev-server: 3.x || 4.x
+      webpack-dev-server: 3.x || 4.x || 5.x
       webpack-hot-middleware: 2.x
       webpack-plugin-serve: 0.x || 1.x
     peerDependenciesMeta:
@@ -1992,10 +1992,8 @@ packages:
     dependencies:
       '@types/webpack': 5.28.5(webpack-cli@5.1.4)
       ansi-html-community: 0.0.8
-      common-path-prefix: 3.0.0
-      core-js-pure: 3.36.0
+      core-js-pure: 3.37.0
       error-stack-parser: 2.1.4
-      find-up: 5.0.0
       html-entities: 2.5.2
       loader-utils: 2.0.4
       react-refresh: 0.14.2
@@ -3395,8 +3393,8 @@ packages:
       browserslist: 4.23.0
     dev: true
 
-  /core-js-pure@3.36.0:
-    resolution: {integrity: sha512-cN28qmhRNgbMZZMc/RFu5w8pK9VJzpb2rJVR/lHuZJKwmXnoWOpXmMkxqBB514igkp1Hu8WGROsiOAzUcKdHOQ==}
+  /core-js-pure@3.37.0:
+    resolution: {integrity: sha512-d3BrpyFr5eD4KcbRvQ3FTUx/KWmaDesr7+a3+1+P46IUnNoEt+oiLijPINZMEon7w9oGkIINWxrBAU9DEciwFQ==}
     requiresBuild: true
     dev: true
 
