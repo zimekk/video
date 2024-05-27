@@ -158,7 +158,7 @@ importers:
         version: 12.0.2
       ogl:
         specifier: ^1.0.0
-        version: 1.0.6
+        version: 1.0.7
       raf:
         specifier: ^3.4.1
         version: 3.4.1
@@ -5902,8 +5902,8 @@ packages:
     resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
     dev: true
 
-  /ogl@1.0.6:
-    resolution: {integrity: sha512-ephp/AP2qR2JV/BLoFEoeMSs6JofFZIx3nB6iLKfom88Q3GFjFLXwFjW0ZQObHJaWHhmNGPcMi1n1nxUm+30TA==}
+  /ogl@1.0.7:
+    resolution: {integrity: sha512-u6WBAdYcGntZvGWNz5A+Xol8kH0vYu8Ubqkw/JBDx4SUCe4Prwjarxe+BrGWypFh+BMiVJzUXgWZcv+dr1Od2Q==}
     dev: false
 
   /on-finished@2.3.0:
