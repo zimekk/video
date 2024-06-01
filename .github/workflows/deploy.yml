@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: "18.x"
       - name: Install dependencies
-        run: npm i -g pnpm && pnpm i --frozen-lockfile
+        run: npm i -g pnpm@9 && pnpm i --frozen-lockfile
       - name: Check type coverage
         run: pnpm coverage
       - name: Build application

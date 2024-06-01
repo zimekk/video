@@ -6,7 +6,8 @@
   "license": "UNLICENSED",
   "private": true,
   "engines": {
-    "node": "^14 || ^16 || ^18 || ^20"
+    "node": "^14 || ^16 || ^18 || ^20",
+    "pnpm": "^9"
   },
   "eslintConfig": {
     "env": {
