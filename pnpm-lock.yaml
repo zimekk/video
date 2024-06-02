@@ -43,7 +43,7 @@ importers:
         version: 3.2.5
       type-coverage:
         specifier: ^2.25.0
-        version: 2.28.1(typescript@5.4.5)
+        version: 2.29.0(typescript@5.4.5)
       typescript:
         specifier: ^5.0.2
         version: 5.4.5
@@ -4228,8 +4228,8 @@ packages:
     peerDependencies:
       typescript: 2 || 3 || 4 || 5
 
-  type-coverage@2.28.1:
-    resolution: {integrity: sha512-nFpCkjyDPA+QeA0aRp3mVJ/XccounJ0Ls5IXVlCKI3XCQPzO3QFUl5zjFnmulw8hWe+r9u9EFjDsAxp8PnLMvQ==}
+  type-coverage@2.29.0:
+    resolution: {integrity: sha512-1YGnQo6kK7cq8PwPoW27EnyKsvpzM7pPPo7bcS4u/7Sb4zs0WX1rGBm1eou3ZHslu56AsmPt/pgIuhCgN1EriQ==}
     hasBin: true
 
   type-fest@2.19.0:
@@ -8904,8 +8904,9 @@ snapshots:
       tsutils: 3.21.0(typescript@5.4.5)
       typescript: 5.4.5
 
-  type-coverage@2.28.1(typescript@5.4.5):
+  type-coverage@2.29.0(typescript@5.4.5):
     dependencies:
+      chalk: 4.1.2
       minimist: 1.2.8
       type-coverage-core: 2.28.1(typescript@5.4.5)
     transitivePeerDependencies:
