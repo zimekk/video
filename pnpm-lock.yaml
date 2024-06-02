@@ -270,10 +270,10 @@ importers:
         version: 0.14.1
       sass:
         specifier: ^1.59.3
-        version: 1.75.0
+        version: 1.77.4
       sass-loader:
         specifier: ^14.0.0
-        version: 14.2.1(sass@1.75.0)(webpack@5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+        version: 14.2.1(sass@1.77.4)(webpack@5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0)))
       serve:
         specifier: ^14.2.0
         version: 14.2.3
@@ -2709,6 +2709,9 @@ packages:
   immutable@4.3.5:
     resolution: {integrity: sha512-8eabxkth9gZatlwl5TBuJnCsoTADlL6ftEr7A4qgdaTsPyreilDSnUk57SO+jfKcNtxPa22U5KK6DSeAYhpBJw==}
 
+  immutable@4.3.6:
+    resolution: {integrity: sha512-Ju0+lEMyzMVZarkTn/gqRpdqd5dOPaz1mCZ0SH3JV6iFw81PldE/PEB1hWVEA288HPt4WXW8O7AWxB10M+03QQ==}
+
   import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -3854,8 +3857,8 @@ packages:
       webpack:
         optional: true
 
-  sass@1.75.0:
-    resolution: {integrity: sha512-ShMYi3WkrDWxExyxSZPst4/okE9ts46xZmJDSawJQrnte7M1V9fScVB+uNXOVKRBt0PggHOwoZcn8mYX4trnBw==}
+  sass@1.77.4:
+    resolution: {integrity: sha512-vcF3Ckow6g939GMA4PeU7b2K/9FALXk2KF9J87txdHzXbUF9XRQRwSxcAs/fGaTnJeBFd7UoV22j3lzMLdM0Pw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -7397,6 +7400,8 @@ snapshots:
 
   immutable@4.3.5: {}
 
+  immutable@4.3.6: {}
+
   import-fresh@3.3.0:
     dependencies:
       parent-module: 1.0.1
@@ -8455,17 +8460,17 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@14.2.1(sass@1.75.0)(webpack@5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0))):
+  sass-loader@14.2.1(sass@1.77.4)(webpack@5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0))):
     dependencies:
       neo-async: 2.6.2
     optionalDependencies:
-      sass: 1.75.0
+      sass: 1.77.4
       webpack: 5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0))
 
-  sass@1.75.0:
+  sass@1.77.4:
     dependencies:
       chokidar: 3.6.0
-      immutable: 4.3.5
+      immutable: 4.3.6
       source-map-js: 1.2.0
 
   sax@1.2.1: {}
