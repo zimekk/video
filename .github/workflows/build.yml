@@ -1,0 +1,21 @@
+name: Build
+on:
+  push:
+    branches:
+      - renovate/**
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # https://docs.github.com/en/actions/guides/building-and-testing-nodejs#installing-dependencies
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
+      - name: Install dependencies
+        run: npm i -g pnpm@9 && pnpm i --frozen-lockfile
+      - name: Check type coverage
+        run: pnpm coverage
+      - name: Build application
+        run: pnpm build
