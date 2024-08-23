@@ -191,7 +191,7 @@ importers:
         version: 5.0.1
       redux-actions:
         specifier: ^3.0.0
-        version: 3.0.0
+        version: 3.0.3
       redux-thunk:
         specifier: ^3.0.0
         version: 3.1.0(redux@5.0.1)
@@ -3670,8 +3670,8 @@ packages:
   reduce-reducers@1.0.4:
     resolution: {integrity: sha512-Mb2WZ2bJF597exiqX7owBzrqJ74DHLK3yOQjCyPAaNifRncE8OD0wFIuoMhXxTnHK07+8zZ2SJEKy/qtiyR7vw==}
 
-  redux-actions@3.0.0:
-    resolution: {integrity: sha512-5r+G8JizsTfyfWolVDkCLL2SpZA0Sk9ao2MXwfdXkG5+72s0PcO9qEqpo51D2o8dZY2gXLjNmY5yoRB+BuizRw==}
+  redux-actions@3.0.3:
+    resolution: {integrity: sha512-ca+ySXmXWrxDqtauRA6lQtjmRO8Z9Ruog3wbb8wDq4RVW9Y677Nl/AXoJPlxJqH0mpY9QGkg03NkAJwTcyN2pQ==}
 
   redux-thunk@3.1.0:
     resolution: {integrity: sha512-NW2r5T6ksUKXCabzhL9z+h206HQw/NJkcLm1GPImRQ8IzfXwRGqjVhKJGauHirT0DAuyy6hjdnMZaRoAcy0Klw==}
@@ -8262,7 +8262,7 @@ snapshots:
 
   reduce-reducers@1.0.4: {}
 
-  redux-actions@3.0.0:
+  redux-actions@3.0.3:
     dependencies:
       just-curry-it: 5.3.0
       reduce-reducers: 1.0.4
