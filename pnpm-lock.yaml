@@ -270,10 +270,10 @@ importers:
         version: 0.14.1
       sass:
         specifier: ^1.59.3
-        version: 1.75.0
+        version: 1.77.8
       sass-loader:
         specifier: ^16.0.0
-        version: 16.0.1(sass@1.75.0)(webpack@5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+        version: 16.0.1(sass@1.77.8)(webpack@5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0)))
       serve:
         specifier: ^14.2.0
         version: 14.2.3
@@ -2726,6 +2726,9 @@ packages:
   immutable@4.3.5:
     resolution: {integrity: sha512-8eabxkth9gZatlwl5TBuJnCsoTADlL6ftEr7A4qgdaTsPyreilDSnUk57SO+jfKcNtxPa22U5KK6DSeAYhpBJw==}
 
+  immutable@4.3.7:
+    resolution: {integrity: sha512-1hqclzwYwjRDFLjcFxOM5AYkkG0rpFPpr1RLPMEuGczoS7YA8gLhy8SWXYRAA/XwfEHpfo3cw5JGioS32fnMRw==}
+
   import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -3155,10 +3158,6 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
-
-  lru-cache@6.0.0:
-    resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
-    engines: {node: '>=10'}
 
   make-error@1.3.6:
     resolution: {integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==}
@@ -3885,8 +3884,8 @@ packages:
       webpack:
         optional: true
 
-  sass@1.75.0:
-    resolution: {integrity: sha512-ShMYi3WkrDWxExyxSZPst4/okE9ts46xZmJDSawJQrnte7M1V9fScVB+uNXOVKRBt0PggHOwoZcn8mYX4trnBw==}
+  sass@1.77.8:
+    resolution: {integrity: sha512-4UHg6prsrycW20fqLGPShtEvo/WyHRVRHwOP4DzkUrObWoWI05QBSfzU71TVB7PFaL104TwNaHpjlWXAZbQiNQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -3913,11 +3912,6 @@ packages:
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
-    hasBin: true
-
-  semver@7.6.0:
-    resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
-    engines: {node: '>=10'}
     hasBin: true
 
   semver@7.6.3:
@@ -4543,9 +4537,6 @@ packages:
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
-
-  yallist@4.0.0:
-    resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
 
   yaml@2.5.0:
     resolution: {integrity: sha512-2wWLbGbYDiSqqIKoPjar3MPgB94ErzCtrNE1FdqGuaO0pi2JGjmE8aW8TDZwzU7vuxcGRdL/4gPQwQ7hD5AMSw==}
@@ -7511,6 +7502,8 @@ snapshots:
 
   immutable@4.3.5: {}
 
+  immutable@4.3.7: {}
+
   import-fresh@3.3.0:
     dependencies:
       parent-module: 1.0.1
@@ -7895,10 +7888,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  lru-cache@6.0.0:
-    dependencies:
-      yallist: 4.0.0
 
   make-error@1.3.6: {}
 
@@ -8579,17 +8568,17 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@16.0.1(sass@1.75.0)(webpack@5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0))):
+  sass-loader@16.0.1(sass@1.77.8)(webpack@5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0))):
     dependencies:
       neo-async: 2.6.2
     optionalDependencies:
-      sass: 1.75.0
+      sass: 1.77.8
       webpack: 5.91.0(webpack-cli@5.1.4(webpack-dev-server@5.0.4)(webpack@5.91.0))
 
-  sass@1.75.0:
+  sass@1.77.8:
     dependencies:
       chokidar: 3.6.0
-      immutable: 4.3.5
+      immutable: 4.3.7
       source-map-js: 1.2.0
 
   sax@1.2.1: {}
@@ -8619,10 +8608,6 @@ snapshots:
       node-forge: 1.3.1
 
   semver@6.3.1: {}
-
-  semver@7.6.0:
-    dependencies:
-      lru-cache: 6.0.0
 
   semver@7.6.3: {}
 
@@ -9439,8 +9424,6 @@ snapshots:
   y18n@5.0.8: {}
 
   yallist@3.1.1: {}
-
-  yallist@4.0.0: {}
 
   yaml@2.5.0: {}
 
