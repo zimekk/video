@@ -246,7 +246,7 @@ importers:
         version: 5.5.11
       babel-loader:
         specifier: ^9.1.2
-        version: 9.1.3(@babel/core@7.25.2)(webpack@5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0)))
+        version: 9.2.0(@babel/core@7.25.2)(webpack@5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0)))
       copy-webpack-plugin:
         specifier: ^12.0.0
         version: 12.0.2(webpack@5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0)))
@@ -1610,8 +1610,8 @@ packages:
   b-spline@2.0.2:
     resolution: {integrity: sha512-RPhM4apTUkejCpKo9sQrOiMdy/rUua4n98oppafwAnT64ZwqJDDp+fUk9+5EBEQNtTS3CsWWFRPukqFM3sasZQ==}
 
-  babel-loader@9.1.3:
-    resolution: {integrity: sha512-xG3ST4DglodGf8qSwv0MdeWLhrDsw/32QMdTO5T1ZIp9gQur0HkCyFs7Awskr10JKXFXwpAhiCuYX5oGXnRGbw==}
+  babel-loader@9.2.0:
+    resolution: {integrity: sha512-s4qfbvr85H17Rk7ozQJBIIMcVVjX8eu6NjJHzkPRswOzZcE5h+XSKAgT4KElsdkvywaWezwlu0BptTQivZ6eMQ==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       '@babel/core': ^7.12.0
@@ -6219,7 +6219,7 @@ snapshots:
 
   b-spline@2.0.2: {}
 
-  babel-loader@9.1.3(@babel/core@7.25.2)(webpack@5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0))):
+  babel-loader@9.2.0(@babel/core@7.25.2)(webpack@5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0))):
     dependencies:
       '@babel/core': 7.25.2
       find-cache-dir: 4.0.0
