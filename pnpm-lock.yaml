@@ -167,7 +167,7 @@ importers:
         version: 18.3.1
       react-dnd:
         specifier: ^16.0.1
-        version: 16.0.1(@types/hoist-non-react-statics@3.3.5)(@types/node@20.16.5)(@types/react@18.3.6)(react@18.3.1)
+        version: 16.0.1(@types/hoist-non-react-statics@3.3.5)(@types/node@20.16.5)(@types/react@18.3.7)(react@18.3.1)
       react-dnd-html5-backend:
         specifier: ^16.0.1
         version: 16.0.1
@@ -185,7 +185,7 @@ importers:
         version: 0.3.0(react@18.3.1)
       react-redux:
         specifier: ^9.0.0
-        version: 9.1.2(@types/react@18.3.6)(react@18.3.1)(redux@5.0.1)
+        version: 9.1.2(@types/react@18.3.7)(react@18.3.1)(redux@5.0.1)
       redux:
         specifier: ^5.0.0
         version: 5.0.1
@@ -228,7 +228,7 @@ importers:
         version: 20.16.5
       '@types/react':
         specifier: ^18.0.28
-        version: 18.3.6
+        version: 18.3.7
       '@types/react-dom':
         specifier: ^18.0.11
         version: 18.3.0
@@ -1253,8 +1253,8 @@ packages:
   '@types/node@22.5.4':
     resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
 
-  '@types/prop-types@15.7.12':
-    resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
+  '@types/prop-types@15.7.13':
+    resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
 
   '@types/qs@6.9.12':
     resolution: {integrity: sha512-bZcOkJ6uWrL0Qb2NAWKa7TBU+mJHPzhx9jjLL1KHF+XpzEcR7EXHvjbHlGtR/IsP1vyPrehuS6XqkmaePy//mg==}
@@ -1271,8 +1271,8 @@ packages:
   '@types/react-redux@7.1.33':
     resolution: {integrity: sha512-NF8m5AjWCkert+fosDsN3hAlHzpjSiXlVy9EgQEmLoBhaNXbmyeGs/aj5dQzKuF+/q+S7JQagorGDW8pJ28Hmg==}
 
-  '@types/react@18.3.6':
-    resolution: {integrity: sha512-CnGaRYNu2iZlkGXGrOYtdg5mLK8neySj0woZ4e2wF/eli2E6Sazmq5X+Nrj6OBrrFVQfJWTUFeqAzoRhWQXYvg==}
+  '@types/react@18.3.7':
+    resolution: {integrity: sha512-KUnDCJF5+AiZd8owLIeVHqmW9yM4sqmDVf2JRJiBMFkGvkoZ4/WyV2lL4zVsoinmRS/W3FeEdZLEWFRofnT2FQ==}
 
   '@types/redux-actions@2.6.5':
     resolution: {integrity: sha512-RgXOigay5cNweP+xH1ru+Vaaj1xXYLpWIfSVO8cSA8Ii2xvR+HRfWYdLe1UVOA8X0kIklalGOa0DTDyld0obkg==}
@@ -5767,7 +5767,7 @@ snapshots:
 
   '@types/hoist-non-react-statics@3.3.5':
     dependencies:
-      '@types/react': 18.3.6
+      '@types/react': 18.3.7
       hoist-non-react-statics: 3.3.2
 
   '@types/html-minifier-terser@6.1.0': {}
@@ -5796,7 +5796,7 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
-  '@types/prop-types@15.7.12': {}
+  '@types/prop-types@15.7.13': {}
 
   '@types/qs@6.9.12': {}
 
@@ -5806,18 +5806,18 @@ snapshots:
 
   '@types/react-dom@18.3.0':
     dependencies:
-      '@types/react': 18.3.6
+      '@types/react': 18.3.7
 
   '@types/react-redux@7.1.33':
     dependencies:
       '@types/hoist-non-react-statics': 3.3.5
-      '@types/react': 18.3.6
+      '@types/react': 18.3.7
       hoist-non-react-statics: 3.3.2
       redux: 4.2.1
 
-  '@types/react@18.3.6':
+  '@types/react@18.3.7':
     dependencies:
-      '@types/prop-types': 15.7.12
+      '@types/prop-types': 15.7.13
       csstype: 3.1.3
 
   '@types/redux-actions@2.6.5': {}
@@ -8314,7 +8314,7 @@ snapshots:
     dependencies:
       dnd-core: 16.0.1
 
-  react-dnd@16.0.1(@types/hoist-non-react-statics@3.3.5)(@types/node@20.16.5)(@types/react@18.3.6)(react@18.3.1):
+  react-dnd@16.0.1(@types/hoist-non-react-statics@3.3.5)(@types/node@20.16.5)(@types/react@18.3.7)(react@18.3.1):
     dependencies:
       '@react-dnd/invariant': 4.0.2
       '@react-dnd/shallowequal': 4.0.2
@@ -8325,7 +8325,7 @@ snapshots:
     optionalDependencies:
       '@types/hoist-non-react-statics': 3.3.5
       '@types/node': 20.16.5
-      '@types/react': 18.3.6
+      '@types/react': 18.3.7
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
@@ -8351,13 +8351,13 @@ snapshots:
       prop-types: 15.8.1
       react: 18.3.1
 
-  react-redux@9.1.2(@types/react@18.3.6)(react@18.3.1)(redux@5.0.1):
+  react-redux@9.1.2(@types/react@18.3.7)(react@18.3.1)(redux@5.0.1):
     dependencies:
       '@types/use-sync-external-store': 0.0.3
       react: 18.3.1
       use-sync-external-store: 1.2.2(react@18.3.1)
     optionalDependencies:
-      '@types/react': 18.3.6
+      '@types/react': 18.3.7
       redux: 5.0.1
 
   react-refresh@0.14.2: {}
