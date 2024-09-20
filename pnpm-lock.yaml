@@ -270,10 +270,10 @@ importers:
         version: 0.14.1
       sass:
         specifier: ^1.59.3
-        version: 1.79.1
+        version: 1.79.2
       sass-loader:
         specifier: ^16.0.0
-        version: 16.0.1(sass@1.79.1)(webpack@5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0)))
+        version: 16.0.1(sass@1.79.2)(webpack@5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0)))
       serve:
         specifier: ^14.2.0
         version: 14.2.3
@@ -3889,8 +3889,8 @@ packages:
       webpack:
         optional: true
 
-  sass@1.79.1:
-    resolution: {integrity: sha512-+mA7svoNKeL0DiJqZGeR/ZGUu8he4I8o3jyUcOFyo4eBJrwNgIMmAEwCMo/N2Y3wdjOBcRzoNxZIOtrtMX8EXg==}
+  sass@1.79.2:
+    resolution: {integrity: sha512-YmT1aoF1MwHsZEu/eXhbAJNsPGAhNP4UixW9ckEwWCvPcVdVF0/C104OGDVEqtoctKq0N+wM20O/rj+sSPsWeg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -8567,14 +8567,14 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@16.0.1(sass@1.79.1)(webpack@5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0))):
+  sass-loader@16.0.1(sass@1.79.2)(webpack@5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0))):
     dependencies:
       neo-async: 2.6.2
     optionalDependencies:
-      sass: 1.79.1
+      sass: 1.79.2
       webpack: 5.94.0(webpack-cli@5.1.4(webpack-dev-server@5.1.0)(webpack@5.94.0))
 
-  sass@1.79.1:
+  sass@1.79.2:
     dependencies:
       chokidar: 4.0.0
       immutable: 4.3.7
