@@ -70,14 +70,14 @@ importers:
         specifier: ^4.17.17
         version: 4.17.21
       '@types/node':
-        specifier: ^20.0.0
-        version: 20.16.8
+        specifier: ^22.0.0
+        version: 22.7.1
       nodemon:
         specifier: ^3.0.0
         version: 3.1.7
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@types/node@20.16.8)(typescript@5.6.3)
+        version: 10.9.2(@types/node@22.7.1)(typescript@5.6.3)
       typescript:
         specifier: ^5.0.2
         version: 5.6.3
@@ -167,7 +167,7 @@ importers:
         version: 18.3.1
       react-dnd:
         specifier: ^16.0.1
-        version: 16.0.1(@types/hoist-non-react-statics@3.3.5)(@types/node@20.16.8)(@types/react@18.3.12)(react@18.3.1)
+        version: 16.0.1(@types/hoist-non-react-statics@3.3.5)(@types/node@22.7.1)(@types/react@18.3.12)(react@18.3.1)
       react-dnd-html5-backend:
         specifier: ^16.0.1
         version: 16.0.1
@@ -224,8 +224,8 @@ importers:
         specifier: ^0.5.10
         version: 0.5.15(@types/webpack@5.28.5(webpack-cli@5.1.4))(react-refresh@0.14.2)(type-fest@3.13.1)(webpack-dev-server@5.1.0)(webpack-hot-middleware@2.26.1)(webpack@5.95.0)
       '@types/node':
-        specifier: ^20.8.6
-        version: 20.16.8
+        specifier: ^22.0.0
+        version: 22.7.1
       '@types/react':
         specifier: ^18.0.28
         version: 18.3.12
@@ -285,7 +285,7 @@ importers:
         version: 4.0.0(webpack@5.95.0)
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@types/node@20.16.8)(typescript@5.6.3)
+        version: 10.9.2(@types/node@22.7.1)(typescript@5.6.3)
       webpack:
         specifier: ^5.76.2
         version: 5.95.0(webpack-cli@5.1.4)
@@ -1265,9 +1265,6 @@ packages:
 
   '@types/node-forge@1.3.11':
     resolution: {integrity: sha512-FQx220y22OKNTqaByeBGqHWYz4cl94tpcxeFdvBo3wjG6XPBuZ0BNgNZRV5J5TFmmcsJ4IzsLkmGRiQbnYsBEQ==}
-
-  '@types/node@20.16.8':
-    resolution: {integrity: sha512-sbo5JmfbZNkyDv+2HCccr9Y9ZkKJBMTru7UdAsCojMGjKNjdaOV73bqEW242QrHEZL8R4LbHMrW+FHB5lZ5/bw==}
 
   '@types/node@22.7.1':
     resolution: {integrity: sha512-adOMRLVmleuWs/5V/w5/l7o0chDK/az+5ncCsIapTKogsu/3MVWvSgP58qVTXi5IwpfGt8pMobNq9rOWtJyu5Q==}
@@ -5714,20 +5711,20 @@ snapshots:
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/bonjour@3.5.13':
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/connect-history-api-fallback@1.5.4':
     dependencies:
       '@types/express-serve-static-core': 4.19.5
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/conventional-commits-parser@5.0.0':
     dependencies:
@@ -5735,7 +5732,7 @@ snapshots:
 
   '@types/cors@2.8.17':
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/eslint@8.56.6':
     dependencies:
@@ -5747,14 +5744,14 @@ snapshots:
 
   '@types/express-serve-static-core@4.17.43':
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
       '@types/qs': 6.9.12
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
 
   '@types/express-serve-static-core@4.19.5':
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
       '@types/qs': 6.9.15
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -5777,7 +5774,7 @@ snapshots:
 
   '@types/http-proxy@1.17.15':
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/json-schema@7.0.15': {}
 
@@ -5787,11 +5784,7 @@ snapshots:
 
   '@types/node-forge@1.3.11':
     dependencies:
-      '@types/node': 20.16.8
-
-  '@types/node@20.16.8':
-    dependencies:
-      undici-types: 6.19.8
+      '@types/node': 22.7.1
 
   '@types/node@22.7.1':
     dependencies:
@@ -5828,7 +5821,7 @@ snapshots:
   '@types/send@0.17.4':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/serve-index@1.9.4':
     dependencies:
@@ -5838,23 +5831,23 @@ snapshots:
     dependencies:
       '@types/http-errors': 2.0.4
       '@types/mime': 3.0.4
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/serve-static@1.15.7':
     dependencies:
       '@types/http-errors': 2.0.4
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
       '@types/send': 0.17.4
 
   '@types/sockjs@0.3.36':
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/use-sync-external-store@0.0.3': {}
 
   '@types/webpack@5.28.5(webpack-cli@5.1.4)':
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
       tapable: 2.2.1
       webpack: 5.95.0(webpack-cli@5.1.4)
     transitivePeerDependencies:
@@ -5865,7 +5858,7 @@ snapshots:
 
   '@types/ws@8.5.12':
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
 
   '@types/youtube-player@5.5.11': {}
 
@@ -7721,7 +7714,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -8313,7 +8306,7 @@ snapshots:
     dependencies:
       dnd-core: 16.0.1
 
-  react-dnd@16.0.1(@types/hoist-non-react-statics@3.3.5)(@types/node@20.16.8)(@types/react@18.3.12)(react@18.3.1):
+  react-dnd@16.0.1(@types/hoist-non-react-statics@3.3.5)(@types/node@22.7.1)(@types/react@18.3.12)(react@18.3.1):
     dependencies:
       '@react-dnd/invariant': 4.0.2
       '@react-dnd/shallowequal': 4.0.2
@@ -8323,7 +8316,7 @@ snapshots:
       react: 18.3.1
     optionalDependencies:
       '@types/hoist-non-react-statics': 3.3.5
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
       '@types/react': 18.3.12
 
   react-dom@18.3.1(react@18.3.1):
@@ -8969,14 +8962,14 @@ snapshots:
     dependencies:
       typescript: 5.6.3
 
-  ts-node@10.9.2(@types/node@20.16.8)(typescript@5.6.3):
+  ts-node@10.9.2(@types/node@22.7.1)(typescript@5.6.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.9
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.16.8
+      '@types/node': 22.7.1
       acorn: 8.11.3
       acorn-walk: 8.3.2
       arg: 4.1.3
