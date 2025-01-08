@@ -101,7 +101,7 @@ importers:
         version: 0.12.13
       '@ffmpeg/util':
         specifier: ^0.12.1
-        version: 0.12.1
+        version: 0.12.2
       '@redux-devtools/extension':
         specifier: ^3.0.0
         version: 3.3.0(redux@5.0.1)
@@ -988,8 +988,8 @@ packages:
     resolution: {integrity: sha512-WK01NqTfFfdXxxVD2+OQnd6LQp4ahWq2kjIh/eVoTo43Lo9ICI5nLOItg/1rcIvOuM7J1ANWTBazWGBKk1kACA==}
     engines: {node: '>=16.x'}
 
-  '@ffmpeg/util@0.12.1':
-    resolution: {integrity: sha512-10jjfAKWaDyb8+nAkijcsi9wgz/y26LOc1NKJradNMyCIl6usQcBbhkjX5qhALrSBcOy6TOeksunTYa+a03qNQ==}
+  '@ffmpeg/util@0.12.2':
+    resolution: {integrity: sha512-ouyoW+4JB7WxjeZ2y6KpRvB+dLp7Cp4ro8z0HIVpZVCM7AwFlHa0c4R8Y/a4M3wMqATpYKhC7lSFHQ0T11MEDw==}
     engines: {node: '>=18.x'}
 
   '@humanfs/core@0.19.1':
@@ -5544,7 +5544,7 @@ snapshots:
 
   '@ffmpeg/types@0.12.3': {}
 
-  '@ffmpeg/util@0.12.1': {}
+  '@ffmpeg/util@0.12.2': {}
 
   '@humanfs/core@0.19.1': {}
 
