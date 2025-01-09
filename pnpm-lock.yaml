@@ -158,7 +158,7 @@ importers:
         version: 15.0.6
       ogl:
         specifier: ^1.0.0
-        version: 1.0.9
+        version: 1.0.10
       raf:
         specifier: ^3.4.1
         version: 3.4.1
@@ -3392,8 +3392,8 @@ packages:
   obuf@1.1.2:
     resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
 
-  ogl@1.0.9:
-    resolution: {integrity: sha512-nvalTfOqyxXKcSCOwxrJ/hFX/UjAj6mH5sFL7V7LZCNhkBd6j+hTiBzEa8etX1WH2oUmnZKi0e/748D9Dag+SA==}
+  ogl@1.0.10:
+    resolution: {integrity: sha512-8zXEqktV0CsvYgqvlcDSITj5/zIbZanU2Ox8qDw6FByJ/AqpfBylRM2fXn0/cKZTN8ydOUsJlakKQuSCOjH/lQ==}
 
   on-finished@2.3.0:
     resolution: {integrity: sha512-ikqdkGAAyf/X/gPhXGvfgAytDZtDbr+bkNUJ0N9h5MI/dmdgCs3l6hoHrcUv41sRKew3jIwrp4qQDXiK99Utww==}
@@ -8120,7 +8120,7 @@ snapshots:
 
   obuf@1.1.2: {}
 
-  ogl@1.0.9: {}
+  ogl@1.0.10: {}
 
   on-finished@2.3.0:
     dependencies:
