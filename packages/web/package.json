@@ -67,7 +67,7 @@
     "dotenv": "^16.0.3",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "react-refresh": "^0.16.0",
+    "react-refresh": "^0.17.0",
     "regenerator-runtime": "^0.14.0",
     "sass": "^1.59.3",
     "sass-loader": "^16.0.0",
