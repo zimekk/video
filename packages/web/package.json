@@ -64,7 +64,7 @@
     "babel-loader": "^10.0.0",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.0.0",
-    "dotenv": "^16.0.3",
+    "dotenv": "^17.0.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "react-refresh": "^0.17.0",
