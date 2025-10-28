@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "engines": {
-    "node": "^14 || ^16 || ^18 || ^20 || ^22.0.0",
+    "node": "^14 || ^16 || ^18 || ^20 || ^22.0.0 || ^24.0.0",
     "pnpm": "^9 || ^10.0.0"
   },
   "eslintConfig": {
