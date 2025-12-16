@@ -562,6 +562,13 @@
   !*** ./src/Definitions/toColorAndBackFade/toColorAndBackFade.vert ***!
   \********************************************************************/
 
+/**
+ * Anime.js - ESM
+ * @version v4.2.2
+ * @license MIT
+ * @copyright 2025 - Julian Garnier
+ */
+
 /** @license React v16.13.1
  * react-is.production.min.js
  *
