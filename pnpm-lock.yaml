@@ -74,7 +74,7 @@ importers:
         version: 24.10.13
       nodemon:
         specifier: ^3.0.0
-        version: 3.1.12
+        version: 3.1.13
       ts-node:
         specifier: ^10.9.1
         version: 10.9.2(@types/node@24.10.13)(typescript@5.9.3)
@@ -3481,8 +3481,8 @@ packages:
   node-releases@2.0.27:
     resolution: {integrity: sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA==}
 
-  nodemon@3.1.12:
-    resolution: {integrity: sha512-ubbKNjz0Xvv49+5VWiqK2N+1VkoWdWi4xfpyuVbdT4QcdpGlN6Nx/OtxBCDHW8aUelaV6QHDbOjGca9HGnCiCw==}
+  nodemon@3.1.13:
+    resolution: {integrity: sha512-nPN6L7A9cTA3BnJ3zZIibH5FiDh3GbmibeS17bl5YEU1IRO2mcfvR0ZJXH3ndoeKItjUcaX81FSKc/Kq/IiG6g==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -8417,7 +8417,7 @@ snapshots:
 
   node-releases@2.0.27: {}
 
-  nodemon@3.1.12:
+  nodemon@3.1.13:
     dependencies:
       chokidar: 3.6.0
       debug: 4.4.3(supports-color@5.5.0)
