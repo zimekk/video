@@ -21,7 +21,7 @@
     "colorjs.io": "^0.6.0",
     "dashjs": "^5.0.0",
     "events": "^3.3.0",
-    "gl-react": "^5.2.0",
+    "gl-react": "^6.0.0",
     "gl-react-dom": "^5.2.1",
     "gl-texture2d": "^2.1.0",
     "gl-transition": "^1.13.0",
