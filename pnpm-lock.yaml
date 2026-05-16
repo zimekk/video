@@ -133,8 +133,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(react@19.2.6)
       gl-react-dom:
-        specifier: ^5.2.1
-        version: 5.2.1(gl-react@6.0.0(react@19.2.6))(react@19.2.6)
+        specifier: ^6.0.0
+        version: 6.0.0(gl-react@6.0.0(react@19.2.6))(react@19.2.6)
       gl-texture2d:
         specifier: ^2.1.0
         version: 2.1.0
@@ -2825,11 +2825,11 @@ packages:
   gl-matrix@3.4.3:
     resolution: {integrity: sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==}
 
-  gl-react-dom@5.2.1:
-    resolution: {integrity: sha512-RZxOovktk8czle/FiMbiEJJxHLICoHEzxU46GeQ9tqiWMYxj/wj01VbqGVlrn6wVZ+fx77bhRxzn5ptW2uuxbA==}
+  gl-react-dom@6.0.0:
+    resolution: {integrity: sha512-AwaIPEVPUxHmBQhk5u4aZiU654PpMk7Wlj9oWc3hI2ETvhQ1aBv1sFjQKqE4u8DztbQwPTnQLoXW3mNocsebgQ==}
     peerDependencies:
       gl-react: '*'
-      react: '*'
+      react: '>=18'
 
   gl-react@6.0.0:
     resolution: {integrity: sha512-7uC+nVPr4D23gpu4hPJO/0sA8PR2Nl9Ndsecu6tnI4NEvW3Ot69m9w5+NNTrJveqoNTrxmLuveVYoQWVNnf3bg==}
@@ -4684,23 +4684,20 @@ packages:
   weakmap-shim@1.1.1:
     resolution: {integrity: sha512-/wNyG+1FpiHhnfQo+TuA/XAUpvOOkKVl0A4qpT+oGcj5SlZCLmM+M1Py/3Sj8sy+YrEauCVITOxCsZKo6sPbQg==}
 
-  webgltexture-loader-dom-canvas@1.0.0:
-    resolution: {integrity: sha512-lRDoPVE4GXFyfsl/E5+sZd7m6304RmBRky0SmgHlqJZJySFrCbQMF/hMQkWNWM5iYks84kRUGlwugW/c6OgpDw==}
+  webgltexture-loader-dom-canvas@2.1.2:
+    resolution: {integrity: sha512-5lT5dfZ9G7Ctz6ZeWGPrhkr8Ju13RfoYyeLNgZGsFI1bS1p6mO8BHm8YXoLbyUE9HzOteSbmcgguJyyrvEoQiw==}
 
-  webgltexture-loader-dom-image-url@1.0.0:
-    resolution: {integrity: sha512-KiQ16cLBTjoCQfdvfy1SQP3wMWEPW9ADqsODyhd+6nMg7qD6FmewF3OZs6chF4yfDtlVVXRYI/cDGF1K9MK5Mg==}
+  webgltexture-loader-dom-image-url@2.1.2:
+    resolution: {integrity: sha512-c/MmJ1x/0jcUzdkZ4cjUBBKzGHMqDAGsAA7R1DlskLJIUIOG6V8485URx1r0Sx/htKnDpv84i3U/g8eyFaP59w==}
 
-  webgltexture-loader-dom-video@1.0.0:
-    resolution: {integrity: sha512-o3zB2XQEMAqgHQeNavoy4q5/lwIIt1MjF6Qj+pUDju9VlovJXGJiCIZ/suv715YgS3k36/pg97847GhV3bHczQ==}
+  webgltexture-loader-dom-video@2.1.2:
+    resolution: {integrity: sha512-TkNN82qh77bC2Q1U0L1zbdgYgab/f1ztJfVmf6sYvGQ3ZGBBSq+oIkeClC6ee2PDy/jPhqwTiweewzMGQ8En4w==}
 
-  webgltexture-loader-dom@1.0.0:
-    resolution: {integrity: sha512-JavQ9Hvv3DIYx6WuqzVa76bn2YCcq1lazUdzf277VZWrmxVCln5QFjyTfWZozgYtT21lVeu6MdMOUIbY4xhjqA==}
+  webgltexture-loader-dom@2.1.2:
+    resolution: {integrity: sha512-fqIQvgTaf6m7PgbwF3ptrzkW10nTQXZDM9fmtlZ05G/DISGDolfNvo9XLZjruty8yuO7CPlj7e6EWjKOYLJp5g==}
 
   webgltexture-loader-ndarray@2.1.2:
     resolution: {integrity: sha512-/+6DRQfjd/4JQfx8FbZvPNMAaZ6cmEb95uZ6//9qNireJh8wZxDQUxzsMOy22AzW3ZglblIK1TaTaRNpQ5GTkQ==}
-
-  webgltexture-loader@1.0.0:
-    resolution: {integrity: sha512-TbQUdr0Bc3tcJ4pKIFoM9dKyLdYNf9Uxq05oZuIT+2e/vCcfaQS+WjNmW1FwYqaBrzcLr9CA/HBAmvyaS/REGw==}
 
   webgltexture-loader@2.1.2:
     resolution: {integrity: sha512-maQ8zr/5PjZ7QPiuhlk+lEUc6gw/7I86Y1zV/mnLj65XGuFazUJahJO3Bm1YIUgFQj+4pHgpt9+xCT9hPlP0pA==}
@@ -7937,14 +7934,14 @@ snapshots:
 
   gl-matrix@3.4.3: {}
 
-  gl-react-dom@5.2.1(gl-react@6.0.0(react@19.2.6))(react@19.2.6):
+  gl-react-dom@6.0.0(gl-react@6.0.0(react@19.2.6))(react@19.2.6):
     dependencies:
       gl-react: 6.0.0(react@19.2.6)
       invariant: 2.2.4
       prop-types: 15.8.1
       raf: 3.4.1
       react: 19.2.6
-      webgltexture-loader-dom: 1.0.0
+      webgltexture-loader-dom: 2.1.2
 
   gl-react@6.0.0(react@19.2.6):
     dependencies:
@@ -9901,23 +9898,23 @@ snapshots:
 
   weakmap-shim@1.1.1: {}
 
-  webgltexture-loader-dom-canvas@1.0.0:
+  webgltexture-loader-dom-canvas@2.1.2:
     dependencies:
-      webgltexture-loader: 1.0.0
+      webgltexture-loader: 2.1.2
 
-  webgltexture-loader-dom-image-url@1.0.0:
+  webgltexture-loader-dom-image-url@2.1.2:
     dependencies:
-      webgltexture-loader: 1.0.0
+      webgltexture-loader: 2.1.2
 
-  webgltexture-loader-dom-video@1.0.0:
+  webgltexture-loader-dom-video@2.1.2:
     dependencies:
-      webgltexture-loader: 1.0.0
+      webgltexture-loader: 2.1.2
 
-  webgltexture-loader-dom@1.0.0:
+  webgltexture-loader-dom@2.1.2:
     dependencies:
-      webgltexture-loader-dom-canvas: 1.0.0
-      webgltexture-loader-dom-image-url: 1.0.0
-      webgltexture-loader-dom-video: 1.0.0
+      webgltexture-loader-dom-canvas: 2.1.2
+      webgltexture-loader-dom-image-url: 2.1.2
+      webgltexture-loader-dom-video: 2.1.2
 
   webgltexture-loader-ndarray@2.1.2:
     dependencies:
@@ -9925,8 +9922,6 @@ snapshots:
       ndarray-ops: 1.2.2
       typedarray-pool: 1.2.0
       webgltexture-loader: 2.1.2
-
-  webgltexture-loader@1.0.0: {}
 
   webgltexture-loader@2.1.2: {}
 
