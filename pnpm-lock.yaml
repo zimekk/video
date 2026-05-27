@@ -270,10 +270,10 @@ importers:
         version: 0.14.1
       sass:
         specifier: ^1.59.3
-        version: 1.99.0
+        version: 1.100.0
       sass-loader:
         specifier: ^17.0.0
-        version: 17.0.0(sass@1.99.0)(webpack@5.107.2)
+        version: 17.0.0(sass@1.100.0)(webpack@5.107.2)
       serve:
         specifier: ^14.2.0
         version: 14.2.6
@@ -2090,9 +2090,9 @@ packages:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
 
-  chokidar@4.0.3:
-    resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
-    engines: {node: '>= 14.16.0'}
+  chokidar@5.0.0:
+    resolution: {integrity: sha512-TQMmc3w+5AxjpL8iIiwebF73dRDF4fBIieAqGn9RGCWaEVwQ6Fb2cGe31Yns0RRIzii5goJ1Y7xbMwo1TxMplw==}
+    engines: {node: '>= 20.19.0'}
 
   chrome-trace-event@1.0.4:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
@@ -3948,9 +3948,9 @@ packages:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
     engines: {node: '>=8.10.0'}
 
-  readdirp@4.1.2:
-    resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
-    engines: {node: '>= 14.18.0'}
+  readdirp@5.0.0:
+    resolution: {integrity: sha512-9u/XQ1pvrQtYyMpZe7DXKv2p5CNvyVwzUB6uhLAnQwHMSgKMBR62lc7AHljaeteeHXn11XTAaLLUVZYVZyuRBQ==}
+    engines: {node: '>= 20.19.0'}
 
   rechoir@0.8.0:
     resolution: {integrity: sha512-/vxpCXddiX8NGfGO/mTafwjq4aFa/71pvamip0++IQk3zG8cbCj0fifNPrjjF1XMXUne91jL9OoxmdykoEtifQ==}
@@ -4130,9 +4130,9 @@ packages:
       webpack:
         optional: true
 
-  sass@1.99.0:
-    resolution: {integrity: sha512-kgW13M54DUB7IsIRM5LvJkNlpH+WhMpooUcaWGFARkF1Tc82v9mIWkCbCYf+MBvpIUBSeSOTilpZjEPr2VYE6Q==}
-    engines: {node: '>=14.0.0'}
+  sass@1.100.0:
+    resolution: {integrity: sha512-B5j0rYMlinhhOo9tjQebMVVn0TfyXAF+wB3b2ggZUuJ/is/Y+7+JGjirAMxHZ9Z3hIP98NPfamlAkBHa1lAaXQ==}
+    engines: {node: '>=20.19.0'}
     hasBin: true
 
   sax@1.2.1:
@@ -7049,9 +7049,9 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  chokidar@4.0.3:
+  chokidar@5.0.0:
     dependencies:
-      readdirp: 4.1.2
+      readdirp: 5.0.0
 
   chrome-trace-event@1.0.4: {}
 
@@ -9058,7 +9058,7 @@ snapshots:
     dependencies:
       picomatch: 2.3.2
 
-  readdirp@4.1.2: {}
+  readdirp@5.0.0: {}
 
   rechoir@0.8.0:
     dependencies:
@@ -9238,14 +9238,14 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@17.0.0(sass@1.99.0)(webpack@5.107.2):
+  sass-loader@17.0.0(sass@1.100.0)(webpack@5.107.2):
     optionalDependencies:
-      sass: 1.99.0
+      sass: 1.100.0
       webpack: 5.107.2(postcss@8.5.6)(webpack-cli@7.0.2)
 
-  sass@1.99.0:
+  sass@1.100.0:
     dependencies:
-      chokidar: 4.0.3
+      chokidar: 5.0.0
       immutable: 5.1.5
       source-map-js: 1.2.1
     optionalDependencies:
