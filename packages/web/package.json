@@ -24,7 +24,7 @@
     "gl-react": "^6.0.0",
     "gl-react-dom": "^6.0.0",
     "gl-texture2d": "^2.1.0",
-    "gl-transition": "^1.13.0",
+    "gl-transition": "^2.0.0",
     "gl-transitions": "^1.43.0",
     "history": "^5.3.0",
     "hoist-non-react-statics": "^3.3.2",
