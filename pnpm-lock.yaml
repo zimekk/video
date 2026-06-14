@@ -178,8 +178,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1(react@19.2.7)
       react-gl-transition:
-        specifier: ^1.19.2
-        version: 1.19.2(gl-react@6.0.0(react@19.2.7))(react@19.2.7)
+        specifier: ^2.0.0
+        version: 2.0.0(gl-react@6.0.0(react@19.2.7))(react@19.2.7)
       react-json2d:
         specifier: ^0.3.0
         version: 0.3.0(react@19.2.7)
@@ -3880,11 +3880,12 @@ packages:
     peerDependencies:
       react: '>= 16.8.0'
 
-  react-gl-transition@1.19.2:
-    resolution: {integrity: sha512-8YIJtSWjLgEkSw5uBRIPgUZjAEZCt5djBv2F58SFLGFHuz2UU8lQgjHVCjE1SdGhKXSjlVjK+P7Q+Siltmt+CA==}
+  react-gl-transition@2.0.0:
+    resolution: {integrity: sha512-tA1UUzOusYVszPtJ9aMe0a7Vkyg4M4bp723LD2m0CJIVYp4A6FSp9sWrgOyidwGuGoFK+FxvKQBdSFLcZONq4A==}
+    engines: {node: '>=18'}
     peerDependencies:
-      gl-react: ^3.5.0
-      react: ^15.5.4
+      gl-react: ^6.0.0
+      react: '>=18'
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -8970,7 +8971,7 @@ snapshots:
       fscreen: 1.2.0
       react: 19.2.7
 
-  react-gl-transition@1.19.2(gl-react@6.0.0(react@19.2.7))(react@19.2.7):
+  react-gl-transition@2.0.0(gl-react@6.0.0(react@19.2.7))(react@19.2.7):
     dependencies:
       gl-react: 6.0.0(react@19.2.7)
       react: 19.2.7
