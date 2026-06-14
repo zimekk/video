@@ -139,8 +139,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       gl-transition:
-        specifier: ^1.13.0
-        version: 1.13.0
+        specifier: ^2.0.0
+        version: 2.1.0
       gl-transitions:
         specifier: ^1.43.0
         version: 1.69.0
@@ -2832,8 +2832,9 @@ packages:
   gl-texture2d@2.1.0:
     resolution: {integrity: sha512-W0tzEjtlGSsCKq5FFwFVhH+fONFUTUeqM4HhA/BleygKaX39IwNTVOiqkwfu9szQZ4dQEq8ZDl7w1ud/eKLaZA==}
 
-  gl-transition@1.13.0:
-    resolution: {integrity: sha512-sgHvetA1Nvm+0P15zutYguZt4PzTEJvhrndTMpm6lpSscb6bfbJ65LuiqSxBwHOzK/VVlZ1O57d0v1LvPoOZZA==}
+  gl-transition@2.1.0:
+    resolution: {integrity: sha512-+zFo1FmbAaeUw/hgjvv5Km2awBCMBj89EL1IaDpwVjuHT8HpQZ69DbDFw4QSC5Lq90IBSEbOMNfmcgirp/rsnQ==}
+    engines: {node: '>=18'}
 
   gl-transitions@1.69.0:
     resolution: {integrity: sha512-wOTdD7t0RmgMa3Sxap6X+eq2ywz27RLIBZsvQdPgzfu+0QOk+1F/SnmQB1Ern8ZTNGl6PIQkCJ4irdgT5pEMjQ==}
@@ -7946,7 +7947,7 @@ snapshots:
       ndarray-ops: 1.2.2
       typedarray-pool: 1.2.0
 
-  gl-transition@1.13.0:
+  gl-transition@2.1.0:
     dependencies:
       gl-shader: 4.3.1
 
