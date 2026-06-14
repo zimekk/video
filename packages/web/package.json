@@ -37,7 +37,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.0.0",
     "react-full-screen": "^1.1.1",
-    "react-gl-transition": "^1.19.2",
+    "react-gl-transition": "^2.0.0",
     "react-json2d": "^0.3.0",
     "react-redux": "^9.0.0",
     "redux": "^5.0.0",
