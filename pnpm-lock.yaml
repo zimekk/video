@@ -143,7 +143,7 @@ importers:
         version: 2.1.0
       gl-transitions:
         specifier: ^1.43.0
-        version: 1.69.0
+        version: 1.71.0
       history:
         specifier: ^5.3.0
         version: 5.3.0
@@ -2792,8 +2792,8 @@ packages:
     resolution: {integrity: sha512-+zFo1FmbAaeUw/hgjvv5Km2awBCMBj89EL1IaDpwVjuHT8HpQZ69DbDFw4QSC5Lq90IBSEbOMNfmcgirp/rsnQ==}
     engines: {node: '>=18'}
 
-  gl-transitions@1.69.0:
-    resolution: {integrity: sha512-wOTdD7t0RmgMa3Sxap6X+eq2ywz27RLIBZsvQdPgzfu+0QOk+1F/SnmQB1Ern8ZTNGl6PIQkCJ4irdgT5pEMjQ==}
+  gl-transitions@1.71.0:
+    resolution: {integrity: sha512-fpCpeT5B0vQOAu1/XuTmOIWD3dJoMIuedmYdPqK/oGHMz8vexJzsCXVo8TQZVo7G2irAYhdhq+9wWtohj/IjZQ==}
 
   gl-vec2@1.3.0:
     resolution: {integrity: sha512-YiqaAuNsheWmUV0Sa8k94kBB0D6RWjwZztyO+trEYS8KzJ6OQB/4686gdrf59wld4hHFIvaxynO3nRxpk1Ij/A==}
@@ -7755,7 +7755,7 @@ snapshots:
     dependencies:
       gl-shader: 4.3.1
 
-  gl-transitions@1.69.0: {}
+  gl-transitions@1.71.0: {}
 
   gl-vec2@1.3.0: {}
 
