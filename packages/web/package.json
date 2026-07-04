@@ -77,6 +77,6 @@
     "ts-node": "^10.9.1",
     "webpack": "^5.76.2",
     "webpack-cli": "^7.0.0",
-    "webpack-dev-server": "^5.0.0"
+    "webpack-dev-server": "^6.0.0"
   }
 }
