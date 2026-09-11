@@ -131,10 +131,10 @@ importers:
         version: 3.3.0
       gl-react:
         specifier: ^6.0.0
-        version: 6.0.0(react@19.2.8)
+        version: 6.0.0(react@19.3.0)
       gl-react-dom:
         specifier: ^6.0.0
-        version: 6.0.0(gl-react@6.0.0(react@19.2.8))(react@19.2.8)
+        version: 6.0.0(gl-react@6.0.0(react@19.3.0))(react@19.3.0)
       gl-texture2d:
         specifier: ^2.1.0
         version: 2.1.0
@@ -164,28 +164,28 @@ importers:
         version: 3.4.1
       react:
         specifier: ^19.0.0
-        version: 19.2.8
+        version: 19.3.0
       react-dnd:
         specifier: ^16.0.1
-        version: 16.0.1(@types/hoist-non-react-statics@3.3.6)(@types/node@24.13.4)(@types/react@19.2.18)(react@19.2.8)
+        version: 16.0.1(@types/hoist-non-react-statics@3.3.6)(@types/node@24.13.4)(@types/react@19.3.0)(react@19.3.0)
       react-dnd-html5-backend:
         specifier: ^16.0.1
         version: 16.0.1
       react-dom:
         specifier: ^19.0.0
-        version: 19.2.8(react@19.2.8)
+        version: 19.3.0(react@19.3.0)
       react-full-screen:
         specifier: ^1.1.1
-        version: 1.1.1(react@19.2.8)
+        version: 1.1.1(react@19.3.0)
       react-gl-transition:
         specifier: ^2.0.0
-        version: 2.0.0(gl-react@6.0.0(react@19.2.8))(react@19.2.8)
+        version: 2.0.0(gl-react@6.0.0(react@19.3.0))(react@19.3.0)
       react-json2d:
         specifier: ^0.3.0
-        version: 0.3.0(react@19.2.8)
+        version: 0.3.0(react@19.3.0)
       react-redux:
         specifier: ^9.0.0
-        version: 9.3.0(@types/react@19.2.18)(react@19.2.8)(redux@5.0.1)
+        version: 9.3.0(@types/react@19.3.0)(react@19.3.0)(redux@5.0.1)
       redux:
         specifier: ^5.0.0
         version: 5.0.1
@@ -222,16 +222,16 @@ importers:
         version: 8.0.1(@babel/core@8.0.1)
       '@pmmmwh/react-refresh-webpack-plugin':
         specifier: ^0.6.0
-        version: 0.6.3(@types/webpack@5.28.5(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3))(react-refresh@0.18.0)(type-fest@2.19.0)(webpack-dev-server@6.0.0)(webpack-hot-middleware@2.26.1)(webpack@5.110.3)
+        version: 0.6.3(@types/webpack@5.28.5(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3))(react-refresh@0.19.0)(type-fest@2.19.0)(webpack-dev-server@6.0.0)(webpack-hot-middleware@2.26.1)(webpack@5.110.3)
       '@types/node':
         specifier: ^24.0.0
         version: 24.13.4
       '@types/react':
         specifier: ^19.0.0
-        version: 19.2.18
+        version: 19.3.0
       '@types/react-dom':
         specifier: ^19.0.0
-        version: 19.2.7(@types/react@19.2.18)
+        version: 19.3.0(@types/react@19.3.0)
       '@types/react-redux':
         specifier: ^7.1.25
         version: 7.1.34
@@ -263,8 +263,8 @@ importers:
         specifier: ^5.5.0
         version: 5.6.8(webpack@5.110.3)
       react-refresh:
-        specifier: ^0.18.0
-        version: 0.18.0
+        specifier: ^0.19.0
+        version: 0.19.0
       regenerator-runtime:
         specifier: ^0.14.0
         version: 0.14.1
@@ -1484,16 +1484,16 @@ packages:
   '@types/range-parser@1.2.7':
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
 
-  '@types/react-dom@19.2.7':
-    resolution: {integrity: sha512-I8bPpDLcHBv1qiIiXDCy71Rt8eQDKJP0sMSWJphDdAcdqiJ1sGpZamavoEIRZmYzjia9LuEb2HlYdDpmoENpvQ==}
+  '@types/react-dom@19.3.0':
+    resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
     peerDependencies:
-      '@types/react': ^19.2.0
+      '@types/react': ^19.3.0
 
   '@types/react-redux@7.1.34':
     resolution: {integrity: sha512-GdFaVjEbYv4Fthm2ZLvj1VSCedV7TqE5y1kNwnjSdBOTXuRSgowux6J8TAct15T3CKBr63UMk+2CO7ilRhyrAQ==}
 
-  '@types/react@19.2.18':
-    resolution: {integrity: sha512-AnzbBERsrLKtk2XSfTbYRLjQPdy116Sty4q+T+Bp3IC4l6jNBvreVPAHmpq9qhXQM7CXZPjLVmGMw9sy+hxQ3w==}
+  '@types/react@19.3.0':
+    resolution: {integrity: sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==}
 
   '@types/redux-actions@2.6.5':
     resolution: {integrity: sha512-RgXOigay5cNweP+xH1ru+Vaaj1xXYLpWIfSVO8cSA8Ii2xvR+HRfWYdLe1UVOA8X0kIklalGOa0DTDyld0obkg==}
@@ -3658,10 +3658,10 @@ packages:
       '@types/react':
         optional: true
 
-  react-dom@19.2.8:
-    resolution: {integrity: sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==}
+  react-dom@19.3.0:
+    resolution: {integrity: sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q==}
     peerDependencies:
-      react: ^19.2.8
+      react: ^19.3.0
 
   react-full-screen@1.1.1:
     resolution: {integrity: sha512-xoEgkoTiN0dw9cjYYGViiMCBYbkS97BYb4bHPhQVWXj1UnOs8PZ1rPzpX+2HMhuvQV1jA5AF9GaRbO3fA5aZtg==}
@@ -3696,12 +3696,12 @@ packages:
       redux:
         optional: true
 
-  react-refresh@0.18.0:
-    resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
+  react-refresh@0.19.0:
+    resolution: {integrity: sha512-5HdstYgoJBbBofjapO5qCPcovECJCBfvjLb+iTcsmqDFVMRdqy0qs7iiInBJTUXmIFc2bjoc5b2HVLp2zRtYhQ==}
     engines: {node: '>=0.10.0'}
 
-  react@19.2.8:
-    resolution: {integrity: sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==}
+  react@19.3.0:
+    resolution: {integrity: sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog==}
     engines: {node: '>=0.10.0'}
 
   readable-stream@1.0.34:
@@ -3886,8 +3886,8 @@ packages:
   sax@1.2.1:
     resolution: {integrity: sha512-8I2a3LovHTOpm7NV5yOyO8IHqgVsfK4+UuySrXU8YXkSRX7k6hCV9b3HrkKCr3nMpgj+0bmocaJJWpvp1oc7ZA==}
 
-  scheduler@0.27.0:
-    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
+  scheduler@0.28.0:
+    resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
 
   schema-utils@3.3.0:
     resolution: {integrity: sha512-pN/yOAvcC+5rQ5nERGuwrjLlYvLTbCibnZ1I7B1LaiAz9BRBlE9GMgE/eqV30P7aJQUf7Ddimy/RsbYO/GrVGg==}
@@ -5700,13 +5700,13 @@ snapshots:
 
   '@pkgr/core@0.3.6': {}
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.6.3(@types/webpack@5.28.5(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3))(react-refresh@0.18.0)(type-fest@2.19.0)(webpack-dev-server@6.0.0)(webpack-hot-middleware@2.26.1)(webpack@5.110.3)':
+  '@pmmmwh/react-refresh-webpack-plugin@0.6.3(@types/webpack@5.28.5(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3))(react-refresh@0.19.0)(type-fest@2.19.0)(webpack-dev-server@6.0.0)(webpack-hot-middleware@2.26.1)(webpack@5.110.3)':
     dependencies:
       anser: 2.3.3
       core-js-pure: 3.47.0
       error-stack-parser: 2.1.4
       html-entities: 2.6.0
-      react-refresh: 0.18.0
+      react-refresh: 0.19.0
       schema-utils: 4.3.3
       source-map: 0.7.6
       webpack: 5.110.3(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
@@ -5832,7 +5832,7 @@ snapshots:
 
   '@types/hoist-non-react-statics@3.3.6':
     dependencies:
-      '@types/react': 19.2.18
+      '@types/react': 19.3.0
       hoist-non-react-statics: 3.3.2
 
   '@types/html-minifier-terser@6.1.0': {}
@@ -5853,18 +5853,18 @@ snapshots:
 
   '@types/range-parser@1.2.7': {}
 
-  '@types/react-dom@19.2.7(@types/react@19.2.18)':
+  '@types/react-dom@19.3.0(@types/react@19.3.0)':
     dependencies:
-      '@types/react': 19.2.18
+      '@types/react': 19.3.0
 
   '@types/react-redux@7.1.34':
     dependencies:
       '@types/hoist-non-react-statics': 3.3.6
-      '@types/react': 19.2.18
+      '@types/react': 19.3.0
       hoist-non-react-statics: 3.3.2
       redux: 4.2.1
 
-  '@types/react@19.2.18':
+  '@types/react@19.3.0':
     dependencies:
       csstype: 3.2.3
 
@@ -7303,22 +7303,22 @@ snapshots:
 
   gl-matrix@3.4.3: {}
 
-  gl-react-dom@6.0.0(gl-react@6.0.0(react@19.2.8))(react@19.2.8):
+  gl-react-dom@6.0.0(gl-react@6.0.0(react@19.3.0))(react@19.3.0):
     dependencies:
-      gl-react: 6.0.0(react@19.2.8)
+      gl-react: 6.0.0(react@19.3.0)
       invariant: 2.2.4
       prop-types: 15.8.1
       raf: 3.4.1
-      react: 19.2.8
+      react: 19.3.0
       webgltexture-loader-dom: 2.1.2
 
-  gl-react@6.0.0(react@19.2.8):
+  gl-react@6.0.0(react@19.3.0):
     dependencies:
       gl-shader: 4.3.1
       invariant: 2.2.4
       ndarray: 1.0.19
       prop-types: 15.8.1
-      react: 19.2.8
+      react: 19.3.0
       typedarray-pool: 1.2.0
       webgltexture-loader: 2.1.2
       webgltexture-loader-ndarray: 2.1.2
@@ -8279,54 +8279,54 @@ snapshots:
     dependencies:
       dnd-core: 16.0.1
 
-  react-dnd@16.0.1(@types/hoist-non-react-statics@3.3.6)(@types/node@24.13.4)(@types/react@19.2.18)(react@19.2.8):
+  react-dnd@16.0.1(@types/hoist-non-react-statics@3.3.6)(@types/node@24.13.4)(@types/react@19.3.0)(react@19.3.0):
     dependencies:
       '@react-dnd/invariant': 4.0.2
       '@react-dnd/shallowequal': 4.0.2
       dnd-core: 16.0.1
       fast-deep-equal: 3.1.3
       hoist-non-react-statics: 3.3.2
-      react: 19.2.8
+      react: 19.3.0
     optionalDependencies:
       '@types/hoist-non-react-statics': 3.3.6
       '@types/node': 24.13.4
-      '@types/react': 19.2.18
+      '@types/react': 19.3.0
 
-  react-dom@19.2.8(react@19.2.8):
+  react-dom@19.3.0(react@19.3.0):
     dependencies:
-      react: 19.2.8
-      scheduler: 0.27.0
+      react: 19.3.0
+      scheduler: 0.28.0
 
-  react-full-screen@1.1.1(react@19.2.8):
+  react-full-screen@1.1.1(react@19.3.0):
     dependencies:
       fscreen: 1.2.0
-      react: 19.2.8
+      react: 19.3.0
 
-  react-gl-transition@2.0.0(gl-react@6.0.0(react@19.2.8))(react@19.2.8):
+  react-gl-transition@2.0.0(gl-react@6.0.0(react@19.3.0))(react@19.3.0):
     dependencies:
-      gl-react: 6.0.0(react@19.2.8)
-      react: 19.2.8
+      gl-react: 6.0.0(react@19.3.0)
+      react: 19.3.0
 
   react-is@16.13.1: {}
 
-  react-json2d@0.3.0(react@19.2.8):
+  react-json2d@0.3.0(react@19.3.0):
     dependencies:
       json2d: 1.2.0
       prop-types: 15.8.1
-      react: 19.2.8
+      react: 19.3.0
 
-  react-redux@9.3.0(@types/react@19.2.18)(react@19.2.8)(redux@5.0.1):
+  react-redux@9.3.0(@types/react@19.3.0)(react@19.3.0)(redux@5.0.1):
     dependencies:
       '@types/use-sync-external-store': 0.0.6
-      react: 19.2.8
-      use-sync-external-store: 1.6.0(react@19.2.8)
+      react: 19.3.0
+      use-sync-external-store: 1.6.0(react@19.3.0)
     optionalDependencies:
-      '@types/react': 19.2.18
+      '@types/react': 19.3.0
       redux: 5.0.1
 
-  react-refresh@0.18.0: {}
+  react-refresh@0.19.0: {}
 
-  react@19.2.8: {}
+  react@19.3.0: {}
 
   readable-stream@1.0.34:
     dependencies:
@@ -8533,7 +8533,7 @@ snapshots:
 
   sax@1.2.1: {}
 
-  scheduler@0.27.0: {}
+  scheduler@0.28.0: {}
 
   schema-utils@3.3.0:
     dependencies:
@@ -9086,9 +9086,9 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  use-sync-external-store@1.6.0(react@19.2.8):
+  use-sync-external-store@1.6.0(react@19.3.0):
     dependencies:
-      react: 19.2.8
+      react: 19.3.0
 
   util-deprecate@1.0.2: {}
 
