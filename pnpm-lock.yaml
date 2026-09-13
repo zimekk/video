@@ -270,10 +270,10 @@ importers:
         version: 0.14.1
       sass:
         specifier: ^1.59.3
-        version: 1.104.0
+        version: 1.104.1
       sass-loader:
         specifier: ^17.0.0
-        version: 17.0.1(sass@1.104.0)(webpack@5.110.3)
+        version: 17.0.1(sass@1.104.1)(webpack@5.110.3)
       serve:
         specifier: ^14.2.0
         version: 14.2.6(supports-color@8.1.1)
@@ -3937,8 +3937,8 @@ packages:
       webpack:
         optional: true
 
-  sass@1.104.0:
-    resolution: {integrity: sha512-btHMApW2bgolvClhRW8AlQJzgI9lUB3pPSofBQQT+E46GWvf9o0TVQ13SYv5riWZVFyPN+JNz3TKW9XhBlc10w==}
+  sass@1.104.1:
+    resolution: {integrity: sha512-yDA+1aIG3EHgN4V/BvuhCvu61FF6hEd4e+9DxikUm9U0CAGuvdIZ/UYy7qbOxjhbbWQraoyLlMuzdRGOSV5Bmw==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -8653,12 +8653,12 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@17.0.1(sass@1.104.0)(webpack@5.110.3):
+  sass-loader@17.0.1(sass@1.104.1)(webpack@5.110.3):
     optionalDependencies:
-      sass: 1.104.0
+      sass: 1.104.1
       webpack: 5.110.3(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
 
-  sass@1.104.0:
+  sass@1.104.1:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.9
