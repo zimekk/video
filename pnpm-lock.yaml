@@ -86,7 +86,7 @@ importers:
         version: 5.112.0(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
       webpack-dev-middleware:
         specifier: ^8.0.0
-        version: 8.3.0(webpack@5.112.0)
+        version: 8.4.0(webpack@5.112.0)
       webpack-hot-middleware:
         specifier: ^2.25.3
         version: 2.26.1
@@ -1719,11 +1719,6 @@ packages:
 
   ajv-formats@3.0.1:
     resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
-    peerDependencies:
-      ajv: ^8.0.0
-    peerDependenciesMeta:
-      ajv:
-        optional: true
 
   ajv-keywords@3.5.2:
     resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
@@ -4458,8 +4453,8 @@ packages:
       webpack-dev-server:
         optional: true
 
-  webpack-dev-middleware@8.3.0:
-    resolution: {integrity: sha512-jFNNMB29ugmkEUFW9cpWNqcWFQNwuMTMVoRpKVAiz/5nh3gA4x9x6DRPhNHGc/SLre7pEP9yrAPDAmCvdCblKg==}
+  webpack-dev-middleware@8.4.0:
+    resolution: {integrity: sha512-a/YonExZBacvdZUdVmIFYJ4GbX8FaHXZFdEgQv9T24KBvrVW1zI2wVoWBxalpCW+rNm5rzfNBtFbHIYwypV/lQ==}
     engines: {node: '>= 20.9.0'}
     peerDependencies:
       webpack: ^5.101.0
@@ -6242,8 +6237,8 @@ snapshots:
     optionalDependencies:
       ajv: 8.20.0
 
-  ajv-formats@3.0.1(ajv@8.20.0):
-    optionalDependencies:
+  ajv-formats@3.0.1:
+    dependencies:
       ajv: 8.20.0
 
   ajv-keywords@3.5.2(ajv@6.15.0):
@@ -8681,7 +8676,7 @@ snapshots:
     dependencies:
       '@types/json-schema': 7.0.15
       ajv: 8.20.0
-      ajv-formats: 3.0.1(ajv@8.20.0)
+      ajv-formats: 3.0.1
       ajv-keywords: 5.1.0(ajv@8.20.0)
 
   selfsigned@5.5.0:
@@ -9301,15 +9296,18 @@ snapshots:
       json5: 2.2.3
       webpack-dev-server: 6.0.0(supports-color@5.5.0)(webpack-cli@7.2.3)(webpack@5.112.0)
 
-  webpack-dev-middleware@8.3.0(webpack@5.112.0):
+  webpack-dev-middleware@8.4.0(webpack@5.112.0):
     dependencies:
-      ansi-html-community: 0.0.8
       memfs: 4.69.1
-      mime-types: 3.0.2
+      mime-db: 1.54.0
       range-parser: 1.3.0
-      schema-utils: 4.3.3
+      schema-utils: 4.5.0
     optionalDependencies:
       webpack: 5.112.0(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
+      ws: 8.21.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
 
   webpack-dev-server@6.0.0(supports-color@5.5.0)(webpack-cli@7.2.3)(webpack@5.112.0):
     dependencies:
@@ -9336,7 +9334,7 @@ snapshots:
       selfsigned: 5.5.0
       serve-index: 1.9.2(supports-color@5.5.0)
       tinyglobby: 0.2.17
-      webpack-dev-middleware: 8.3.0(webpack@5.112.0)
+      webpack-dev-middleware: 8.4.0(webpack@5.112.0)
       ws: 8.21.0
     optionalDependencies:
       webpack: 5.112.0(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
@@ -9372,7 +9370,7 @@ snapshots:
       selfsigned: 5.5.0
       serve-index: 1.9.2(supports-color@8.1.1)
       tinyglobby: 0.2.17
-      webpack-dev-middleware: 8.3.0(webpack@5.112.0)
+      webpack-dev-middleware: 8.4.0(webpack@5.112.0)
       ws: 8.21.0
     optionalDependencies:
       webpack: 5.112.0(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
