@@ -54,7 +54,7 @@
     "@babel/preset-react": "^8.0.0",
     "@babel/preset-typescript": "^8.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.0",
-    "@types/node": "^24.0.0",
+    "@types/node": "^26.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@types/react-redux": "^7.1.25",
