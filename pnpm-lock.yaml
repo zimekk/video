@@ -86,7 +86,7 @@ importers:
         version: 5.112.2(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
       webpack-dev-middleware:
         specifier: ^8.0.0
-        version: 8.5.0(webpack@5.112.2)
+        version: 8.6.0(webpack@5.112.2)
       webpack-hot-middleware:
         specifier: ^2.25.3
         version: 2.26.1
@@ -1727,6 +1727,11 @@ packages:
 
   ajv-formats@3.0.1:
     resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
+    peerDependencies:
+      ajv: ^8.0.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
 
   ajv-keywords@3.5.2:
     resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
@@ -4463,8 +4468,8 @@ packages:
       webpack-dev-server:
         optional: true
 
-  webpack-dev-middleware@8.5.0:
-    resolution: {integrity: sha512-+rXF28E5GKr7VnLH5qJaGIKLNPkthlA0VhqBFp/K6mjjCzOd6q34vYc2/3/ysRTjxmN01S98r1LwTTpWXDzWWA==}
+  webpack-dev-middleware@8.6.0:
+    resolution: {integrity: sha512-gDtuNFvzUys4RSkLAjXFCSbKz/MYIrCR9oXcIOnv4vFTmGsArddZoCb9LKlKWZO/JVL0COgK6hFBGPOt6EBg2Q==}
     engines: {node: '>= 20.9.0'}
     peerDependencies:
       webpack: ^5.101.0
@@ -9313,12 +9318,12 @@ snapshots:
       json5: 2.2.3
       webpack-dev-server: 6.1.0(supports-color@5.5.0)(webpack-cli@7.2.3)(webpack@5.112.2)
 
-  webpack-dev-middleware@8.5.0(webpack@5.112.2):
+  webpack-dev-middleware@8.6.0(webpack@5.112.2):
     dependencies:
       memfs: 4.69.1
       mime-db: 1.54.0
       range-parser: 1.3.0
-      schema-utils: 4.5.0
+      schema-utils: 4.8.1(webpack@5.112.2)
     optionalDependencies:
       webpack: 5.112.2(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
       ws: 8.21.0
@@ -9350,7 +9355,7 @@ snapshots:
       selfsigned: 5.5.0
       serve-index: 1.9.2(supports-color@5.5.0)
       tinyglobby: 0.2.17
-      webpack-dev-middleware: 8.5.0(webpack@5.112.2)
+      webpack-dev-middleware: 8.6.0(webpack@5.112.2)
       ws: 8.21.0
     optionalDependencies:
       webpack: 5.112.2(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
@@ -9385,7 +9390,7 @@ snapshots:
       selfsigned: 5.5.0
       serve-index: 1.9.2(supports-color@8.1.1)
       tinyglobby: 0.2.17
-      webpack-dev-middleware: 8.5.0(webpack@5.112.2)
+      webpack-dev-middleware: 8.6.0(webpack@5.112.2)
       ws: 8.21.0
     optionalDependencies:
       webpack: 5.112.2(clean-css@5.3.3)(html-minifier-terser@6.1.0)(postcss@8.5.6)(webpack-cli@7.2.3)
