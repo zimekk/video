@@ -104,7 +104,7 @@ importers:
         version: 0.12.2
       '@redux-devtools/extension':
         specifier: ^4.0.0
-        version: 4.0.0(redux@5.0.1)
+        version: 4.0.1(redux@5.0.1)
       animejs:
         specifier: ^4.0.0
         version: 4.5.0
@@ -1386,8 +1386,8 @@ packages:
   '@react-dnd/shallowequal@4.0.2':
     resolution: {integrity: sha512-/RVXdLvJxLg4QKvMoM5WlwNR9ViO9z8B/qPcc+C0Sa/teJY7QG7kJ441DwzOjMYEY7GmU4dj5EcGHIkKZiQZCA==}
 
-  '@redux-devtools/extension@4.0.0':
-    resolution: {integrity: sha512-pLIzgo5MvqdDLe5D1pzHLgmr8THra/DOyRf5MvOEPZnKKDn6RhFbNSS5oXZ3Cal0cpx08kx7sR6zD8QgoXEnZA==}
+  '@redux-devtools/extension@4.0.1':
+    resolution: {integrity: sha512-XlOnGtsaZgL70JY08ijurR+jCZPu0YVgPgHA5gaOlx3qssMmiV1InRVip39i9C7kVW6v/VfLxLs7YLyZFd7QrQ==}
     peerDependencies:
       redux: ^3.1.0 || ^4.0.0 || ^5.0.0
 
@@ -5759,7 +5759,7 @@ snapshots:
 
   '@react-dnd/shallowequal@4.0.2': {}
 
-  '@redux-devtools/extension@4.0.0(redux@5.0.1)':
+  '@redux-devtools/extension@4.0.1(redux@5.0.1)':
     dependencies:
       redux: 5.0.1
 
